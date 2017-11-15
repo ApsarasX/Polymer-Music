@@ -1,15 +1,25 @@
 <template>
     <div id="app">
-        hello world
+        <m-header></m-header>
+        <tab></tab>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-export default {};
+import MHeader from '@/components/m-header/m-header';
+import Tab from '@/components/tab/tab';
+
+export default {
+    components: {
+        MHeader,
+        Tab
+    }
+};
 </script>
 
 <style lang="scss" scoped>
-@import './assets/scss/variable.scss';
+@import '~@/assets/scss/variable.scss';
 
 #app {
     color: $color-theme;
