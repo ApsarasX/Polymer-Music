@@ -1,4 +1,4 @@
-# vue-music
+# gg-music
 
 > music player
 
