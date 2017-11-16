@@ -7,6 +7,7 @@
 </template>
 
 <script>
+// 引入基础组件
 import MHeader from '@/components/m-header/m-header';
 import Tab from '@/components/tab/tab';
 

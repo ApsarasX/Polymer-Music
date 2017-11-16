@@ -1,6 +1,6 @@
 {
-  "name": "vue-music",
-  "short_name": "vue-music",
+  "name": "gg-music",
+  "short_name": "gg-music",
   "icons": [
     {
       "src": "/static/img/icons/android-chrome-192x192.png",
