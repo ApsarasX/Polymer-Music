@@ -57,6 +57,19 @@ module.exports = {
                     balanced: true
                 }
             }
-        ]
+        ],
+        'no-underscore-dangle': [
+            'error',
+            {
+                allowAfterThis: true
+            }
+        ],
+        'no-console': [
+            'error',
+            {
+                allow: ['warn', 'error', 'info']
+            }
+        ],
+        'arrow-parens': ['error', 'as-needed']
     }
 };
