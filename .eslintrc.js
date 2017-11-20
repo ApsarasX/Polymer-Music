@@ -70,6 +70,7 @@ module.exports = {
                 allow: ['warn', 'error', 'info']
             }
         ],
-        'arrow-parens': ['error', 'as-needed']
+        'arrow-parens': ['error', 'as-needed'],
+        'no-unused-expressions': ['error', { allowShortCircuit: true }]
     }
 };

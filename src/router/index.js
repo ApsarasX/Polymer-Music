@@ -15,19 +15,31 @@ export default new Router({
         },
         {
             path: '/recommend',
-            component: Recommend
+            component: Recommend,
+            meta: {
+                keepAlive: true
+            }
         },
         {
             path: '/singer',
-            component: Singer
+            component: Singer,
+            meta: {
+                keepAlive: true
+            }
         },
         {
             path: '/rank',
-            component: Rank
+            component: Rank,
+            meta: {
+                keepAlive: true
+            }
         },
         {
             path: '/search',
-            component: Search
+            component: Search,
+            meta: {
+                keepAlive: true
+            }
         }
     ]
 });

@@ -126,6 +126,10 @@ export default {
                 this.slider.goToPage(pageIndex, 0, 400);
             }, this.interval);
         }
+    },
+    destroyed() {
+        // tab被切走
+        clearTimeout(this.timer);
     }
 };
 </script>
