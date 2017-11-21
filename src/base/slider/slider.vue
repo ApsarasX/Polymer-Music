@@ -59,6 +59,17 @@ export default {
             this.slider.refresh();
         });
     },
+    activated() {
+        if (this.autoPlay) {
+            this._play();
+        }
+    },
+    deactivated() {
+        clearTimeout(this.timer);
+    },
+    beforeDestroy() {
+        clearTimeout(this.timer);
+    },
     methods: {
         /**
          * @private

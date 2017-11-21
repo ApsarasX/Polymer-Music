@@ -21,6 +21,10 @@ export default {
         data: {
             type: Array,
             default: null
+        },
+        listenScroll: {
+            type: Boolean,
+            default: false
         }
     },
     mounted() {
@@ -38,6 +42,11 @@ export default {
                 probeType: this.probeType,
                 click: this.click
             });
+            if (this.listenScroll) {
+                this.scroll.on('scroll', pos => {
+                    this.$emit('scroll', pos);
+                });
+            }
         },
         // 组件代理better-scroll的三个方法
         enable() {
@@ -48,11 +57,17 @@ export default {
         },
         refresh() {
             this.scroll && this.scroll.refresh();
+        },
+        scrollTo(...args) {
+            this.scroll && this.scroll.scrollTo(...args);
+        },
+        scrollToElement(...args) {
+            this.scroll && this.scroll.scrollToElement(...args);
         }
     },
     watch: {
         data() {
-            // data数据变化时候, 刷新组件
+            // 属性data变化时, 刷新组件
             // 用于在歌单加载后刷新scroll组件
             setTimeout(() => {
                 this.refresh();
