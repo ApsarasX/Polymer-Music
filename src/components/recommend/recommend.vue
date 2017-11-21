@@ -66,6 +66,7 @@ export default {
     },
     methods: {
         /**
+         * @private
          * @function _getRecommend - 获取Slider数据
          * */
         async _getRecommend() {
@@ -79,6 +80,7 @@ export default {
             }
         },
         /**
+         * @private
          * @function _getDiscList - 获取歌单数据
          * */
         async _getDiscList() {

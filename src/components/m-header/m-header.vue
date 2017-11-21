@@ -1,7 +1,7 @@
 <template>
     <div class="m-header">
-        <div class="icon"></div>
-        <h1 class="text">Chicken Music</h1>
+        <!-- <div class="icon"></div>
+        <h1 class="text">GG Music</h1> -->
     </div>
 </template>
 
@@ -20,7 +20,6 @@ export default {};
     text-align: center;
     color: $color-theme;
     font-size: 0;
-
     .icon {
         display: inline-block;
         vertical-align: top;
