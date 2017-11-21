@@ -11,7 +11,7 @@ import originJSONP from 'jsonp';
 export function param(data) {
     return Object.entries(data)
         .map(([k, v]) => {
-            const value = v !== undefined ? v : '';
+            const value = v || '';
             return `${k}=${encodeURIComponent(value)}`;
         })
         .join('&');

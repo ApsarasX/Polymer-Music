@@ -18,14 +18,23 @@
                 </li>
             </ul>
         </div>
+        <div class="list-fixed" v-show="fixedTitle" ref="fixed">
+            <h1 class="fixed-title">{{fixedTitle}}</h1>
+        </div>
+        <div class="loading-container" v-show="!data.length">
+            <loading></loading>
+        </div>
     </scroll>
 </template>
 <script>
 import Scroll from '@/base/scroll/scroll';
 import { getData } from '@/assets/js/dom';
+import Loading from '@/base/loading/loading';
 
 // 一个索引的高度
 const ANCHOR_HEIGHT = 18;
+// 每组标题的高度
+const TITLE_HEIGHT = 30;
 
 export default {
     created() {
@@ -33,23 +42,30 @@ export default {
         this.touch = {};
         // 是否监听滚动
         this.listenScroll = true;
+        // 每一个Group的高度
         this.listHeight = [];
+        // 使scroll组件在滚动的时候实时派发scroll事件
         this.probeType = 3;
     },
     data() {
         return {
+            // 当前滚动位置
             scrollY: -1,
-            currentIndex: 0
+            // 当前右侧滚动条激活索引
+            currentIndex: 0,
+            diff: -1
         };
     },
     props: {
+        // 父组件传来的歌手数据
         data: {
             type: Array,
             default: []
         }
     },
     components: {
-        Scroll
+        Scroll,
+        Loading
     },
     computed: {
         /**
@@ -57,6 +73,16 @@ export default {
          */
         shortcutList() {
             return this.data.map(group => group.title.substr(0, 1));
+        },
+        /**
+         * @function fixedTitle - 当前组标题置顶
+         */
+        fixedTitle() {
+            if (this.scrollY > 0) {
+                return '';
+            }
+            const currentGroup = this.data[this.currentIndex];
+            return currentGroup ? currentGroup.title : '';
         }
     },
     watch: {
@@ -84,6 +110,19 @@ export default {
             }
             // 当滚动到底部，且-newY大于最后一个元素的上限
             this.currentIndex = listHeight.length - 2;
+        },
+        /**
+         * @function diff - 监听当前组置顶标题
+         * @param {NUmber} newVal - 新高度
+         * */
+        diff(newVal) {
+            const fixedTop =
+                newVal > 0 && newVal < TITLE_HEIGHT ? newVal - TITLE_HEIGHT : 0;
+            if (this.fixedTop === fixedTop) {
+                return;
+            }
+            this.fixedTop = fixedTop;
+            this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`;
         }
     },
     methods: {
@@ -132,7 +171,21 @@ export default {
          * @param {Number} index - 右侧滚动条的索引值
         */
         _scrollTo(index) {
+            // 如果如果index是负数是null
+            if (!index && index !== 0) {
+                return;
+            }
+            // 如果index是负数
+            if (index < 0) {
+                /* eslint-disable no-param-reassign */
+                index = 0;
+            } else if (index > this.listHeight.length - 2) {
+                // 如果index超出列表长度
+                /* eslint-disable no-param-reassign */
+                index = this.listHeight.length - 2;
+            }
             // 滚动到相应位置
+            this.scrollY = -this.listHeight[index];
             this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0);
         },
         /**
@@ -144,10 +197,11 @@ export default {
             const list = this.$refs.listGroup;
             let height = 0;
             this.listHeight.push(height);
-            list.forEach(item => {
-                height += item.clientHeight;
+
+            for (let i = 0; i < list.length; i += 1) {
+                height += list[i].clientHeight;
                 this.listHeight.push(height);
-            });
+            }
         }
     }
 };

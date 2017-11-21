@@ -79,13 +79,14 @@ export default {
             this.children = this.$refs.sliderGroup.children;
             let width = 0;
             const sliderWidth = this.$refs.slider.clientWidth;
-            Array.from(this.children).forEach(item => {
+
+            for (let i = 0; i < this.children.length; i += 1) {
+                const item = this.children[i];
                 addClass(item, 'slider-item');
                 /* eslint-disable no-param-reassign */
                 item.style.width = `${sliderWidth}px`;
                 width += sliderWidth;
-            });
-
+            }
             // 第一次渲染, 预留出循环播放的宽度
             if (this.loop && !isResize) {
                 width += 2 * sliderWidth;

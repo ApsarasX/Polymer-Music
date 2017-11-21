@@ -10,6 +10,7 @@ import BScroll from 'better-scroll';
 
 export default {
     props: {
+        // scroll事件派发设置
         probeType: {
             type: Number,
             default: 1
@@ -22,6 +23,7 @@ export default {
             type: Array,
             default: null
         },
+        // 是否监听滚动
         listenScroll: {
             type: Boolean,
             default: false
@@ -33,6 +35,9 @@ export default {
         }, 20);
     },
     methods: {
+        /**
+         * @function _initScroll - 初始化scroll对象
+         */
         _initScroll() {
             if (!this.$refs.wrapper) {
                 return;
@@ -42,6 +47,7 @@ export default {
                 probeType: this.probeType,
                 click: this.click
             });
+            // 监听scroll事件
             if (this.listenScroll) {
                 this.scroll.on('scroll', pos => {
                     this.$emit('scroll', pos);
@@ -58,9 +64,12 @@ export default {
         refresh() {
             this.scroll && this.scroll.refresh();
         },
+
+        // 滚动到特定位置
         scrollTo(...args) {
             this.scroll && this.scroll.scrollTo(...args);
         },
+        // 滚动到某个元素
         scrollToElement(...args) {
             this.scroll && this.scroll.scrollToElement(...args);
         }
