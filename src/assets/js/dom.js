@@ -38,3 +38,37 @@ export function getData(el, name, val) {
     }
     return el.setAttribute(attrName);
 }
+
+const elementStyle = document.createElement('div').style;
+
+const vendor = (() => {
+    const transformNames = {
+        webkit: 'webkitTransform',
+        Moz: 'MozTransform',
+        O: 'OTransform',
+        ms: 'msTransform',
+        standard: 'transform'
+    };
+    const keys = Object.keys(transformNames);
+
+    for (let i = 0; i < keys.length; i += 1) {
+        if (elementStyle[transformNames[keys[i]]] !== undefined) {
+            return keys[i];
+        }
+    }
+    return false;
+})();
+
+/**
+ * @function prefixStyle - 加上浏览器前缀
+ * @param {String} style - CSS样式属性字符串
+ */
+export function prefixStyle(style) {
+    if (vendor === false) {
+        return '';
+    }
+    if (vendor === 'standard') {
+        return style;
+    }
+    return vendor + style.charAt(0).toUpperCase() + style.substr(1);
+}
