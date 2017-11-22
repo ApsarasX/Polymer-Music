@@ -4,7 +4,7 @@
             <li v-for="(group, index) in data" :key="index" class="list-group" ref="listGroup">
                 <h2 class="list-group-title">{{group.title}}</h2>
                 <ul>
-                    <li v-for="(item, innerIndex) in group.items" :key="innerIndex" class="list-group-item">
+                    <li @click="selectItem(item)" v-for="(item, innerIndex) in group.items" :key="innerIndex" class="list-group-item">
                         <img v-lazy="item.avatar" class="avatar" alt="singer_avatar">
                         <span class="name">{{item.name}}</span>
                     </li>
@@ -126,6 +126,13 @@ export default {
         }
     },
     methods: {
+        /**
+         * @function selectItem - 向父组件传递点击歌手事件
+         * @param {Object} item - 歌手数据对象
+         * */
+        selectItem(item) {
+            this.$emit('select', item);
+        },
         /**
          * @function onShortcutTouchStart - 滚动到右侧滚动条点击位置
          * @param {DOM} e - 点击位置的DOM元素

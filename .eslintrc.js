@@ -71,6 +71,12 @@ module.exports = {
             }
         ],
         'arrow-parens': ['error', 'as-needed'],
-        'no-unused-expressions': ['error', { allowShortCircuit: true }]
+        'no-unused-expressions': ['error', { allowShortCircuit: true }],
+        'no-param-reassign': [
+            'error',
+            {
+                props: false
+            }
+        ]
     }
 };

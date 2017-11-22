@@ -1,6 +1,7 @@
 <template>
     <div class="singer">
-        <list-view :data="singers"></list-view>
+        <list-view @select="selectSinger" :data="singers"></list-view>
+        <router-view></router-view>
     </div>
 </template>
 
@@ -9,6 +10,7 @@ import { getSingerList } from '@/api/singer';
 import { ERR_OK } from '@/api/config';
 import Singer from '@/assets/js/singer';
 import ListView from '@/base/listview/listview';
+import { mapMutations } from 'vuex';
 
 const HOT_NAME = '热门';
 const HOT_SINGER_LEN = 10;
@@ -25,6 +27,18 @@ export default {
         this._getSingerList();
     },
     methods: {
+        /**
+         * @function selectSinger - 点击歌手进入歌手详情页
+         * @param {Object} singer - 歌手数据对象
+        */
+        selectSinger(singer) {
+            // 切换到歌手详情页面
+            this.$router.push({
+                path: `/singer/${singer.id}`
+            });
+            // 将歌手数据放入Vuex
+            this.setSinger(singer);
+        },
         /**
          * @private
          * @function _getSingerList - 获取歌手数据
@@ -86,7 +100,13 @@ export default {
             // 对ret按照字母排序
             ret.sort((a, b) => a.title.charCodeAt(0) - b.title.charCodeAt(0));
             return hot.concat(ret);
-        }
+        },
+        /**
+         * @function mapMutations - Vuex方法映射
+         * */
+        ...mapMutations({
+            setSinger: 'SET_SINGER'
+        })
     }
 };
 </script>
