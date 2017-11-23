@@ -7,6 +7,7 @@
         <keep-alive>
             <router-view></router-view>
         </keep-alive>
+        <player></player>
     </div>
 </template>
 
@@ -14,11 +15,13 @@
 // 引入基础组件
 import MHeader from '@/components/m-header/m-header';
 import Tab from '@/components/tab/tab';
+import Player from './components/player/player';
 
 export default {
     components: {
         MHeader,
-        Tab
+        Tab,
+        Player
     }
 };
 </script>

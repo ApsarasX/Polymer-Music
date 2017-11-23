@@ -77,6 +77,7 @@ module.exports = {
             {
                 props: false
             }
-        ]
+        ],
+        'no-mixed-operators': 0
     }
 };

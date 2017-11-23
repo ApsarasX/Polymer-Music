@@ -4,3 +4,6 @@ export const playMode = {
     loop: 1,
     random: 2
 };
+
+// 需要删除
+export const x = 1;

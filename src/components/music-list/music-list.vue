@@ -5,7 +5,7 @@
         </div>
         <h1 class="title" v-html="title"></h1>
         <div class="bg-image" :style="bgStyle" ref="bgImage">
-            <div class="play-wrapper" v-show="songs.length>0" ref="playBtn">
+            <div class="play-wrapper" v-show="songs.length>0" ref="playBtn" @click="random">
                 <div class="play">
                     <i class="icon-play"></i>
                     <span class="text">随机播放全部</span>
@@ -16,7 +16,7 @@
         <div class="bg-layer" ref="layer"></div>
         <scroll @scroll="scroll" :probe-type="probeType" :listen-scroll="listenScroll" :data="songs" class="list" ref="list">
             <div class="song-list-wrapper">
-                <song-list :songs="songs"></song-list>
+                <song-list @select="selectItem" :songs="songs"></song-list>
             </div>
             <div class="loading-container" v-show="!songs.length">
                 <loading></loading>
@@ -29,6 +29,7 @@ import Scroll from '@/base/scroll/scroll';
 import SongList from '@/base/song-list/song-list';
 import Loading from '@/base/loading/loading';
 import { prefixStyle } from '@/assets/js/dom';
+import { mapActions } from 'vuex';
 
 // 顶部保留高度
 const RESERVED_HEIGHT = 40;
@@ -83,7 +84,27 @@ export default {
          * */
         back() {
             this.$router.back();
-        }
+        },
+        /**
+         * @function selectItem -
+         * @param {Object} item - 点击的歌曲对象
+         * @param {Number} index - 歌曲索引号
+         */
+        selectItem(item, index) {
+            this.selectPlay({
+                list: this.songs,
+                index
+            });
+        },
+        /**
+         * @function random - 设置随机播放列表中全部歌曲
+         */
+        random() {
+            this.randomPlay({
+                list: this.songs
+            });
+        },
+        ...mapActions(['selectPlay', 'randomPlay'])
     },
     watch: {
         scrollY(newY) {
