@@ -1,3 +1,7 @@
+import { getLyric } from '../../api/song';
+import { ERR_OK } from '../../api/config';
+import { Base64 } from 'js-base64';
+
 /**
  * @function filterSinger - 格式化歌手显示
  * @param {Array} singer - 歌手对象组成的数组
@@ -35,6 +39,23 @@ export default class Song {
         this.duration = duration;
         this.image = image;
         this.url = url;
+    }
+    getLyric() {
+        // 如果歌词已存在
+        if (this.lyric) {
+            return Promise.resolve(this.lyric);
+        }
+        return new Promise((resolve, reject) => {
+            getLyric(this.mid).then(res => {
+                if (res.retcode === ERR_OK) {
+                    // 对歌词记性base64解码
+                    this.lyric = Base64.decode(res.lyric);
+                    resolve(this.lyric);
+                } else {
+                    reject('no lyric');
+                }
+            });
+        });
     }
 }
 

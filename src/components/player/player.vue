@@ -81,6 +81,7 @@ import { playMode } from '@/assets/js/config';
 import ProgressBar from '@/base/progress-bar/progress-bar';
 import progressCircle from '@/base/progress-circle/progress-circle';
 import { shuffle } from '../../assets/js/util';
+import Lyric from 'lyric-parser';
 
 const transform = prefixStyle('transform');
 
@@ -89,7 +90,8 @@ export default {
         return {
             songReady: false,
             currentTime: 0,
-            radius: 32
+            radius: 32,
+            currentLyric: null
         };
     },
     computed: {
@@ -283,6 +285,13 @@ export default {
             // set新的播放列表
             this.setPlayList(list);
         },
+        getLyric() {
+            this.currentSong.getLyric().then(lyric => {
+                // 解析歌词
+                this.currentLyric = new Lyric(lyric);
+                console.info(this.currentLyric);
+            });
+        },
         _resetCurrentIndex(list) {
             // 在播放列表中找到当前歌曲index
             const index = list.findIndex(
@@ -322,7 +331,11 @@ export default {
             }
             // 当currentSong变化的时候, 播放音乐
             this.$nextTick(() => {
+                /**
+                 * @throws 在移动端chrome被报错(被认为不是用户操作)
+                 */
                 this.$refs.audio.play();
+                this.getLyric();
             });
         },
         playing(newPlaying) {

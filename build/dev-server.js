@@ -41,7 +41,30 @@ apiRoutes.get('/getDiscList', async (req, res) => {
         throw err;
     }
 });
-
+apiRoutes.get('/lyric', async (req, res) => {
+    const url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg';
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                referer: 'https://c.y.qq.com/',
+                host: 'c.y.qq.com'
+            },
+            params: req.query
+        });
+        let ret = response.data;
+        if (typeof ret === 'string') {
+            const reg = /^\w+\(({[^()]+})\)$/;
+            const matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+        }
+        res.json(ret);
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+});
 app.use('/api', apiRoutes);
 
 const compiler = webpack(webpackConfig);
