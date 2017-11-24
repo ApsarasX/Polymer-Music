@@ -165,6 +165,9 @@ export default {
             // 滚动到相应位置
             this._scrollTo(anchorIndex);
         },
+        refresh() {
+            this.$refs.listview.refresh();
+        },
         /**
          * @function scroll - 滚动
          * @param {Object} pos - 当前位置

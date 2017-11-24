@@ -1,5 +1,5 @@
 <template>
-    <div class="recommend">
+    <div class="recommend" ref="recommend">
         <scroll ref="scroll" class="recommend-content" :data="discList">
             <div>
                 <!-- 注意此处, 必须有v-if, 否则获取不到数据使得slider的DOM出错-->
@@ -45,8 +45,10 @@ import Scroll from '@/base/scroll/scroll';
 import Slider from '@/base/slider/slider';
 import { getRecommend, getDiscList } from '@/api/recommend';
 import { ERR_OK } from '@/api/config';
+import { playListMixin } from '@/assets/js/mixin';
 
 export default {
+    mixins: [playListMixin],
     created() {
         // 获取Slider内容
         this._getRecommend();
@@ -65,6 +67,11 @@ export default {
         Loading
     },
     methods: {
+        handlePlayList(playList) {
+            const bottom = playList.length > 0 ? '60px' : '';
+            this.$refs.recommend.style.bottom = bottom;
+            this.$refs.scroll.refresh();
+        },
         /**
          * @private
          * @function _getRecommend - 获取Slider数据
