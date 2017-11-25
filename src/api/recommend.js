@@ -47,3 +47,24 @@ export function getDiscList() {
         })
         .then(res => Promise.resolve(res.data));
 }
+
+// 获取推荐歌单里的歌曲数据
+export function getSongList(disstid) {
+    const url = '/api/getSongList';
+
+    const data = Object.assign({}, commonParam, {
+        disstid,
+        type: 1,
+        json: 1,
+        utf8: 1,
+        onlysong: 0,
+        platform: 'yqq',
+        hostUin: 0,
+        needNewCode: 0
+    });
+    return axios
+        .get(url, {
+            params: data
+        })
+        .then(res => Promise.resolve(res.data));
+}

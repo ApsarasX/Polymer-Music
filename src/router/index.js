@@ -8,8 +8,10 @@ import Singer from '@/components/singer/singer';
 import Rank from '@/components/rank/rank';
 // 首页-搜索页
 import Search from '@/components/search/search';
-
+// 歌手详情(所有歌曲)
 import SingerDetail from '@/components/singer-detail/singer-detail';
+// 歌单详情
+import Disc from '@/components/disc/disc';
 
 Vue.use(Router);
 
@@ -21,7 +23,13 @@ export default new Router({
         },
         {
             path: '/recommend',
-            component: Recommend
+            component: Recommend,
+            children: [
+                {
+                    path: ':id',
+                    component: Disc
+                }
+            ]
         },
         {
             path: '/singer',
