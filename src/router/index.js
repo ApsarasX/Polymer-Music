@@ -12,6 +12,8 @@ import Search from '@/components/search/search';
 import SingerDetail from '@/components/singer-detail/singer-detail';
 // 歌单详情
 import Disc from '@/components/disc/disc';
+// 榜单详情
+import TopList from '../components/top-list/top-list';
 
 Vue.use(Router);
 
@@ -43,7 +45,13 @@ export default new Router({
         },
         {
             path: '/rank',
-            component: Rank
+            component: Rank,
+            children: [
+                {
+                    path: ':id',
+                    component: TopList
+                }
+            ]
         },
         {
             path: '/search',
