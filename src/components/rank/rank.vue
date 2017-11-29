@@ -24,10 +24,10 @@
 
 <script>
 import { getTopList } from '@/api/rank';
-import { ERR_OK } from '../../api/config';
-import Scroll from '../../base/scroll/scroll';
-import Loading from '../../base/loading/loading';
-import { playListMixin } from '../../assets/js/mixin';
+import { ERR_OK } from '@/api/config';
+import Scroll from '@/base/scroll/scroll';
+import Loading from '@/base/loading/loading';
+import { playListMixin } from '@/assets/js/mixin';
 import { mapMutations } from 'vuex';
 
 export default {

@@ -7,7 +7,7 @@ function findIndex(list, song) {
 }
 
 /**
- * @function selectPlay - 选择播放某一首歌曲
+ * @function selectPlay 选择播放某一首歌曲
  * @param {*} param0
  * @param {*} param1
  */
@@ -27,7 +27,7 @@ export function selectPlay({ commit, state }, { list, index }) {
 }
 
 /**
- * @function randomPlay - 随机播放列中全部歌曲
+ * @function randomPlay 随机播放列中全部歌曲
  * @param {*} param0
  * @param {*} param1
  */

@@ -1,14 +1,14 @@
 /**
- * @requires axios - ajax库
- * @requires jsonp - 引入封装好的jsonp函数
- * @requires commonParam,options - 引入公共参数和配置
+ * @requires axios ajax库
+ * @requires jsonp 引入封装好的jsonp函数
+ * @requires commonParam,options 引入公共参数和配置
  */
 // import axios from 'axios';
 import jsonp from '@/assets/js/jsonp';
 import { commonParam, options } from './config';
 
 /**
- * @function getSingerList - 获取歌手列表
+ * @function getSingerList 获取歌手列表
  * @return {Promise}
  */
 export function getSingerList() {
@@ -28,8 +28,8 @@ export function getSingerList() {
 }
 
 /**
- * @function getSingerDetail - 获取歌手详情
- * @param {String} singerId - 歌手Id
+ * @function getSingerDetail 获取歌手详情
+ * @param {String} singerId 歌手Id
  * @return {Promise}
  */
 export function getSingerDetail(singerId) {

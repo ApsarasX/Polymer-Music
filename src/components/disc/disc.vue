@@ -7,9 +7,9 @@
 <script>
 import MusicList from '../music-list/music-list';
 import { mapGetters } from 'vuex';
-import { getSongList } from '../../api/recommend';
-import { ERR_OK } from '../../api/config';
-import { createSong } from '../../assets/js/song';
+import { getSongList } from '@/api/recommend';
+import { ERR_OK } from '@/api/config';
+import { createSong } from '@/assets/js/song';
 
 export default {
     components: {
@@ -24,16 +24,24 @@ export default {
         this._getSongList();
     },
     computed: {
+        // 歌单标题
         title() {
             return this.disc.dissname;
         },
+        // 歌单顶部背景图片
         bgImage() {
             return this.disc.imgurl;
         },
+        // 从Vuex获取过来的当前歌单信息
         ...mapGetters(['disc'])
     },
     methods: {
+        /**
+         * @private
+         * @function _getSongList 获取歌单里的歌曲数据
+         */
         _getSongList() {
+            // 如果没有歌单id, 返回排行榜页
             if (!this.disc.dissid) {
                 this.$router.push('/recommend');
                 return;
@@ -44,6 +52,13 @@ export default {
                 }
             });
         },
+
+        /**
+         * @private
+         * @function _normalizeSongs 整理歌单里的歌曲数据
+         * @param {String} list 歌曲列表数据
+         * @return {[Object]}
+         */
         _normalizeSongs(list) {
             const ret = [];
             for (let i = 0; i < list.length; i += 1) {

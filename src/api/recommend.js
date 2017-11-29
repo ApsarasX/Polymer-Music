@@ -1,14 +1,14 @@
 /**
- * @requires axios - ajax库
- * @requires jsonp - 引入封装好的jsonp函数
- * @requires commonParam,options - 引入公共参数和配置
+ * @requires axios ajax库
+ * @requires jsonp 引入封装好的jsonp函数
+ * @requires commonParam,options 引入公共参数和配置
  */
 import axios from 'axios';
 import jsonp from '@/assets/js/jsonp';
 import { commonParam, options } from './config';
 
 /**
- * @function getRecommend - 获取推荐数据
+ * @function getRecommend 获取推荐数据
  * @returns {Promise}
  */
 export function getRecommend() {
@@ -26,7 +26,7 @@ export function getRecommend() {
 }
 
 /**
- * @function getDiscList - 获取推荐歌单列表
+ * @function getDiscList 获取推荐歌单列表
  */
 export function getDiscList() {
     const url = '/api/getDiscList';
@@ -48,7 +48,10 @@ export function getDiscList() {
         .then(res => Promise.resolve(res.data));
 }
 
-// 获取推荐歌单里的歌曲数据
+/**
+ * @function getSongList 获取推荐歌单里的歌曲数据
+ * @param {String} disstid 歌单id
+ */
 export function getSongList(disstid) {
     const url = '/api/getSongList';
 
