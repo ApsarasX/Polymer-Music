@@ -8,7 +8,7 @@ import jsonp from '@/assets/js/jsonp';
 import { commonParam, options } from './config';
 
 /**
- * @function getRecommend 获取推荐数据
+ * @function getRecommend 获取推荐数据(Banner)
  * @returns {Promise}
  */
 export function getRecommend() {
