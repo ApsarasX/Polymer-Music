@@ -27,6 +27,15 @@ export default {
         listenScroll: {
             type: Boolean,
             default: false
+        },
+        // 是否上拉刷新
+        pullup: {
+            type: Boolean,
+            default: false
+        },
+        beforeScroll: {
+            type: Boolean,
+            default: true
         }
     },
     mounted() {
@@ -51,6 +60,19 @@ export default {
             if (this.listenScroll) {
                 this.scroll.on('scroll', pos => {
                     this.$emit('scroll', pos);
+                });
+            }
+            // 监听上拉刷新
+            if (this.pullup) {
+                this.scroll.on('scrollEnd', () => {
+                    if (this.scroll.y <= this.scroll.maxScrollY + 50) {
+                        this.$emit('scrollToEnd');
+                    }
+                });
+            }
+            if (this.beforeScroll) {
+                this.scroll.on('beforeScrollStart', () => {
+                    this.$emit('beforeScroll');
                 });
             }
         },

@@ -1,23 +1,33 @@
 <template>
-    <div class="suggest">
+    <scroll class="suggest" :data="result" :pullup="pullup" @scrollToEnd="searchMore" ref="suggest" @beforeScroll="listScroll">
         <ul class="suggest-list">
-            <li class="suggest-item" v-for="(item,index) in result" :key="index">
-                <div class="icon">
-                    <i :class="getIconClass(item)"></i>
+            <li @click="selectItem(item)" class="suggest-item " v-for="(item,index) in result " :key="index ">
+                <div class="icon ">
+                    <i :class="getIconClass(item) "></i>
                 </div>
-                <div class="name">
-                    <p class="text" v-html="getDisplayName(item)"></p>
+                <div class="name ">
+                    <p class="text " v-html="getDisplayName(item) "></p>
                 </div>
             </li>
+            <loading v-show="hasMore " title=" "></loading>
         </ul>
-    </div>
+        <div v-show="!hasMore && !result.length" class="no-result-wrapper">
+            <no-result title="抱歉, 暂无搜索结果"></no-result>
+        </div>
+    </scroll>
 </template>
 <script>
-import { search } from '../../api/search';
-import { ERR_OK } from '../../api/config';
-import { filterSinger } from '../../assets/js/song';
+import { search } from '@/api/search';
+import { ERR_OK } from '@/api/config';
+import { createSong } from '@/assets/js/song';
+import Scroll from '@/base/scroll/scroll';
+import Loading from '@/base/loading/loading';
+import Singer from '@/assets/js/singer';
+import { mapMutations, mapActions } from 'vuex';
+import NoResult from '@/base/no-result/no-result';
 
 const TYPE_SINGER = 'singer';
+const perpage = 20;
 
 export default {
     props: {
@@ -30,18 +40,58 @@ export default {
             default: true
         }
     },
+    components: {
+        Scroll,
+        Loading,
+        NoResult
+    },
     data() {
         return {
             page: 1,
-            result: []
+            result: [],
+            // 开启上拉刷新
+            pullup: true,
+            beforeScroll: true,
+            // 有更多搜索结果标志位
+            hasMore: true
         };
     },
     methods: {
         // 搜索
         search() {
-            search(this.query, this.page, this.showSinger).then(res => {
+            this.hasMore = true;
+            this.page = 1;
+            // 滚动到顶部
+            this.$refs.suggest.scrollTo(0, 0);
+            search(
+                this.query,
+                this.page,
+                this.showSinger,
+                perpage
+            ).then(res => {
                 if (res.code === ERR_OK) {
                     this.result = this._normalizeResult(res.data);
+                    this._checkMore(res.data);
+                }
+            });
+        },
+        searchMore() {
+            if (!this.hasMore) {
+                return;
+            }
+            this.page += 1;
+            // 请求更多数据, 并连接到result
+            search(
+                this.query,
+                this.page,
+                this.showSinger,
+                perpage
+            ).then(res => {
+                if (res.code === ERR_OK) {
+                    this.result = this.result.concat(
+                        this._normalizeResult(res.data)
+                    );
+                    this._checkMore(res.data);
                 }
             });
         },
@@ -55,7 +105,34 @@ export default {
             if (item.type === TYPE_SINGER) {
                 return item.singername;
             }
-            return `${item.songname}-${filterSinger(item.singer)}`;
+            return `${item.name}-${item.singer}`;
+        },
+        selectItem(item) {
+            if (item.type === TYPE_SINGER) {
+                const singer = new Singer({
+                    id: item.singermid,
+                    name: item.singername
+                });
+                this.setSinger(singer);
+                this.$router.push({
+                    path: `/search/${singer.id}`
+                });
+            } else {
+                this.insertSong(item);
+            }
+        },
+        listScroll() {
+            this.$emit('listScroll');
+        },
+        // 检查是否有更多结果
+        _checkMore(data) {
+            const { song } = data;
+            if (
+                !song.list.length ||
+                song.curnum + song.curpage * perpage > song.totalnum
+            ) {
+                this.hasMore = false;
+            }
         },
         // 整理结果
         _normalizeResult(data) {
@@ -67,10 +144,26 @@ export default {
                 });
             }
             if (data.song) {
-                ret = ret.concat(data.song.list);
+                ret = ret.concat(this._normalizeSongs(data.song.list));
             }
             return ret;
-        }
+        },
+        _normalizeSongs(list) {
+            const ret = [];
+            list.forEach(musicData => {
+                if (musicData.songid && musicData.albumid) {
+                    ret.push(createSong(musicData));
+                }
+            });
+            return ret;
+        },
+        /**
+         * @function mapMutations - Vuex方法映射
+         * */
+        ...mapMutations({
+            setSinger: 'SET_SINGER'
+        }),
+        ...mapActions(['insertSong'])
     },
     watch: {
         query() {

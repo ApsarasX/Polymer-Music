@@ -39,3 +39,46 @@ export function randomPlay({ commit }, { list }) {
     commit(types.SET_FULL_SCREEN, true);
     commit(types.SET_PLAYING_STATE, true);
 }
+
+export function insertSong({ commit, state }, song) {
+    let currentIndex = state.currentIndex;
+    const playList = state.playList.slice();
+    const sequenceList = state.sequenceList.slice();
+    // 记录当前歌曲
+    const currentSong = playList[currentIndex];
+    // 查找当前列表中是否有待插入的歌曲, 并返回索引
+    const fpIndex = findIndex(playList, song);
+    // 因为插入歌曲, 所以索引+1
+    currentIndex += 1;
+    // 插入这首歌到当前索引
+    playList.splice(currentIndex, 0, song);
+    // 如果包含这首歌
+    if (fpIndex > -1) {
+        // 当前当前插入的序号大于列表中的序号
+        if (currentIndex > fpIndex) {
+            playList.splice(fpIndex, 1);
+            currentIndex -= 1;
+        } else {
+            playList.splice(fpIndex + 1, 1);
+        }
+    }
+    const currentSIndex = findIndex(sequenceList, currentSong) + 1;
+
+    const fsIndex = findIndex(sequenceList, song);
+
+    sequenceList.splice(currentSIndex, 0, song);
+
+    if (fsIndex > -1) {
+        if (currentSIndex > fsIndex) {
+            sequenceList.splice(fsIndex, 1);
+        } else {
+            sequenceList.splice(fsIndex + 1, 1);
+        }
+    }
+
+    commit(types.SET_PLAY_LIST, playList);
+    commit(types.SET_SEQUENCE_LIST, sequenceList);
+    commit(types.SET_CURRENT_INDEX, currentIndex);
+    commit(types.SET_FULL_SCREEN, true);
+    commit(types.SET_PLAYING_STATE, true);
+}

@@ -1,11 +1,13 @@
 <template>
     <div class="search-box">
         <i class="icon-search"></i>
-        <input type="text" class="box" v-model="query" :placeholder="placeholder">
+        <input ref="query" type="text" class="box" v-model="query" :placeholder="placeholder">
         <i v-if="query" class="icon-dismiss" @click="clear"></i>
     </div>
 </template>
 <script>
+import { debounce } from '../../assets/js/util';
+
 export default {
     props: {
         placeholder: {
@@ -26,13 +28,19 @@ export default {
         // 便于从父组件设置query
         setQuery(query) {
             this.query = query;
+        },
+        blur() {
+            this.$refs.query.blur();
         }
     },
     created() {
         // 监听输入框
-        this.$watch('query', newQuery => {
-            this.$emit('query', newQuery);
-        });
+        this.$watch(
+            'query',
+            debounce(newQuery => {
+                this.$emit('query', newQuery);
+            }, 450)
+        );
     }
 };
 </script>

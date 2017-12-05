@@ -7,5 +7,15 @@ export function shuffle(arr) {
     }
     return newArr;
 }
-// eslint占位
-export function x() {}
+// 节流函数, 在规定时间内只执行一次
+export function debounce(func, delay) {
+    let timer;
+    return (...args) => {
+        if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+}

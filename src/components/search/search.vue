@@ -16,10 +16,10 @@
             </div>
         </div>
         <div class="search-result">
-            <suggest :query="query" v-show="query"></suggest>
+            <suggest :query="query" v-show="query" @listScroll="blurInput"></suggest>
         </div>
+        <router-view></router-view>
     </div>
-
 </template>
 
 <script>
@@ -49,6 +49,10 @@ export default {
         },
         onQueryChange(query) {
             this.query = query;
+        },
+        // 滚动时隐藏手机键盘
+        blurInput() {
+            this.$refs.searchBox.blur();
         },
         _getHotKey() {
             getHotKey().then(res => {

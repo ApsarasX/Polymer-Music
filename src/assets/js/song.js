@@ -7,7 +7,7 @@ import { Base64 } from 'js-base64';
  * @param {Array} singer - 歌手对象组成的数组
  * @return {String}
  */
-export function filterSinger(singer) {
+function filterSinger(singer) {
     const ret = [];
     if (!singer) {
         return '';
