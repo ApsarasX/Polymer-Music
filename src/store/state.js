@@ -1,5 +1,5 @@
 import { playMode } from '@/assets/js/config';
-
+import { loadSearch } from '@/assets/js/cache';
 /**
  * @constant state - Vuex状态
  * */
@@ -20,7 +20,9 @@ const state = {
     // 歌单
     disc: {},
     // 榜单详情
-    topList: {}
+    topList: {},
+    // 搜索历史
+    searchHistory: loadSearch()
 };
 
 export default state;

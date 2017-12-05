@@ -107,6 +107,7 @@ export default {
             }
             return `${item.name}-${item.singer}`;
         },
+        // 选择一首歌曲或者歌手
         selectItem(item) {
             if (item.type === TYPE_SINGER) {
                 const singer = new Singer({
@@ -120,6 +121,10 @@ export default {
             } else {
                 this.insertSong(item);
             }
+            this.$emit('select');
+        },
+        refresh() {
+            this.$refs.suggest.refresh();
         },
         listScroll() {
             this.$emit('listScroll');
