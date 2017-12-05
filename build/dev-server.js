@@ -90,6 +90,22 @@ apiRoutes.get('/lyric', async (req, res) => {
         throw err;
     }
 });
+apiRoutes.get('/search', async (req, res) => {
+    const url = 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp';
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                referer: 'https://c.y.qq.com/',
+                host: 'c.y.qq.com'
+            },
+            params: req.query
+        });
+        res.json(response.data);
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+});
 app.use('/api', apiRoutes);
 
 const compiler = webpack(webpackConfig);
