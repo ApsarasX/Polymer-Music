@@ -95,3 +95,29 @@ export function deleteSearchHistory({ commit }, query) {
 export function clearSearchHistory({ commit }) {
     commit(types.SET_SEARCH_HISTORY, clearSearch());
 }
+// 从播放列表里删除歌曲
+export function deleteSong({ commit, state }, song) {
+    let currentIndex = state.currentIndex;
+    const playList = state.playList.slice();
+    const sequenceList = state.sequenceList.slice();
+    const pIndex = findIndex(playList, song);
+    playList.splice(pIndex, 1);
+    const sIndex = findIndex(sequenceList, song);
+    sequenceList.splice(sIndex, 1);
+    if (currentIndex > pIndex || currentIndex === playList.length) {
+        currentIndex -= 1;
+    }
+    commit(types.SET_PLAY_LIST, playList);
+    commit(types.SET_SEQUENCE_LIST, sequenceList);
+    commit(types.SET_CURRENT_INDEX, currentIndex);
+    // 列表中所有歌曲被删除
+    const playingState = playList.length > 0;
+    commit(types.SET_PLAYING_STATE, playingState);
+}
+
+export function deleteSongList({ commit }) {
+    commit(types.SET_PLAY_LIST, []);
+    commit(types.SET_SEQUENCE_LIST, []);
+    commit(types.SET_CURRENT_INDEX, -1);
+    commit(types.SET_PLAYING_STATE, false);
+}

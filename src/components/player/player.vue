@@ -77,11 +77,12 @@
                         <i @click.stop="togglePlaying" class="icon-mini" :class="miniIcon"></i>
                     </progress-circle>
                 </div>
-                <div class="control">
+                <div class="control" @click.stop="showPlayList">
                     <i class="icon-playlist"></i>
                 </div>
             </div>
         </transition>
+        <play-list ref="playList"></play-list>
         <audio ref="audio" :src="currentSong.url" @canplay="ready" @error="error" @timeupdate="updateTime" @ended="end"></audio>
     </div>
 </template>
@@ -94,14 +95,16 @@ import { prefixStyle } from '@/assets/js/dom';
 import { playMode } from '@/assets/js/config';
 import ProgressBar from '@/base/progress-bar/progress-bar';
 import progressCircle from '@/base/progress-circle/progress-circle';
-import { shuffle } from '@/assets/js/util';
 import Lyric from 'lyric-parser';
 import Scroll from '@/base/scroll/scroll';
+import PlayList from '../play-list/play-list';
+import { playerMixin } from '@/assets/js/mixin';
 
 const transform = prefixStyle('transform');
 const transitionDuration = prefixStyle('transitionDuration');
 
 export default {
+    mixins: [playerMixin],
     data() {
         return {
             // 歌曲是否准备播放
@@ -132,10 +135,10 @@ export default {
             // 播放/暂停按钮
             return this.playing ? 'icon-pause' : 'icon-play';
         },
-        iconMode() {
-            const modeIcons = ['icon-sequence', 'icon-loop', 'icon-random'];
-            return modeIcons[this.mode];
-        },
+        // iconMode() {
+        //     const modeIcons = ['icon-sequence', 'icon-loop', 'icon-random'];
+        //     return modeIcons[this.mode];
+        // },
         miniIcon() {
             // mini播放/暂停按钮
             return this.playing ? 'icon-pause-mini' : 'icon-play-mini';
@@ -148,24 +151,16 @@ export default {
             return this.currentTime / this.currentSong.duration;
         },
         // 从Vuex获取播放器数据
-        ...mapGetters([
-            'fullScreen',
-            'playList',
-            'currentSong',
-            'playing',
-            'currentIndex',
-            'mode',
-            'sequenceList'
-        ])
+        ...mapGetters(['fullScreen', 'playing'])
     },
     methods: {
         // Vuex 的mutations
         ...mapMutations({
-            setFullScreen: 'SET_FULL_SCREEN',
-            setPlayingState: 'SET_PLAYING_STATE',
-            setCurrentIndex: 'SET_CURRENT_INDEX',
-            setPlayMode: 'SET_PLAY_MODE',
-            setPlayList: 'SET_PLAY_LIST'
+            setFullScreen: 'SET_FULL_SCREEN'
+            // setPlayingState: 'SET_PLAYING_STATE',
+            // setCurrentIndex: 'SET_CURRENT_INDEX',
+            // setPlayMode: 'SET_PLAY_MODE',
+            // setPlayList: 'SET_PLAY_LIST'
         }),
         /**
          * @function back - 返回
@@ -320,21 +315,21 @@ export default {
                 this.currentLyric.seek(currentTime * 1000);
             }
         },
-        changeMode() {
-            // 改变播放模式
-            const mode = (this.mode + 1) % 3;
-            this.setPlayMode(mode);
-            let list = null;
-            if (mode === playMode.random) {
-                list = shuffle(this.sequenceList);
-            } else {
-                list = this.sequenceList;
-            }
-            // 在set播放列表之前找到当前歌曲的index
-            this._resetCurrentIndex(list);
-            // set新的播放列表
-            this.setPlayList(list);
-        },
+        // changeMode() {
+        //     // 改变播放模式
+        //     const mode = (this.mode + 1) % 3;
+        //     this.setPlayMode(mode);
+        //     let list = null;
+        //     if (mode === playMode.random) {
+        //         list = shuffle(this.sequenceList);
+        //     } else {
+        //         list = this.sequenceList;
+        //     }
+        //     // 在set播放列表之前找到当前歌曲的index
+        //     this._resetCurrentIndex(list);
+        //     // set新的播放列表
+        //     this.setPlayList(list);
+        // },
         getLyric() {
             this.currentSong
                 .getLyric()
@@ -368,6 +363,9 @@ export default {
             }
             // 改变当前行歌词
             this.playingLyric = txt;
+        },
+        showPlayList() {
+            this.$refs.playList.show();
         },
         middleTouchStart(e) {
             // 触控标志位
@@ -438,13 +436,13 @@ export default {
             this.$refs.middleL.style[transitionDuration] = `${time}ms`;
             this.$refs.middleL.style.opacity = opacity;
         },
-        _resetCurrentIndex(list) {
-            // 在播放列表中找到当前歌曲index
-            const index = list.findIndex(
-                item => item.id === this.currentSong.id
-            );
-            this.setCurrentIndex(index);
-        },
+        // _resetCurrentIndex(list) {
+        //     // 在播放列表中找到当前歌曲index
+        //     const index = list.findIndex(
+        //         item => item.id === this.currentSong.id
+        //     );
+        //     this.setCurrentIndex(index);
+        // },
         _pad(num, n = 2) {
             const len = num.toString().length;
             let pad = '';
@@ -473,6 +471,10 @@ export default {
     watch: {
         // 当currentSong变化的时候, 播放音乐
         currentSong(newSong, oldSong) {
+            // 如果没有歌曲可供播放
+            if (!newSong.id) {
+                return;
+            }
             if (newSong.id === oldSong.id) {
                 return;
             }
@@ -500,7 +502,8 @@ export default {
     components: {
         ProgressBar,
         progressCircle,
-        Scroll
+        Scroll,
+        PlayList
     }
 };
 </script>
