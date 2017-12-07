@@ -6,6 +6,10 @@ import store from './store';
 import fastclick from 'fastclick';
 import VueLazyLoad from 'vue-lazyload';
 import '@/assets/scss/index.scss';
+// /* eslint-disable no-unused-vars */
+// import VConsole from 'vconsole';
+// // 移动端调试
+// const vConsole = new VConsole();
 
 // 懒加载中的图片
 const defaultImage = require('@/assets/image/default.png');
