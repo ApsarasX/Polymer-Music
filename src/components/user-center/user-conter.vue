@@ -30,13 +30,13 @@
     </transition>
 </template>
 <script>
-import Switches from '../../base/switches/switches';
+import Switches from '@/base/switches/switches';
 import { mapGetters, mapActions } from 'vuex';
-import SongList from '../../base/song-list/song-list';
-import Scroll from '../../base/scroll/scroll';
-import Song from '../../assets/js/song';
-import { playListMixin } from '../../assets/js/mixin';
-import NoResult from '../../base/no-result/no-result';
+import SongList from '@/base/song-list/song-list';
+import Scroll from '@/base/scroll/scroll';
+import Song from '@/assets/js/song';
+import { playListMixin } from '@/assets/js/mixin';
+import NoResult from '@/base/no-result/no-result';
 
 export default {
     mixins: [playListMixin],

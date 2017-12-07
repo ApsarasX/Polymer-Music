@@ -64,7 +64,6 @@ export default {
                 ? `(${this.playList.length}首)`
                 : ''}`;
         }
-        // ...mapGetters(['sequenceList', 'currentSong', 'playList', 'mode'])
     },
     methods: {
         show() {
@@ -100,13 +99,23 @@ export default {
             const index = this.sequenceList.findIndex(
                 song => current.id === song.id
             );
-            this.$refs.listContent.scrollToElement(this.$refs.listItem[index]);
+            this.$refs.listContent.scrollToElement(
+                this.$refs.list.$el.children[index],
+                300
+            );
         },
         deleteOne(item) {
+            if (item.deleting) {
+                return;
+            }
+            item.deleting = true;
             this.deleteSong(item);
             if (!this.playList.length) {
                 this.hide();
             }
+            setTimeout(() => {
+                item.deleting = false;
+            }, 300);
         },
         showConfirm() {
             this.$refs.confirm.show();
@@ -126,7 +135,9 @@ export default {
             if (!this.showFlag || newSong.id === oldSong.id) {
                 return;
             }
-            this.scrollToCurrent(newSong);
+            setTimeout(() => {
+                this.scrollToCurrent(newSong);
+            }, 20);
         }
     },
     components: {

@@ -40,14 +40,14 @@
 <script>
 import SearchBox from '@/base/search-box/search-box';
 import Suggest from '../suggest/suggest';
-import { searchMixin } from '../../assets/js/mixin';
-import Switches from '../../base/switches/switches';
-import Scroll from '../../base/scroll/scroll';
+import { searchMixin } from '@/assets/js/mixin';
+import Switches from '@/base/switches/switches';
+import Scroll from '@/base/scroll/scroll';
 import { mapGetters, mapActions } from 'vuex';
-import SongList from '../../base/song-list/song-list';
-import Song from '../../assets/js/song';
-import SearchList from '../../base/search-list/search-list';
-import TopTip from '../../base/top-tip/top-tip';
+import SongList from '@/base/song-list/song-list';
+import Song from '@/assets/js/song';
+import SearchList from '@/base/search-list/search-list';
+import TopTip from '@/base/top-tip/top-tip';
 
 export default {
     mixins: [searchMixin],
@@ -56,15 +56,26 @@ export default {
             showFlag: false,
             showSinger: false,
             currentIndex: 0,
+            songs: [],
             switches: [{ name: '最近播放' }, { name: '搜索历史' }]
         };
     },
     computed: {
-        ...mapGetters(['playHistory', 'searchHistory'])
+        ...mapGetters(['playHistory'])
     },
     methods: {
+        refreshList() {
+            setTimeout(() => {
+                if (this.currentIndex === 0) {
+                    this.$refs.songList.refresh();
+                } else {
+                    this.$refs.searchList.refresh();
+                }
+            }, 20);
+        },
         show() {
             this.showFlag = true;
+            this.refreshList();
             setTimeout(() => {
                 if (this.currentIndex === 0) {
                     this.$refs.songList.refresh();
@@ -86,13 +97,17 @@ export default {
         selectSong(song, index) {
             if (index !== 0) {
                 this.insertSong(new Song(song));
-                this.showTip();
+                this.$refs.topTip.show();
             }
         },
-        showTip() {
-            this.$refs.topTip.show();
-        },
         ...mapActions(['insertSong'])
+    },
+    watch: {
+        query(newVal) {
+            if (!newVal) {
+                this.refreshList();
+            }
+        }
     },
     components: {
         SearchBox,

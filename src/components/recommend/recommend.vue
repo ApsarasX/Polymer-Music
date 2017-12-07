@@ -4,13 +4,15 @@
             <div>
                 <!-- 注意此处, 必须有v-if, 否则获取不到数据使得slider的DOM出错-->
                 <div v-if="recommends.length" class="slider-wrapper">
-                    <slider>
-                        <div v-for="(item,index) in recommends" :key="index">
-                            <a :href="item.linkUrl">
-                                <img class="needsclick" @load="loadImage" :src="item.picUrl" alt="slider-img">
-                            </a>
-                        </div>
-                    </slider>
+                    <div class="slider-content">
+                        <slider ref="slider">
+                            <div v-for="(item,index) in recommends" :key="index">
+                                <a :href="item.linkUrl">
+                                    <img @load="loadImage" :src="item.picUrl" alt="slider-img">
+                                </a>
+                            </div>
+                        </slider>
+                    </div>
                 </div>
                 <div class="recommend-list">
                     <h1 class="list-title">热门歌单推荐</h1>
@@ -63,6 +65,11 @@ export default {
             discList: []
         };
     },
+    activated() {
+        setTimeout(() => {
+            this.$refs.slider && this.$refs.slider.refresh();
+        }, 20);
+    },
     components: {
         Slider,
         Scroll,
@@ -111,7 +118,9 @@ export default {
         },
         loadImage() {
             if (!this.checkLoaded) {
-                this.$refs.scroll.refresh();
+                setTimeout(() => {
+                    this.$refs.scroll.refresh();
+                }, 20);
                 this.checkLoaded = true;
             }
         },
@@ -133,7 +142,16 @@ export default {
         .slider-wrapper {
             position: relative;
             width: 100%;
+            height: 0;
+            padding-top: 40%;
             overflow: hidden;
+            .slider-content {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
         }
         .recommend-list {
             .list-title {

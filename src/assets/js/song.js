@@ -102,3 +102,11 @@ export function createSong(musicData) {
         }.jpg?max_age=2592000`
     });
 }
+
+export function isValidMusic(musicData) {
+    return (
+        musicData.songid &&
+        musicData.albummid &&
+        (!musicData.pay || musicData.pay.payalbumprice === 0)
+    );
+}

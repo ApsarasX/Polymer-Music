@@ -171,8 +171,11 @@ export default {
         ...mapActions(['insertSong'])
     },
     watch: {
-        query() {
-            this.search();
+        query(newQuery) {
+            if (!newQuery) {
+                return;
+            }
+            this.search(newQuery);
         }
     }
 };

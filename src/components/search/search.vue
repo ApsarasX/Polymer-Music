@@ -58,7 +58,6 @@ export default {
         shortcut() {
             return this.hotKey.concat(this.searchHistory);
         }
-        // ...mapGetters(['searchHistory'])
     },
     created() {
         this._getHotKey();
@@ -66,7 +65,6 @@ export default {
     data() {
         return {
             hotKey: []
-            // query: ''
         };
     },
     methods: {
@@ -79,21 +77,6 @@ export default {
             // 从新计算搜索结果滚动列表
             this.$refs.suggest.refresh();
         },
-        // // 点击关键词, 自动填充query
-        // addQuery(query) {
-        //     this.$refs.searchBox.setQuery(query);
-        // },
-        // onQueryChange(query) {
-        //     this.query = query;
-        // },
-        // // 滚动时隐藏手机键盘
-        // blurInput() {
-        //     this.$refs.searchBox.blur();
-        // },
-        // // 保存搜索结果
-        // saveSearch() {
-        //     this.saveSearchHistory(this.query);
-        // },
         showConfirm() {
             this.$refs.confirm.show();
         },

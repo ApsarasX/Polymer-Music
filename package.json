@@ -1,6 +1,6 @@
 {
     "name": "gg-music",
-    "version": "0.2.0",
+    "version": "1.0.0",
     "description": "a music player built with vue.js",
     "author": "pyyzcwg2833 <pyyzcwg2833@outlook.com>",
     "private": true,
