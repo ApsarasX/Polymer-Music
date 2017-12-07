@@ -36,12 +36,17 @@ export default {
         beforeScroll: {
             type: Boolean,
             default: true
+        },
+        // 刷新延迟
+        refreshDelay: {
+            type: Number,
+            default: 20
         }
     },
     mounted() {
         setTimeout(() => {
             this._initScroll();
-        }, 20);
+        }, this.refreshDelay);
     },
     methods: {
         /**
@@ -102,7 +107,7 @@ export default {
             // 用于在歌单加载后刷新scroll组件
             setTimeout(() => {
                 this.refresh();
-            }, 20);
+            }, this.refreshDelay);
         }
     }
 };
