@@ -1,5 +1,5 @@
 <template>
-    <scroll class="listview" :data="data" ref="listview" :listenScroll="listenScroll" @scroll="scroll" :probeType="probeType">
+    <scroll class="listview" :data="data" ref="listview" :listen-scroll="listenScroll" @scroll="scroll" :probeType="probeType">
         <ul>
             <li v-for="(group, index) in data" :key="index" class="list-group" ref="listGroup">
                 <h2 class="list-group-title">{{group.title}}</h2>
@@ -11,7 +11,7 @@
                 </ul>
             </li>
         </ul>
-        <div class="list-shortcut" @touchstart="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove">
+        <div class="list-shortcut" @touchstart.stop.prevent="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove" @touchend.stop>
             <ul>
                 <li v-for="(item, index) in shortcutList" :key="index" :data-index="index" class="item" :class="{'current':currentIndex===index}">
                     {{item}}
@@ -195,7 +195,7 @@ export default {
                 index = this.listHeight.length - 2;
             }
             // 滚动到相应位置
-            this.scrollY = -this.listHeight[index];
+            this.scrollY = this.$refs.listview.scroll.y;
             this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0);
         },
         /**

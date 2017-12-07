@@ -2,8 +2,6 @@
     <div id="app">
         <m-header></m-header>
         <tab></tab>
-        <!-- 缓存DOM到内存 -->
-        <!-- keep-alive尚未生效 -->
         <keep-alive>
             <router-view></router-view>
         </keep-alive>

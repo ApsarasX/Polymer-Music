@@ -6,7 +6,7 @@
     </div>
 </template>
 <script>
-import { debounce } from '../../assets/js/util';
+import { debounce } from '@/assets/js/util';
 
 export default {
     props: {
@@ -39,7 +39,7 @@ export default {
             'query',
             debounce(newQuery => {
                 this.$emit('query', newQuery);
-            }, 450)
+            }, 350)
         );
     }
 };

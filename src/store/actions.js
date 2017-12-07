@@ -36,8 +36,6 @@ export function selectPlay({ commit, state }, { list, index }) {
 
 /**
  * @function randomPlay 随机播放列中全部歌曲
- * @param {*} param0
- * @param {*} param1
  */
 export function randomPlay({ commit }, { list }) {
     commit(types.SET_PLAY_MODE, playMode.random);

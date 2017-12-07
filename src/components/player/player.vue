@@ -16,7 +16,7 @@
                     <div class="middle-l" ref="middleL">
                         <div class="cd-wrapper" ref="cdWrapper">
                             <div class="cd" :class="cdCls">
-                                <img :src="currentSong.image" alt="" class="image">
+                                <img :src="currentSong.image" alt="歌曲封面图片" class="image">
                             </div>
                         </div>
                         <div class="playing-lyric-wrapper">
@@ -27,6 +27,9 @@
                         <div class="lyric-wrapper">
                             <div v-if="currentLyric">
                                 <p ref="lyricLine" class="text" :class="{'current':currentLineNum===index}" v-for="(line,index) in currentLyric.lines" :key="index">{{line.txt}}</p>
+                            </div>
+                            <div class="pure-music" v-show="isPureMusic">
+                                <p>{{pureMusicLyric}}</p>
                             </div>
                         </div>
                     </scroll>
@@ -39,7 +42,7 @@
                     <div class="progress-wrapper">
                         <span class="time time-l">{{format(currentTime)}}</span>
                         <div class="progress-bar-wrapper">
-                            <progress-bar :percent="percent" @percentChange="onProgressBarChange"></progress-bar>
+                            <progress-bar ref="progressBar" :percent="percent" @percentChange="onProgressBarChange" @percentChanging="onProgressBarChanging"></progress-bar>
                         </div>
                         <span class="time time-r">{{format(currentSong.duration)}}</span>
                     </div>
@@ -51,7 +54,7 @@
                             <i @click="prev" class="icon-prev"></i>
                         </div>
                         <div class="icon i-center" :class="disableCls">
-                            <i @click="togglePlaying" :class="playIcon"></i>
+                            <i class="needsclick" @click="togglePlaying" :class="playIcon"></i>
                         </div>
                         <div class="icon i-right" :class="disableCls">
                             <i @click="next" class="icon-next"></i>
@@ -66,7 +69,7 @@
         <transition name="mini">
             <div class="mini-player" v-show="!fullScreen" @click="open">
                 <div class="icon">
-                    <img :class="cdCls" :src="currentSong.image" alt="" width="40" height="40">
+                    <img :class="cdCls" :src="currentSong.image" alt="图片" width="40" height="40">
                 </div>
                 <div class="text">
                     <h2 class="name" v-html="currentSong.name"></h2>
@@ -83,7 +86,7 @@
             </div>
         </transition>
         <play-list ref="playList"></play-list>
-        <audio ref="audio" :src="currentSong.url" @play="ready" @error="error" @timeupdate="updateTime" @ended="end"></audio>
+        <audio ref="audio" autoplay @play="ready" @error="error" @timeupdate="updateTime" @ended="end" @pause="paused"></audio>
     </div>
 </template>
 
@@ -103,6 +106,8 @@ import { playerMixin } from '@/assets/js/mixin';
 const transform = prefixStyle('transform');
 const transitionDuration = prefixStyle('transitionDuration');
 
+const timeExp = /\[(\d{2}):(\d{2}):(\d{2})]/g;
+
 export default {
     mixins: [playerMixin],
     data() {
@@ -119,7 +124,9 @@ export default {
             // 显示歌曲封面还是歌词
             currentShow: 'cd',
             // 当前行歌词
-            playingLyric: ''
+            playingLyric: '',
+            isPureMusic: false,
+            pureMusicLyric: ''
         };
     },
     created() {
@@ -135,10 +142,6 @@ export default {
             // 播放/暂停按钮
             return this.playing ? 'icon-pause' : 'icon-play';
         },
-        // iconMode() {
-        //     const modeIcons = ['icon-sequence', 'icon-loop', 'icon-random'];
-        //     return modeIcons[this.mode];
-        // },
         miniIcon() {
             // mini播放/暂停按钮
             return this.playing ? 'icon-pause-mini' : 'icon-play-mini';
@@ -157,10 +160,6 @@ export default {
         // Vuex 的mutations
         ...mapMutations({
             setFullScreen: 'SET_FULL_SCREEN'
-            // setPlayingState: 'SET_PLAYING_STATE',
-            // setCurrentIndex: 'SET_CURRENT_INDEX',
-            // setPlayMode: 'SET_PLAY_MODE',
-            // setPlayList: 'SET_PLAY_LIST'
         }),
         ...mapActions(['savePlayHistory']),
         /**
@@ -213,7 +212,11 @@ export default {
             this.$refs.cdWrapper.style[
                 transform
             ] = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
-            this.$refs.cdWrapper.addEventListener('transitionend', done);
+            const timer = setTimeout(done, 400);
+            this.$refs.cdWrapper.addEventListener('transitionend', () => {
+                clearTimeout(timer);
+                done();
+            });
         },
         afterLeave() {
             this.$refs.cdWrapper.style.transition = '';
@@ -232,6 +235,7 @@ export default {
         },
         // 歌曲播放结束后如何选择下一首
         end() {
+            this.currentTime = 0;
             if (this.mode === playMode.loop) {
                 this.loop();
             } else {
@@ -242,6 +246,7 @@ export default {
         loop() {
             this.$refs.audio.currentTime = 0;
             this.$refs.audio.play();
+            this.setPlayingState(true);
             if (this.currentLyric) {
                 this.currentLyric.seek(0);
             }
@@ -255,16 +260,12 @@ export default {
                 return;
             }
             // 播放前一首歌曲
-            let index = this.currentIndex + 1;
-            if (index === this.playList.length) {
-                index = 0;
-            }
+            const index = (this.currentIndex - 1) % this.playlist.length;
             this.setCurrentIndex(index);
             // 如果当前播放停止就切换歌曲, 同时改变播放状态变量
             if (!this.playing) {
                 this.togglePlaying();
             }
-            this.songReady = false;
         },
         next() {
             if (!this.songReady) {
@@ -275,21 +276,29 @@ export default {
                 return;
             }
             // 播放后一首歌曲
-            let index = this.currentIndex - 1;
-            if (index < 0) {
-                index = this.playList.length - 1;
-            }
+            const index = (this.currentIndex + 1) % this.playlist.length;
             this.setCurrentIndex(index);
             if (!this.playing) {
                 this.togglePlaying();
             }
-
-            this.songReady = false;
         },
         ready() {
-            // 歌曲准备就绪
-            this.songReady = true;
+            // 延时避免快速切换歌曲导致 DOM 会报错
+            setTimeout(() => {
+                this.songReady = true;
+            }, 500);
+            this.canLyricPlay = true;
             this.savePlayHistory(this.currentSong);
+            // 如果歌曲的播放晚于歌词的出现，播放的时候需要同步歌词
+            if (this.currentLyric && !this.isPureMusic) {
+                this.currentLyric.seek(this.currentTime * 1000);
+            }
+        },
+        paused() {
+            this.setPlayingState(false);
+            if (this.currentLyric) {
+                this.currentLyric.stop();
+            }
         },
         error() {
             this.songReady = true;
@@ -299,23 +308,30 @@ export default {
             this.currentTime = e.target.currentTime;
         },
         format(interval) {
-            const timestamp = Math.floor(interval);
-            const minute = this._pad(Math.floor(timestamp / 60));
-            const second = this._pad(timestamp % 60);
+            /* eslint-disable */
+            interval = interval | 0;
+            const minute = (interval / 60) | 0;
+            const second = this._pad(interval % 60);
             return `${minute}:${second}`;
+        },
+        onProgressBarChanging(percent) {
+            this.currentTime = this.currentSong.duration * percent;
+            if (this.currentLyric) {
+                this.currentLyric.seek(this.currentTime * 1000);
+            }
         },
         onProgressBarChange(percent) {
             const currentTime = this.currentSong.duration * percent;
             // 根据进度条传过来的播放进度更改播放时间
-            this.$refs.audio.currentTime = currentTime;
-            // 如果暂停, 则开始播放
-            if (!this.playing) {
-                this.togglePlaying();
-            }
+            this.currentTime = this.$refs.audio.currentTime = currentTime;
             // 改变歌词播放时间
             if (this.currentLyric) {
                 // 一定要乘以1000, seek方法的参数以毫秒为单位
                 this.currentLyric.seek(currentTime * 1000);
+            }
+            // 如果暂停, 则开始播放
+            if (!this.playing) {
+                this.togglePlaying();
             }
         },
         getLyric() {
@@ -327,10 +343,22 @@ export default {
                     }
                     // 解析歌词
                     this.currentLyric = new Lyric(lyric, this.handleLyric);
-                    // 如果正在播放歌曲, 则播放歌词
-                    if (this.playing) {
-                        this.currentLyric.play();
+                    this.isPureMusic = !this.currentLyric.lines.length;
+                    if (this.isPureMusic) {
+                        this.pureMusicLyric = this.currentLyric.lrc
+                            .replace(timeExp, '')
+                            .trim();
+                        this.playingLyric = this.pureMusicLyric;
+                    } else {
+                        if (this.playing && this.canLyricPlay) {
+                            // 这个时候有可能用户已经播放了歌曲，要切到对应位置
+                            this.currentLyric.seek(this.currentTime * 1000);
+                        }
                     }
+                    // // 如果正在播放歌曲, 则播放歌词
+                    // if (this.playing) {
+                    //     this.currentLyric.play();
+                    // }
                 })
                 .catch(() => {
                     // 获取歌词失败, 清理
@@ -341,6 +369,9 @@ export default {
         },
         // Lyric对象的回调函数
         handleLyric({ lineNum, txt }) {
+            if (!this.$refs.lyricLine) {
+                return;
+            }
             this.currentLineNum = lineNum;
             if (lineNum > 5) {
                 // 如果当前行歌词超过了第5行
@@ -361,6 +392,8 @@ export default {
         middleTouchStart(e) {
             // 触控标志位
             this.touch.initiated = true;
+            // 用来判断是否是一次移动
+            this.touch.moved = false;
             const touch = e.touches[0];
             this.touch.startX = touch.pageX;
             this.touch.startY = touch.pageY;
@@ -376,6 +409,9 @@ export default {
             // 如果Y方向偏移大于X方向偏移, 不作任何操作
             if (Math.abs(deltaY) > Math.abs(deltaX)) {
                 return;
+            }
+            if (!this.touch.moved) {
+                this.touch.moved = true;
             }
             const left = this.currentShow === 'cd' ? 0 : -window.innerWidth;
             // DOM理论偏移
@@ -395,6 +431,9 @@ export default {
         },
         // 决定最终停在歌曲封面页还是歌词页
         middleTouchEnd() {
+            if (!this.touch.moved) {
+                return;
+            }
             let offsetWidth;
             let opacity;
             if (this.currentShow === 'cd') {
@@ -426,6 +465,23 @@ export default {
             // 歌曲封面页透明度
             this.$refs.middleL.style[transitionDuration] = `${time}ms`;
             this.$refs.middleL.style.opacity = opacity;
+            this.touch.initiated = false;
+        },
+        /**
+         * @function syncWrapperTransform 计算内层Image的transform，并同步到外层容器
+         */
+        syncWrapperTransform(wrapper, inner) {
+            if (!this.$refs[wrapper]) {
+                return;
+            }
+            const imageWrapper = this.$refs[wrapper];
+            const image = this.$refs[inner];
+            const wTransform = getComputedStyle(imageWrapper)[transform];
+            const iTransform = getComputedStyle(image)[transform];
+            imageWrapper.style[transform] =
+                wTransform === 'none'
+                    ? iTransform
+                    : iTransform.concat(' ', wTransform);
         },
         _pad(num, n = 2) {
             const len = num.toString().length;
@@ -456,32 +512,60 @@ export default {
         // 当currentSong变化的时候, 播放音乐
         currentSong(newSong, oldSong) {
             // 如果没有歌曲可供播放
-            if (!newSong.id) {
+            if (!newSong.id || !newSong.url || newSong.id === oldSong.id) {
                 return;
             }
-            if (newSong.id === oldSong.id) {
-                return;
-            }
-            // 清理上一首歌曲的歌词对象
+            this.songReady = false;
+            this.canLyricPlay = false;
             if (this.currentLyric) {
                 this.currentLyric.stop();
+                // 重置为null
+                this.currentLyric = null;
+                this.currentTime = 0;
+                this.playingLyric = '';
+                this.currentLineNum = 0;
             }
-            clearTimeout(this.timer);
-            this.timer = setTimeout(() => {
-                /**
-                 * @throws 在移动端chrome被报错(被认为不是用户操作)
-                 */
-                this.$refs.audio.play();
-                this.getLyric();
-            }, 1000);
+            this.$refs.audio.src = newSong.url;
+            this.$refs.audio.play();
+            this.getLyric();
+            // // 清理上一首歌曲的歌词对象
+            // if (this.currentLyric) {
+            //     this.currentLyric.stop();
+            // }
+            // clearTimeout(this.timer);
+            // this.timer = setTimeout(() => {
+            //     /**
+            //      * @throws 在移动端chrome被报错(被认为不是用户操作)
+            //      */
+            //     this.$refs.audio.play();
+            //     this.getLyric();
+            // }, 1000);
         },
         playing(newPlaying) {
+            if (!this.songReady) {
+                return;
+            }
+            const audio = this.$refs.audio;
             // 根据播放状态变量playing控制播放器
             this.$nextTick(() => {
-                const audio = this.$refs.audio;
                 /* eslint-disable no-unused-expressions */
                 newPlaying ? audio.play() : audio.pause();
             });
+            if (!newPlaying) {
+                if (this.fullScreen) {
+                    this.syncWrapperTransform('imageWrapper', 'image');
+                } else {
+                    this.syncWrapperTransform('miniWrapper', 'miniImage');
+                }
+            }
+        },
+        fullScreen(newVal) {
+            if (newVal) {
+                setTimeout(() => {
+                    this.$refs.lyricList.refresh();
+                    this.$refs.progressBar.setProgressOffset(this.percent);
+                }, 20);
+            }
         }
     },
     components: {

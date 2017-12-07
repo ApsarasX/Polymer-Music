@@ -4,8 +4,9 @@
  * @requires commonParam,options - 引入公共参数和配置
  */
 import axios from 'axios';
-// import jsonp from '@/assets/js/jsonp';
-import { commonParam } from './config';
+import jsonp from '@/assets/js/jsonp';
+import { commonParam, options } from './config';
+import getUid from '../assets/js/uid';
 
 /**
  * @function getLyric - 获取歌词请求
@@ -29,5 +30,27 @@ export function getLyric(mid) {
         .then(res => Promise.resolve(res.data));
 }
 
-// eslitn占位
-export function xx() {}
+export function getVKey(songmid, filename) {
+    const url =
+        'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg';
+
+    const data = Object.assign({}, commonParam, {
+        cid: 205361747,
+        format: 'json',
+        platform: 'yqq',
+        hostUin: 0,
+        needNewCode: 0,
+        uin: 0,
+        songmid,
+        filename,
+        guid: getUid()
+    });
+
+    return jsonp(
+        url,
+        data,
+        Object.assign({}, options, {
+            param: 'callback'
+        })
+    );
+}

@@ -13,7 +13,7 @@
 import { prefixStyle } from '@/assets/js/dom';
 
 // 播放点宽度
-const progressBarWidth = 16;
+const progressBtnWidth = 16;
 
 const transform = prefixStyle('transform');
 
@@ -40,13 +40,12 @@ export default {
                 return;
             }
             const deltaX = e.touches[0].pageX - this.touch.startX;
-            const barWidth =
-                this.$refs.progressBar.clientWidth - progressBarWidth;
             const offsetWidth = Math.min(
-                barWidth,
+                this.$refs.progressBar.clientWidth - progressBtnWidth,
                 Math.max(0, this.touch.left + deltaX)
             );
             this._offset(offsetWidth);
+            this.$emit('percentChanging', this._getPercent());
         },
         progressTouchEnd() {
             this._triggerPercent();
@@ -61,6 +60,14 @@ export default {
             // this._offset(e.offsetX);
             this._triggerPercent();
         },
+        setProgressOffset(percent) {
+            if (percent >= 0 && !this.touch.initiated) {
+                const barWidth =
+                    this.$refs.progressBar.clientWidth - progressBtnWidth;
+                const offsetWidth = percent * barWidth;
+                this._offset(offsetWidth);
+            }
+        },
         _offset(offsetWidth) {
             // 播放进度条偏移
             this.$refs.progress.style.width = `${offsetWidth}px`;
@@ -70,23 +77,17 @@ export default {
             ] = `translate3d(${offsetWidth}px, 0, 0)`;
         },
         _triggerPercent() {
+            this.$emit('percentChange', this._getPercent());
+        },
+        _getPercent() {
             const barWidth =
-                this.$refs.progressBar.clientWidth - progressBarWidth;
-            const percent = this.$refs.progress.clientWidth / barWidth;
-            // 向父组件派发进度改变事件
-            this.$emit('percentChange', percent);
+                this.$refs.progressBar.clientWidth - progressBtnWidth;
+            return this.$refs.progress.clientWidth / barWidth;
         }
     },
     watch: {
         percent(newPercent) {
-            if (newPercent >= 0 && !this.touch.initiated) {
-                const barWidth =
-                    this.$refs.progressBar.clientWidth - progressBarWidth;
-                // 偏移宽度
-                const offsetWidth = newPercent * barWidth;
-
-                this._offset(offsetWidth);
-            }
+            this.setProgressOffset(newPercent);
         }
     }
 };

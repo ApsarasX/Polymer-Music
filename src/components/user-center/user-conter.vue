@@ -83,7 +83,7 @@ export default {
                 return;
             }
             list = list.map(song => new Song(song));
-            this.randomPlay(list);
+            this.randomPlay({ list });
         },
         ...mapActions(['insertSong', 'randomPlay'])
     },

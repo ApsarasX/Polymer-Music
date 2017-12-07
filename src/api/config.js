@@ -13,7 +13,8 @@ export const commonParam = {
  * @constant {Object} options - 公共请求选项
  */
 export const options = {
-    param: 'jsonpCallback'
+    param: 'jsonpCallback',
+    prefix: 'jp'
 };
 
 /**
