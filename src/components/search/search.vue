@@ -40,13 +40,13 @@ import { getHotKey } from '@/api/search';
 import { ERR_OK } from '@/api/config';
 import Suggest from '@/components/suggest/suggest';
 import SearchList from '@/base/search-list/search-list';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import Confirm from '@/base/confirm/confirm';
 import Scroll from '../../base/scroll/scroll';
-import { playListMixin } from '../../assets/js/mixin';
+import { playListMixin, searchMixin } from '../../assets/js/mixin';
 
 export default {
-    mixins: [playListMixin],
+    mixins: [playListMixin, searchMixin],
     components: {
         SearchBox,
         Suggest,
@@ -57,16 +57,16 @@ export default {
     computed: {
         shortcut() {
             return this.hotKey.concat(this.searchHistory);
-        },
-        ...mapGetters(['searchHistory'])
+        }
+        // ...mapGetters(['searchHistory'])
     },
     created() {
         this._getHotKey();
     },
     data() {
         return {
-            hotKey: [],
-            query: ''
+            hotKey: []
+            // query: ''
         };
     },
     methods: {
@@ -79,21 +79,21 @@ export default {
             // 从新计算搜索结果滚动列表
             this.$refs.suggest.refresh();
         },
-        // 点击关键词, 自动填充query
-        addQuery(query) {
-            this.$refs.searchBox.setQuery(query);
-        },
-        onQueryChange(query) {
-            this.query = query;
-        },
-        // 滚动时隐藏手机键盘
-        blurInput() {
-            this.$refs.searchBox.blur();
-        },
-        // 保存搜索结果
-        saveSearch() {
-            this.saveSearchHistory(this.query);
-        },
+        // // 点击关键词, 自动填充query
+        // addQuery(query) {
+        //     this.$refs.searchBox.setQuery(query);
+        // },
+        // onQueryChange(query) {
+        //     this.query = query;
+        // },
+        // // 滚动时隐藏手机键盘
+        // blurInput() {
+        //     this.$refs.searchBox.blur();
+        // },
+        // // 保存搜索结果
+        // saveSearch() {
+        //     this.saveSearchHistory(this.query);
+        // },
         showConfirm() {
             this.$refs.confirm.show();
         },
@@ -105,8 +105,8 @@ export default {
             });
         },
         ...mapActions([
-            'saveSearchHistory',
-            'deleteSearchHistory',
+            // 'saveSearchHistory',
+            // 'deleteSearchHistory',
             'clearSearchHistory'
         ])
     },

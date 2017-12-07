@@ -1,7 +1,12 @@
 import * as types from './mutation-types';
 import { playMode } from '../assets/js/config';
 import { shuffle } from '../assets/js/util';
-import { saveSearch, deleteSearch, clearSearch } from '../assets/js/cache';
+import {
+    saveSearch,
+    deleteSearch,
+    clearSearch,
+    savePlay
+} from '../assets/js/cache';
 
 function findIndex(list, song) {
     return list.findIndex(item => item.id === song.id);
@@ -120,4 +125,8 @@ export function deleteSongList({ commit }) {
     commit(types.SET_SEQUENCE_LIST, []);
     commit(types.SET_CURRENT_INDEX, -1);
     commit(types.SET_PLAYING_STATE, false);
+}
+
+export function savePlayHistory({ commit }, song) {
+    commit(types.SET_PLAY_HISTORY, savePlay(song));
 }

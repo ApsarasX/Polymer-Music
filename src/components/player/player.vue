@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 // 第三方JS创建CSS3动画的库
 import animations from 'create-keyframe-animation';
 import { prefixStyle } from '@/assets/js/dom';
@@ -151,7 +151,7 @@ export default {
             return this.currentTime / this.currentSong.duration;
         },
         // 从Vuex获取播放器数据
-        ...mapGetters(['fullScreen', 'playing'])
+        ...mapGetters(['fullScreen', 'playing', 'currentIndex'])
     },
     methods: {
         // Vuex 的mutations
@@ -162,6 +162,7 @@ export default {
             // setPlayMode: 'SET_PLAY_MODE',
             // setPlayList: 'SET_PLAY_LIST'
         }),
+        ...mapActions(['savePlayHistory']),
         /**
          * @function back - 返回
          */
@@ -287,6 +288,7 @@ export default {
         ready() {
             // 歌曲准备就绪
             this.songReady = true;
+            this.savePlayHistory(this.currentSong);
         },
         error() {
             this.songReady = true;

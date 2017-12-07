@@ -1,4 +1,4 @@
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import { shuffle } from '@/assets/js/util';
 import { playMode } from '@/assets/js/config';
 
@@ -33,13 +33,7 @@ export const playerMixin = {
             const modeIcons = ['icon-sequence', 'icon-loop', 'icon-random'];
             return modeIcons[this.mode];
         },
-        ...mapGetters([
-            'sequenceList',
-            'currentSong',
-            'playList',
-            'mode',
-            'currentIndex'
-        ])
+        ...mapGetters(['sequenceList', 'currentSong', 'playList', 'mode'])
     },
     methods: {
         changeMode() {
@@ -70,5 +64,37 @@ export const playerMixin = {
             setPlayMode: 'SET_PLAY_MODE',
             setPlayList: 'SET_PLAY_LIST'
         })
+    }
+};
+// 搜索相关Mixin
+export const searchMixin = {
+    data() {
+        return {
+            query: ''
+        };
+    },
+    computed: {
+        ...mapGetters(['searchHistory'])
+    },
+    methods: {
+        // 点击关键词, 自动填充query
+        addQuery(query) {
+            this.$refs.searchBox.setQuery(query);
+        },
+        // 滚动时隐藏手机键盘
+        blurInput() {
+            this.$refs.searchBox.blur();
+        },
+        // 保存搜索结果
+        saveSearch() {
+            this.saveSearchHistory(this.query);
+        },
+        onQueryChange(query) {
+            this.query = query;
+        },
+        ...mapActions([
+            'saveSearchHistory',
+            'deleteSearchHistory'
+        ])
     }
 };
