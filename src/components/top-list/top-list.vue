@@ -79,7 +79,7 @@ export default {
 <style lang="scss" scoped>
 .slide-enter-active,
 .slide-leave-active {
-    transition: all 0.3 ease;
+    transition: all 0.3s ease;
 }
 .slide-enter,
 .slide-leave-to {

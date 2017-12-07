@@ -23,3 +23,4 @@ npm run build --report
 ```
 
 ## Existing Bugs
+- 点击排行榜页转到排行榜详情没有动画

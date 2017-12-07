@@ -42,10 +42,10 @@ export default {
     },
     methods: {
         selectItem(item) {
-            this.setTopList(item);
             this.$router.push({
                 path: `/rank/${item.id}`
             });
+            this.setTopList(item);
         },
         handlePlayList(playList) {
             const bottom = playList.length ? '60px' : '';
