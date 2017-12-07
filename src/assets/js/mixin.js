@@ -33,7 +33,13 @@ export const playerMixin = {
             const modeIcons = ['icon-sequence', 'icon-loop', 'icon-random'];
             return modeIcons[this.mode];
         },
-        ...mapGetters(['sequenceList', 'currentSong', 'playList', 'mode'])
+        ...mapGetters([
+            'sequenceList',
+            'currentSong',
+            'playList',
+            'mode',
+            'favoriteList'
+        ])
     },
     methods: {
         changeMode() {
@@ -51,6 +57,25 @@ export const playerMixin = {
             // set新的播放列表
             this.setPlayList(list);
         },
+        // 判断是否为收藏歌曲
+        isFavorite(song) {
+            const index = this.favoriteList.findIndex(
+                item => item.id === song.id
+            );
+            return index > -1;
+        },
+        getFavoriteIcon(song) {
+            return this.isFavorite(song)
+                ? 'icon-favorite'
+                : 'icon-not-favorite';
+        },
+        togglefavorite(song) {
+            if (this.isFavorite(song)) {
+                this.deleteFavoriteList(song);
+            } else {
+                this.saveFavoriteList(song);
+            }
+        },
         _resetCurrentIndex(list) {
             // 在播放列表中找到当前歌曲index
             const index = list.findIndex(
@@ -63,7 +88,8 @@ export const playerMixin = {
             setCurrentIndex: 'SET_CURRENT_INDEX',
             setPlayMode: 'SET_PLAY_MODE',
             setPlayList: 'SET_PLAY_LIST'
-        })
+        }),
+        ...mapActions(['saveFavoriteList', 'deleteFavoriteList'])
     }
 };
 // 搜索相关Mixin

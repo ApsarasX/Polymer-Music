@@ -57,7 +57,7 @@
                             <i @click="next" class="icon-next"></i>
                         </div>
                         <div class="icon i-right">
-                            <i class="icon icon-not-favorite"></i>
+                            <i class="icon" @click="togglefavorite(currentSong)" :class="getFavoriteIcon(currentSong)"></i>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
             </div>
         </transition>
         <play-list ref="playList"></play-list>
-        <audio ref="audio" :src="currentSong.url" @canplay="ready" @error="error" @timeupdate="updateTime" @ended="end"></audio>
+        <audio ref="audio" :src="currentSong.url" @play="ready" @error="error" @timeupdate="updateTime" @ended="end"></audio>
     </div>
 </template>
 
@@ -252,19 +252,19 @@ export default {
             }
             if (this.playList.length === 1) {
                 this.loop();
-            } else {
-                // 播放前一首歌曲
-                let index = this.currentIndex + 1;
-                if (index === this.playList.length) {
-                    index = 0;
-                }
-                this.setCurrentIndex(index);
-                // 如果当前播放停止就切换歌曲, 同时改变播放状态变量
-                if (!this.playing) {
-                    this.togglePlaying();
-                }
-                this.songReady = false;
+                return;
             }
+            // 播放前一首歌曲
+            let index = this.currentIndex + 1;
+            if (index === this.playList.length) {
+                index = 0;
+            }
+            this.setCurrentIndex(index);
+            // 如果当前播放停止就切换歌曲, 同时改变播放状态变量
+            if (!this.playing) {
+                this.togglePlaying();
+            }
+            this.songReady = false;
         },
         next() {
             if (!this.songReady) {
@@ -272,18 +272,19 @@ export default {
             }
             if (this.playList.length === 1) {
                 this.loop();
-            } else {
-                // 播放后一首歌曲
-                let index = this.currentIndex - 1;
-                if (index < 0) {
-                    index = this.playList.length - 1;
-                }
-                this.setCurrentIndex(index);
-                if (!this.playing) {
-                    this.togglePlaying();
-                }
-                this.songReady = false;
+                return;
             }
+            // 播放后一首歌曲
+            let index = this.currentIndex - 1;
+            if (index < 0) {
+                index = this.playList.length - 1;
+            }
+            this.setCurrentIndex(index);
+            if (!this.playing) {
+                this.togglePlaying();
+            }
+
+            this.songReady = false;
         },
         ready() {
             // 歌曲准备就绪
@@ -317,25 +318,13 @@ export default {
                 this.currentLyric.seek(currentTime * 1000);
             }
         },
-        // changeMode() {
-        //     // 改变播放模式
-        //     const mode = (this.mode + 1) % 3;
-        //     this.setPlayMode(mode);
-        //     let list = null;
-        //     if (mode === playMode.random) {
-        //         list = shuffle(this.sequenceList);
-        //     } else {
-        //         list = this.sequenceList;
-        //     }
-        //     // 在set播放列表之前找到当前歌曲的index
-        //     this._resetCurrentIndex(list);
-        //     // set新的播放列表
-        //     this.setPlayList(list);
-        // },
         getLyric() {
             this.currentSong
                 .getLyric()
                 .then(lyric => {
+                    if (this.currentSong.lyric !== lyric) {
+                        return;
+                    }
                     // 解析歌词
                     this.currentLyric = new Lyric(lyric, this.handleLyric);
                     // 如果正在播放歌曲, 则播放歌词
@@ -438,13 +427,6 @@ export default {
             this.$refs.middleL.style[transitionDuration] = `${time}ms`;
             this.$refs.middleL.style.opacity = opacity;
         },
-        // _resetCurrentIndex(list) {
-        //     // 在播放列表中找到当前歌曲index
-        //     const index = list.findIndex(
-        //         item => item.id === this.currentSong.id
-        //     );
-        //     this.setCurrentIndex(index);
-        // },
         _pad(num, n = 2) {
             const len = num.toString().length;
             let pad = '';
@@ -484,7 +466,8 @@ export default {
             if (this.currentLyric) {
                 this.currentLyric.stop();
             }
-            setTimeout(() => {
+            clearTimeout(this.timer);
+            this.timer = setTimeout(() => {
                 /**
                  * @throws 在移动端chrome被报错(被认为不是用户操作)
                  */

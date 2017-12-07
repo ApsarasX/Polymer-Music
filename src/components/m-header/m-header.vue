@@ -1,7 +1,10 @@
 <template>
     <div class="m-header">
-        <!-- <div class="icon"></div>
-        <h1 class="text">GG Music</h1> -->
+        <div class="icon"></div>
+        <h1 class="text">聚合音乐</h1>
+        <router-link to="/user" class="mine" tag="div">
+            <i class="icon-mine"></i>
+        </router-link>
     </div>
 </template>
 
@@ -10,7 +13,6 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-
 @import '~@/assets/scss/variable.scss';
 @import '~@/assets/scss/mixin.scss';
 

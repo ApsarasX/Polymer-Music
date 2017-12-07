@@ -14,6 +14,8 @@ import SingerDetail from '@/components/singer-detail/singer-detail';
 import Disc from '@/components/disc/disc';
 // 榜单详情
 import TopList from '@/components/top-list/top-list';
+// 用户中心
+import UserCenter from '@/components/user-center/user-conter';
 
 Vue.use(Router);
 
@@ -62,6 +64,10 @@ export default new Router({
                     component: SingerDetail
                 }
             ]
+        },
+        {
+            path: '/user',
+            component: UserCenter
         }
     ]
 });
