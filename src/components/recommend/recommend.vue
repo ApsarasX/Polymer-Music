@@ -154,18 +154,22 @@ export default {
             }
         }
         .recommend-list {
+            background-color: $color-highlight-background;
             .list-title {
                 height: 65px;
                 line-height: 65px;
                 text-align: center;
                 font-size: $font-size-medium;
-                color: $color-theme;
+                color: $color-text;
+                background-color: $color-background;
             }
             .item {
                 display: flex;
                 box-sizing: border-box;
                 align-items: center;
-                padding: 0 20px 20px 20px;
+                margin: 10px;
+                padding: 10px;
+                background-color: $color-background;
                 .icon {
                     flex: 0 0 60px;
                     width: 60px;

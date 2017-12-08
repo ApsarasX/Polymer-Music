@@ -54,8 +54,7 @@ export default {
     width: 100%;
     padding: 0 6px;
     height: 40px;
-    background: $color-highlight-background;
-    border-radius: 6px;
+    background: $color-background;
     .icon-search {
         font-size: 24px;
         color: $color-background;
@@ -64,7 +63,7 @@ export default {
         flex: 1;
         margin: 0 5px;
         line-height: 18px;
-        background: $color-highlight-background;
+        background: $color-background;
         color: $color-text;
         outline: none;
         font-size: $font-size-medium;

@@ -82,10 +82,11 @@ export default {
     .toplist {
         height: 100%;
         overflow: hidden;
+        background-color: $color-highlight-background;
         .item {
             display: flex;
-            margin: 0 20px;
-            padding-top: 20px;
+            margin: 0 10px;
+            padding-top: 10px;
             height: 100px;
             &:last-child {
                 padding-bottom: 20px;
@@ -103,7 +104,7 @@ export default {
                 padding: 0 20px;
                 height: 100px;
                 overflow: hidden;
-                background: $color-highlight-background;
+                background: $color-background;
                 color: $color-text-d;
                 font-size: $font-size-small;
                 .song {

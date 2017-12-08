@@ -111,7 +111,8 @@ export default {
 
 .search {
     .search-box-wrapper {
-        margin: 20px;
+        padding: 10px;
+        background-color: $color-highlight-background;
     }
     .shortcut-wrapper {
         position: fixed;

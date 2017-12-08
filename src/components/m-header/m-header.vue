@@ -22,6 +22,7 @@ export default {};
     text-align: center;
     color: $color-theme;
     font-size: 0;
+    background-color: $color-theme-background;
     .icon {
         display: inline-block;
         vertical-align: top;

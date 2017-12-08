@@ -28,14 +28,14 @@ export default {};
     height: 44px;
     line-height: 44px;
     font-size: $font-size-medium;
-
+    background-color: $color-theme-background;
     .tab-item {
         flex: 1;
         text-align: center;
 
         .tab-link {
             padding-bottom: 5px;
-            color: $color-text-l;
+            color: $color-sub-theme;
         }
 
         &.router-link-active {
