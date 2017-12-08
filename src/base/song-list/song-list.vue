@@ -60,8 +60,12 @@ export default {
         display: flex;
         align-items: center;
         box-sizing: border-box;
-        height: 64px;
+        height: 72px;
         font-size: $font-size-medium;
+        // border-bottom: 1px solid $color-split;
+        background-color: $color-background;
+        margin-bottom: 10px;
+        padding: 30px 20px;
         .rank {
             flex: 0 0 25px;
             width: 25px;
@@ -83,7 +87,7 @@ export default {
                 }
             }
             .text {
-                color: $color-theme;
+                color: $color-text;
                 font-size: $font-size-large;
             }
         }

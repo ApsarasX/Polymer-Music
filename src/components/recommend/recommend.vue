@@ -16,7 +16,7 @@
                 </div>
                 <div class="recommend-list">
                     <h1 class="list-title">热门歌单推荐</h1>
-                    <ul>
+                    <ul class="list">
                         <li @click="selectItem(item)" v-for="(item, index) in discList" class="item" :key="index">
                             <div class="icon">
                                 <img width="60" height="60" v-lazy="item.imgurl" alt="discItem">
@@ -163,11 +163,14 @@ export default {
                 color: $color-text;
                 background-color: $color-background;
             }
+            .list {
+                padding: 15px 0;
+            }
             .item {
                 display: flex;
                 box-sizing: border-box;
                 align-items: center;
-                margin: 10px;
+                margin: 0 15px 10px;
                 padding: 10px;
                 background-color: $color-background;
                 .icon {

@@ -134,10 +134,11 @@ export default {
                     display: inline-block;
                     padding: 5px 10px;
                     margin: 0 12px 10px 0;
-                    border-radius: 6px;
-                    background: $color-highlight-background;
+                    border-radius: 99px;
+                    // background: $color-highlight-background;
+                    border: 1px solid $color-text-ll;
                     font-size: $font-size-medium;
-                    color: $color-text-d;
+                    color: $color-text-ll;
                 }
             }
             .search-history {

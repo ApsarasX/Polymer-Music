@@ -199,7 +199,7 @@ export default {
         text-align: center;
         line-height: 40px;
         font-size: $font-size-large;
-        color: $color-text;
+        color: $color-text-white;
     }
     .bg-image {
         position: relative;
@@ -257,7 +257,8 @@ export default {
         width: 100%;
         background: $color-background;
         .song-list-wrapper {
-            padding: 20px 30px;
+            padding: 20px 15px;
+            background-color: $color-highlight-background;
         }
         .loading-container {
             position: absolute;
