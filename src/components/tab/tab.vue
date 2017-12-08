@@ -40,8 +40,8 @@ export default {};
 
         &.router-link-active {
             .tab-link {
-                color: $color-theme;
-                border-bottom: 2px solid $color-theme;
+                color: $color-text-white;
+                border-bottom: 2px solid $color-text-white;
             }
         }
     }

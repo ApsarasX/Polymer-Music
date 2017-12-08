@@ -1,7 +1,7 @@
 <template>
     <div class="music-list">
         <div class="back" @click="back">
-            <i class="icon-back"></i>
+           <i class="material-icons">arrow_back</i>
         </div>
         <h1 class="title" v-html="title"></h1>
         <div class="bg-image" :style="bgStyle" ref="bgImage">
@@ -180,7 +180,7 @@ export default {
     .back {
         position: absolute;
         top: 0;
-        left: 6px;
+        left: 0;
         z-index: 50;
         .icon-back {
             display: block;

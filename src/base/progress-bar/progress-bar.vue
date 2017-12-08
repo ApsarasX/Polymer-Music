@@ -100,8 +100,8 @@ export default {
     .bar-inner {
         position: relative;
         top: 13px;
-        height: 4px;
-        background: rgba(0, 0, 0, 0.3);
+        height: 2px;
+        background: rgba(225, 225, 225, 0.42);
         .progress {
             position: absolute;
             height: 100%;
@@ -120,9 +120,9 @@ export default {
                 box-sizing: border-box;
                 width: 16px;
                 height: 16px;
-                border: 3px solid $color-text;
+                border: 3px solid #fff;
                 border-radius: 50%;
-                background: $color-theme;
+                background: #fff;
             }
         }
     }

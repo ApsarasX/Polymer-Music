@@ -7,7 +7,7 @@
                 </div>
                 <div class="top">
                     <div class="back" @click="back">
-                        <i class="icon-back"></i>
+                        <i class="material-icons">keyboard_backspace</i>
                     </div>
                     <h1 class="title" v-html="currentSong.name"></h1>
                     <h2 class="subtitle" v-html="currentSong.singer"></h2>
@@ -528,18 +528,6 @@ export default {
             this.$refs.audio.src = newSong.url;
             this.$refs.audio.play();
             this.getLyric();
-            // // 清理上一首歌曲的歌词对象
-            // if (this.currentLyric) {
-            //     this.currentLyric.stop();
-            // }
-            // clearTimeout(this.timer);
-            // this.timer = setTimeout(() => {
-            //     /**
-            //      * @throws 在移动端chrome被报错(被认为不是用户操作)
-            //      */
-            //     this.$refs.audio.play();
-            //     this.getLyric();
-            // }, 1000);
         },
         playing(newPlaying) {
             if (!this.songReady) {
@@ -589,7 +577,7 @@ export default {
         top: 0;
         bottom: 0;
         z-index: 150;
-        background: $color-background;
+        background: $color-background-blur;
         .background {
             position: absolute;
             left: 0;
@@ -612,8 +600,7 @@ export default {
                     display: block;
                     padding: 9px;
                     font-size: $font-size-large-x;
-                    color: $color-theme;
-                    transform: rotate(-90deg);
+                    color: $color-text-white;
                 }
             }
             .title {
@@ -623,13 +610,13 @@ export default {
                 text-align: center;
                 @include no-wrap;
                 font-size: $font-size-large;
-                color: $color-text;
+                color: $color-text-white;
             }
             .subtitle {
                 line-height: 20px;
                 text-align: center;
                 font-size: $font-size-medium;
-                color: $color-text;
+                color: $color-text-white;
             }
         }
         .middle {
@@ -684,7 +671,7 @@ export default {
                         height: 20px;
                         line-height: 20px;
                         font-size: $font-size-medium;
-                        color: $color-text-l;
+                        color: $color-text-white;
                     }
                 }
             }
@@ -701,10 +688,10 @@ export default {
                     text-align: center;
                     .text {
                         line-height: 32px;
-                        color: $color-text-l;
+                        color: #aaa;
                         font-size: $font-size-medium;
                         &.current {
-                            color: $color-text;
+                            color: $color-text-white;
                         }
                     }
                 }
@@ -761,7 +748,7 @@ export default {
                 align-items: center;
                 .icon {
                     flex: 1;
-                    color: $color-theme;
+                    color: $color-icon;
                     &.disable {
                         color: $color-theme-d;
                     }
@@ -815,7 +802,8 @@ export default {
         z-index: 180;
         width: 100%;
         height: 60px;
-        background: $color-highlight-background;
+        background: $color-background;
+        box-shadow: 0 3px 14px 2px rgba(0, 0, 0, 0.12);
         &.mini-enter-active,
         &.mini-leave-active {
             transition: all 0.4s;
@@ -865,7 +853,7 @@ export default {
             .icon-pause-mini,
             .icon-playlist {
                 font-size: 30px;
-                color: $color-theme-d;
+                color: $color-icon;
             }
             .icon-mini {
                 font-size: 32px;
