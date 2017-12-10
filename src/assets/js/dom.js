@@ -25,6 +25,24 @@ export function addClass(el, className) {
 }
 
 /**
+ * @function removeClass - 为DOM元素去掉类名
+ * @param {DOMObject} el - DOM元素
+ * @param {String} className - 类名
+ */
+export function removeClass(el, className) {
+    if (!hasClass(el, className)) {
+        return;
+    }
+    const newClass = el.className.split(' ');
+    const targetIndex = newClass.indexOf(className);
+    if (targetIndex > -1) {
+        newClass.splice(targetIndex, 1);
+    }
+    /* eslint-disable no-param-reassign */
+    el.className = newClass.join(' ');
+}
+
+/**
  * @function getData - 设置或获取DOM元素的属性
  * @param {DOM} el - DOM元素
  * @param {String} name - data属性后缀

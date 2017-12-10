@@ -1,37 +1,39 @@
 <template>
-    <div class="search">
-        <div class="search-box-wrapper">
-            <search-box ref="searchBox" @query="onQueryChange"></search-box>
-        </div>
-        <div ref="shortcutWrapper" class="shortcut-wrapper" v-show="!query">
-            <scroll class="shortcut" ref="shortcut" :data="shortcut" :refreshDelay="refreshDelay">
-                <div>
-                    <div class="hot-key">
-                        <h1 class="title">热门搜索</h1>
-                        <ul>
-                            <li @click="addQuery(item.k)" class="item" v-for="(item,index) in hotKey" :key="index">
-                                <span>{{item.k}}</span>
-                            </li>
-                        </ul>
+    <transition name="slide">
+        <div class="search">
+            <div class="search-box-wrapper">
+                <search-box ref="searchBox" @query="onQueryChange"></search-box>
+            </div>
+            <div ref="shortcutWrapper" class="shortcut-wrapper" v-show="!query">
+                <scroll class="shortcut" ref="shortcut" :data="shortcut" :refreshDelay="refreshDelay">
+                    <div>
+                        <div class="hot-key">
+                            <h1 class="title">热门搜索</h1>
+                            <ul>
+                                <li @click="addQuery(item.k)" class="item" v-for="(item,index) in hotKey" :key="index">
+                                    <span>{{item.k}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="search-history" v-show="searchHistory.length">
+                            <h1 class="title">
+                                <span class="text">搜索历史</span>
+                                <span class="clear" @click="showConfirm">
+                                    <i class="icon-clear"></i>
+                                </span>
+                            </h1>
+                            <search-list @select="addQuery" @delete="deleteSearchHistory" :searches="searchHistory"></search-list>
+                        </div>
                     </div>
-                    <div class="search-history" v-show="searchHistory.length">
-                        <h1 class="title">
-                            <span class="text">搜索历史</span>
-                            <span class="clear" @click="showConfirm">
-                                <i class="icon-clear"></i>
-                            </span>
-                        </h1>
-                        <search-list @select="addQuery" @delete="deleteSearchHistory" :searches="searchHistory"></search-list>
-                    </div>
-                </div>
-            </scroll>
+                </scroll>
+            </div>
+            <div ref="searchResult" class="search-result">
+                <suggest ref="suggest" :query="query" v-show="query" @listScroll="blurInput" @select="saveSearch"></suggest>
+            </div>
+            <confirm ref="confirm" text="是否清空所有搜索历史" confirmBtnTxt="清空" @confirm="clearSearchHistory"></confirm>
+            <router-view></router-view>
         </div>
-        <div ref="searchResult" class="search-result">
-            <suggest ref="suggest" :query="query" v-show="query" @listScroll="blurInput" @select="saveSearch"></suggest>
-        </div>
-        <confirm ref="confirm" text="是否清空所有搜索历史" confirmBtnTxt="清空" @confirm="clearSearchHistory"></confirm>
-        <router-view></router-view>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -110,6 +112,14 @@ export default {
 @import '~@/assets/scss/mixin.scss';
 
 .search {
+    &.slide-enter-active,
+    &.slide-leave-active {
+        transition: all 0.3s;
+    }
+    &.slide-enter,
+    &.slide-leave-to {
+        transform: translate3d(100%, 0, 0);
+    }
     .search-box-wrapper {
         padding: 10px;
         background-color: $color-highlight-background;

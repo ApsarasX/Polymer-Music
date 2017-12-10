@@ -1,8 +1,8 @@
 <template>
     <div class="search-box">
-        <i class="icon-search"></i>
+        <i class="material-icons">search</i>
         <input ref="query" type="text" class="box" v-model="query" :placeholder="placeholder">
-        <i v-if="query" class="icon-dismiss" @click="clear"></i>
+        <i v-if="query" class="material-icons" @click="clear">clear</i>
     </div>
 </template>
 <script>
@@ -55,9 +55,9 @@ export default {
     padding: 0 6px;
     height: 40px;
     background: $color-background;
-    .icon-search {
+    .material-icons {
         font-size: 24px;
-        color: $color-background;
+        color: $color-text;
     }
     .box {
         flex: 1;
@@ -70,10 +70,6 @@ export default {
         &::placeholder {
             color: $color-text-d;
         }
-    }
-    .icon-dismiss {
-        font-size: 16px;
-        color: $color-background;
     }
 }
 </style>

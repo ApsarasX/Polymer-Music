@@ -26,7 +26,9 @@ const state = {
     // 播放历史
     playHistory: loadPlay(),
     // 收藏歌曲
-    favoriteList: loadFavorite()
+    favoriteList: loadFavorite(),
+    // 用户中心可见性
+    userCenterVisible: false
 };
 
 export default state;

@@ -1,11 +1,12 @@
 <template>
     <div id="app">
-        <m-header></m-header>
+        <m-header @userCenterVisibleChange="userCenterVisibleChange"></m-header>
         <tab></tab>
         <keep-alive>
             <router-view></router-view>
         </keep-alive>
         <player></player>
+        <user-center></user-center>
     </div>
 </template>
 
@@ -14,12 +15,26 @@
 import MHeader from '@/components/m-header/m-header';
 import Tab from '@/components/tab/tab';
 import Player from './components/player/player';
+import UserCenter from './components/user-center/user';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
+    computed: {
+        ...mapGetters(['userCenterVisible'])
+    },
     components: {
         MHeader,
         Tab,
-        Player
+        Player,
+        UserCenter
+    },
+    methods: {
+        userCenterVisibleChange() {
+            this.setUserCenterVisible(!this.userCenterVisible);
+        },
+        ...mapMutations({
+            setUserCenterVisible: 'SET_USER_CENTER_VISIBLE'
+        })
     }
 };
 </script>

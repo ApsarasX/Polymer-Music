@@ -3,7 +3,7 @@
         <ul class="suggest-list">
             <li @click="selectItem(item)" class="suggest-item " v-for="(item,index) in result " :key="index ">
                 <div class="icon ">
-                    <i :class="getIconClass(item) "></i>
+                    <i :class="getIconClass(item)"></i>
                 </div>
                 <div class="name ">
                     <p class="text " v-html="getDisplayName(item) "></p>
@@ -192,8 +192,9 @@ export default {
         .suggest-item {
             display: flex;
             align-items: center;
-            padding-bottom: 20px;
+            padding: 12px 0;
             color: $color-text-l;
+            border-bottom: 1px solid $color-split;
         }
         .icon {
             flex: 0 0 30px;

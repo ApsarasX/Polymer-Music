@@ -111,7 +111,7 @@ export default {
     }
     &.slide-enter,
     &.slide-leave-to {
-        transform: translate3d(100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
     }
     .back {
         position: absolute;

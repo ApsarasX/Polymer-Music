@@ -1,15 +1,23 @@
 <template>
     <div class="m-header">
-        <!-- <div class="icon"></div> -->
+        <div class="user" @click.stop="toggleUserCenter">
+            <i class="material-icons">menu</i>
+        </div>
         <h1 class="text">聚合音乐</h1>
-        <router-link to="/user" class="mine" tag="div">
-            <i class="icon-mine"></i>
+        <router-link to="/search" class="search" tag="div">
+            <i class="material-icons">search</i>
         </router-link>
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+    methods: {
+        toggleUserCenter() {
+            this.$emit('userCenterVisibleChange');
+        }
+    }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -23,17 +31,6 @@ export default {};
     color: $color-text-white;
     font-size: 0;
     background-color: $color-theme-background;
-    .icon {
-        display: inline-block;
-        vertical-align: top;
-        margin-top: 6px;
-        width: 30px;
-        height: 32px;
-        margin-right: 9px;
-        @include bg-image('logo');
-        background-size: 30px 32px;
-    }
-
     .text {
         display: inline-block;
         vertical-align: top;
@@ -41,16 +38,21 @@ export default {};
         font-size: $font-size-large;
     }
 
-    .mine {
+    .search {
         position: absolute;
         top: 0;
         right: 0;
-        .icon-mine {
-            display: block;
-            padding: 12px;
-            font-size: 20px;
-            color: $color-theme;
-        }
+    }
+    .user {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .material-icons {
+        display: block;
+        padding: 12px;
+        font-size: 28px;
+        color: $color-sub-theme;
     }
 }
 </style>

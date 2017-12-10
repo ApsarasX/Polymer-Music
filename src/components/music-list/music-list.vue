@@ -1,7 +1,7 @@
 <template>
     <div class="music-list">
         <div class="back" @click="back">
-           <i class="material-icons">arrow_back</i>
+            <i class="material-icons">chevron_left</i>
         </div>
         <h1 class="title" v-html="title"></h1>
         <div class="bg-image" :style="bgStyle" ref="bgImage">
@@ -15,7 +15,7 @@
         </div>
         <div class="bg-layer" ref="layer"></div>
         <scroll @scroll="scroll" :probe-type="probeType" :listen-scroll="listenScroll" :data="songs" class="list" ref="list">
-            <div class="song-list-wrapper">
+            <div :class="['song-list-wrapper',{'pad':songs.length}]">
                 <song-list @select="selectItem" :songs="songs" :rank="rank"></song-list>
             </div>
             <div class="loading-container" v-show="!songs.length">
@@ -257,8 +257,10 @@ export default {
         width: 100%;
         background: $color-background;
         .song-list-wrapper {
-            padding: 20px 15px;
             background-color: $color-highlight-background;
+        }
+        .pad {
+            padding: 20px 15px;
         }
         .loading-container {
             position: absolute;

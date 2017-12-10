@@ -7,7 +7,7 @@
                 </div>
                 <div class="top">
                     <div class="back" @click="back">
-                        <i class="material-icons">keyboard_backspace</i>
+                        <i class="material-icons">chevron_left</i>
                     </div>
                     <h1 class="title" v-html="currentSong.name"></h1>
                     <h2 class="subtitle" v-html="currentSong.singer"></h2>
@@ -803,7 +803,7 @@ export default {
         width: 100%;
         height: 60px;
         background: $color-background;
-        box-shadow: 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 -2px 14px 2px rgba(0, 0, 0, 0.12);
         &.mini-enter-active,
         &.mini-leave-active {
             transition: all 0.4s;

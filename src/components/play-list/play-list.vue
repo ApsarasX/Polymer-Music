@@ -179,7 +179,7 @@ export default {
         left: 0;
         bottom: 0;
         width: 100%;
-        background-color: $color-highlight-background;
+        background-color: $color-background;
         .list-header {
             position: relative;
             padding: 20px 30px 10px 20px;
@@ -189,18 +189,18 @@ export default {
                 .icon {
                     margin-right: 10px;
                     font-size: 30px;
-                    color: $color-theme-d;
+                    color: $color-theme;
                 }
                 .text {
                     flex: 1;
                     font-size: $font-size-medium;
-                    color: $color-text-l;
+                    color: $color-text;
                 }
                 .clear {
                     @include extend-click;
                     .icon-clear {
                         font-size: $font-size-medium;
-                        color: $color-text-d;
+                        color: $color-text;
                     }
                 }
             }
@@ -226,13 +226,13 @@ export default {
                     flex: 0 0 20px;
                     width: 20px;
                     font-size: $font-size-small;
-                    color: $color-theme-d;
+                    color: $color-theme;
                 }
                 .text {
                     flex: 1;
                     @include no-wrap;
                     font-size: $font-size-medium;
-                    color: $color-text-d;
+                    color: $color-text;
                 }
                 .like {
                     @include extend-click;
@@ -257,9 +257,9 @@ export default {
                 display: flex;
                 align-items: center;
                 padding: 8px 16px;
-                border: 1px solid $color-text-l;
+                border: 1px solid $color-text-ll;
                 border-radius: 100px;
-                color: $color-text-l;
+                color: $color-text-ll;
                 .icon-add {
                     margin-right: 5px;
                     font-size: $font-size-small-s;
@@ -272,7 +272,7 @@ export default {
         .list-close {
             text-align: center;
             line-height: 50px;
-            background: $color-background;
+            background: $color-highlight-background;
             font-size: $font-size-medium-x;
             color: $color-text-l;
         }

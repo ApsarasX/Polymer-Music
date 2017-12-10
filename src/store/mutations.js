@@ -36,6 +36,9 @@ const mutations = {
     },
     [types.SET_FAVORITE_LIST](state, list) {
         state.favoriteList = list;
+    },
+    [types.SET_USER_CENTER_VISIBLE](state, visible) {
+        state.userCenterVisible = visible;
     }
 };
 

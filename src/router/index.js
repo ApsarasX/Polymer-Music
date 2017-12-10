@@ -16,7 +16,7 @@ const Disc = () => import('@/components/disc/disc');
 // 榜单详情
 const TopList = () => import('@/components/top-list/top-list');
 // 用户中心
-const UserCenter = () => import('@/components/user-center/user-conter');
+// const UserCenter = () => import('@/components/user-center/user');
 
 Vue.use(Router);
 
@@ -65,11 +65,12 @@ const router = new Router({
                     component: SingerDetail
                 }
             ]
-        },
-        {
-            path: '/user',
-            component: UserCenter
         }
+        // ,
+        // {
+        //     path: '/user',
+        //     component: UserCenter
+        // }
     ]
 });
 
