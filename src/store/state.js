@@ -30,7 +30,9 @@ const state = {
     // 用户中心可见性
     userCenterVisible: false,
     // 播放列表显示
-    playListVisible: false
+    playListVisible: false,
+    // mini播放器显示
+    miniPlayerVisible: true
 };
 
 export default state;

@@ -67,7 +67,7 @@
             </div>
         </transition>
         <transition name="mini">
-            <div class="mini-player" v-show="!fullScreen" @click="open">
+            <div class="mini-player" v-show="!fullScreen && miniPlayerVisible" @click="open">
                 <div class="icon">
                     <img :class="cdCls" :src="currentSong.image" alt="图片" width="40" height="40">
                 </div>
@@ -154,12 +154,18 @@ export default {
             return this.currentTime / this.currentSong.duration;
         },
         // 从Vuex获取播放器数据
-        ...mapGetters(['fullScreen', 'playing', 'currentIndex'])
+        ...mapGetters([
+            'fullScreen',
+            'playing',
+            'currentIndex',
+            'miniPlayerVisible'
+        ])
     },
     methods: {
         // Vuex 的mutations
         ...mapMutations({
-            setFullScreen: 'SET_FULL_SCREEN'
+            setFullScreen: 'SET_FULL_SCREEN',
+            setMiniPlayerVisible: 'SET_MINI_PLAYER_VISIBLE'
         }),
         ...mapActions(['savePlayHistory']),
         /**
@@ -512,6 +518,7 @@ export default {
         // 当currentSong变化的时候, 播放音乐
         currentSong(newSong, oldSong) {
             // 如果没有歌曲可供播放
+            this.setMiniPlayerVisible(true);
             if (!newSong.id || !newSong.url || newSong.id === oldSong.id) {
                 return;
             }
@@ -811,11 +818,12 @@ export default {
         box-shadow: 0 -2px 14px 2px rgba(0, 0, 0, 0.12);
         &.mini-enter-active,
         &.mini-leave-active {
-            transition: all 0.4s;
+            transition: all 0.25s;
         }
         &.mini-enter,
         &.mini-leave-to {
-            opacity: 0;
+            // opacity: 0;
+            transform: translate3d(0, 100%, 0);
         }
         .icon {
             flex: 0 0 40px;

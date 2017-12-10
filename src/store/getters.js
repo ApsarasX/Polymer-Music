@@ -27,3 +27,5 @@ export const favoriteList = state => state.favoriteList;
 export const userCenterVisible = state => state.userCenterVisible;
 
 export const playListVisible = state => state.playListVisible;
+
+export const miniPlayerVisible = state => state.miniPlayerVisible;

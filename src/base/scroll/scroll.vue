@@ -7,6 +7,7 @@
 
 <script>
 import BScroll from 'better-scroll';
+import { mapMutations, mapGetters } from 'vuex';
 
 const DIRECTION_H = 'horizontal';
 const DIRECTION_V = 'vertical';
@@ -16,7 +17,7 @@ export default {
         // scroll事件派发设置
         probeType: {
             type: Number,
-            default: 1
+            default: 2
         },
         click: {
             type: Boolean,
@@ -55,6 +56,14 @@ export default {
             this._initScroll();
         }, this.refreshDelay);
     },
+    computed: {
+        ...mapGetters(['miniPlayerVisible'])
+    },
+    data() {
+        return {
+            scrollEvent: []
+        };
+    },
     methods: {
         /**
          * @function _initScroll - 初始化scroll对象
@@ -85,11 +94,26 @@ export default {
                     }
                 });
             }
-            if (this.beforeScroll) {
-                this.scroll.on('beforeScrollStart', () => {
-                    this.$emit('beforeScroll');
-                });
-            }
+            this.scroll.on('scroll', pos => {
+                this.scrollEvent.push(pos.y);
+                if (
+                    this.scrollEvent[0] -
+                        this.scrollEvent[this.scrollEvent.length - 1] >
+                        150 &&
+                    this.miniPlayerVisible
+                ) {
+                    this.setMiniPlayerVisible(false);
+                    this.scrollEvent = [];
+                } else if (
+                    this.scrollEvent[0] -
+                        this.scrollEvent[this.scrollEvent.length - 1] <
+                        -100 &&
+                    !this.miniPlayerVisible
+                ) {
+                    this.setMiniPlayerVisible(true);
+                    this.scrollEvent = [];
+                }
+            });
         },
         // 组件代理better-scroll的三个方法
         enable() {
@@ -109,7 +133,10 @@ export default {
         // 滚动到某个元素
         scrollToElement(...args) {
             this.scroll && this.scroll.scrollToElement(...args);
-        }
+        },
+        ...mapMutations({
+            setMiniPlayerVisible: 'SET_MINI_PLAYER_VISIBLE'
+        })
     },
     watch: {
         data() {

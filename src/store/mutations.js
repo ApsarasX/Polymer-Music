@@ -42,6 +42,9 @@ const mutations = {
     },
     [types.SET_PLAY_LIST_VISIBLE](state, visible) {
         state.playListVisible = visible;
+    },
+    [types.SET_MINI_PLAYER_VISIBLE](state, visible) {
+        state.miniPlayerVisible = visible;
     }
 };
 
