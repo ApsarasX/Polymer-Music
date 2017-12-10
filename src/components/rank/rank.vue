@@ -105,7 +105,7 @@ export default {
                 height: 100px;
                 overflow: hidden;
                 background: $color-background;
-                color: $color-text-d;
+                color: $color-text-l;
                 font-size: $font-size-small;
                 .song {
                     @include no-wrap;

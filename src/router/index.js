@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from '../store';
 // 首页-推荐页
 const Recommend = () => import('@/components/recommend/recommend');
 // 首页-歌手页
@@ -19,7 +20,7 @@ const UserCenter = () => import('@/components/user-center/user-conter');
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     routes: [
         {
             path: '/',
@@ -71,3 +72,14 @@ export default new Router({
         }
     ]
 });
+
+router.beforeEach((to, from, next) => {
+    if (store.getters.fullScreen) {
+        store.commit('SET_FULL_SCREEN', false);
+        next(false);
+    } else {
+        next();
+    }
+});
+
+export default router;

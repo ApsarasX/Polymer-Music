@@ -20,7 +20,7 @@ export default {};
     position: relative;
     height: 44px;
     text-align: center;
-    color: $color-theme;
+    color: $color-text-white;
     font-size: 0;
     background-color: $color-theme-background;
     .icon {
