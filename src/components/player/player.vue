@@ -260,7 +260,7 @@ export default {
                 return;
             }
             // 播放前一首歌曲
-            const index = (this.currentIndex - 1) % this.playlist.length;
+            const index = (this.currentIndex - 1) % this.playList.length;
             this.setCurrentIndex(index);
             // 如果当前播放停止就切换歌曲, 同时改变播放状态变量
             if (!this.playing) {
@@ -276,7 +276,7 @@ export default {
                 return;
             }
             // 播放后一首歌曲
-            const index = (this.currentIndex + 1) % this.playlist.length;
+            const index = (this.currentIndex + 1) % this.playList.length;
             this.setCurrentIndex(index);
             if (!this.playing) {
                 this.togglePlaying();
@@ -527,7 +527,7 @@ export default {
             }
             this.$refs.audio.src = newSong.url;
             this.$refs.audio.play();
-            this.getLyric();
+            // this.getLyric();
         },
         playing(newPlaying) {
             if (!this.songReady) {
@@ -553,6 +553,11 @@ export default {
                     this.$refs.lyricList.refresh();
                     this.$refs.progressBar.setProgressOffset(this.percent);
                 }, 20);
+            }
+        },
+        songReady(newVal) {
+            if (newVal) {
+                this.getLyric();
             }
         }
     },
@@ -671,7 +676,7 @@ export default {
                         height: 20px;
                         line-height: 20px;
                         font-size: $font-size-medium;
-                        color: $color-text-white;
+                        color: $color-text-white-ll;
                     }
                 }
             }
@@ -711,11 +716,11 @@ export default {
                     width: 8px;
                     height: 8px;
                     border-radius: 50%;
-                    background: $color-text-l;
+                    background: $color-text-white-l;
                     &.active {
                         width: 20px;
                         border-radius: 5px;
-                        background: $color-text-ll;
+                        background: $color-text-white-ll;
                     }
                 }
             }
@@ -726,7 +731,7 @@ export default {
                 margin: 0px auto;
                 padding: 10px 0;
                 .time {
-                    color: $color-text;
+                    color: $color-text-white-ll;
                     font-size: $font-size-small;
                     flex: 0 0 30px;
                     line-height: 30px;
