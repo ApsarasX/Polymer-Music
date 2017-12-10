@@ -1,6 +1,6 @@
 <template>
     <transition name="list-fade">
-        <div class="playlist" v-show="showFlag" @click="hide">
+        <div class="playlist" v-show="playListVisible" @click="hide">
             <div class="list-wrapper" @click.stop>
                 <div class="list-header">
                     <h1 class="title">
@@ -12,7 +12,7 @@
                     </h1>
                 </div>
                 <scroll class="list-content" :refreshDelay="refreshDelay" :data="sequenceList" ref="listContent">
-                    <transition-group name="list" tag="ul">
+                    <transition-group name="list" tag="ul" ref="list">
                         <li ref="listItem" class="item" v-for="(item,index) in sequenceList" :key="item.id" @click="selectItem(item,index)">
                             <i class="current" :class="getCurrentIcon(item)"></i>
                             <span class="text">{{item.name}}</span>
@@ -41,7 +41,7 @@
     </transition>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import Scroll from '@/base/scroll/scroll';
 import { playMode } from '@/assets/js/config';
 import Confirm from '@/base/confirm/confirm';
@@ -52,7 +52,6 @@ export default {
     mixins: [playerMixin],
     data() {
         return {
-            showFlag: false,
             refreshDelay: 100
         };
     },
@@ -63,11 +62,12 @@ export default {
             return `${modeText}${modeText !== '单曲循环'
                 ? `(${this.playList.length}首)`
                 : ''}`;
-        }
+        },
+        ...mapGetters(['playListVisible'])
     },
     methods: {
         show() {
-            this.showFlag = true;
+            this.setPlayListVisible(true);
             // 延迟20ms刷新滚动列表
             setTimeout(() => {
                 this.$refs.listContent.refresh();
@@ -75,7 +75,7 @@ export default {
             }, 20);
         },
         hide() {
-            this.showFlag = false;
+            this.setPlayListVisible(false);
         },
         getCurrentIcon(item) {
             if (this.currentSong.id === item.id) {
@@ -127,12 +127,15 @@ export default {
         addSong() {
             this.$refs.addSong.show();
         },
-        ...mapActions(['deleteSong', 'deleteSongList'])
+        ...mapActions(['deleteSong', 'deleteSongList']),
+        ...mapMutations({
+            setPlayListVisible: 'SET_PLAY_LIST_VISIBLE'
+        })
     },
     watch: {
         // 如果歌曲变化, 则滚动列表
         currentSong(newSong, oldSong) {
-            if (!this.showFlag || newSong.id === oldSong.id) {
+            if (!this.playListVisible || newSong.id === oldSong.id) {
                 return;
             }
             setTimeout(() => {

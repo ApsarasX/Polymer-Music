@@ -39,6 +39,9 @@ const mutations = {
     },
     [types.SET_USER_CENTER_VISIBLE](state, visible) {
         state.userCenterVisible = visible;
+    },
+    [types.SET_PLAY_LIST_VISIBLE](state, visible) {
+        state.playListVisible = visible;
     }
 };
 

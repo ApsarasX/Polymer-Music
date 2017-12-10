@@ -75,8 +75,11 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    if (store.getters.fullScreen) {
+    const { fullScreen, userCenterVisible, playListVisible } = store.getters;
+    if (fullScreen || userCenterVisible || playListVisible) {
         store.commit('SET_FULL_SCREEN', false);
+        store.commit('SET_USER_CENTER_VISIBLE', false);
+        store.commit('SET_PLAY_LIST_VISIBLE', false);
         next(false);
     } else {
         next();

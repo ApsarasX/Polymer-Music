@@ -28,7 +28,9 @@ const state = {
     // 收藏歌曲
     favoriteList: loadFavorite(),
     // 用户中心可见性
-    userCenterVisible: false
+    userCenterVisible: false,
+    // 播放列表显示
+    playListVisible: false
 };
 
 export default state;
