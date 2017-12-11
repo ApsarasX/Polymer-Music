@@ -78,8 +78,8 @@ export default {
         this.$refs.list.$el.style.top = `${this.$refs.bgImage.clientHeight}px`;
     },
     methods: {
-        handlePlayList(playList) {
-            const bottom = playList.length > 0 ? '60px' : '';
+        handlePlayList(playList, bottomEnable = true) {
+            const bottom = playList.length > 0 && bottomEnable ? '60px' : '';
             this.$refs.list.$el.style.bottom = bottom;
             this.$refs.list.refresh();
         },

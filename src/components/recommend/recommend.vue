@@ -83,8 +83,8 @@ export default {
             });
             this.setDisc(item);
         },
-        handlePlayList(playList) {
-            const bottom = playList.length > 0 ? '60px' : '';
+        handlePlayList(playList, bottomEnable = true) {
+            const bottom = playList.length > 0 && bottomEnable ? '60px' : '';
             this.$refs.recommend.style.bottom = bottom;
             this.$refs.scroll.refresh();
         },

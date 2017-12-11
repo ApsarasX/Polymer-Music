@@ -77,7 +77,7 @@ export default {
 
 <style lang="scss" scoped>
 .slide-enter-active,
-.slide-leav-active {
+.slide-leave-active {
     transition: all 0.3s;
 }
 .slide-enter,

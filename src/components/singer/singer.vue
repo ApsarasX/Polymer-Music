@@ -29,8 +29,8 @@ export default {
         this._getSingerList();
     },
     methods: {
-        handlePlayList(playList) {
-            const bottom = playList.length > 0 ? '60px' : '';
+        handlePlayList(playList, bottomEnable = true) {
+            const bottom = playList.length > 0 && bottomEnable ? '60px' : '';
             this.$refs.singer.style.bottom = bottom;
             this.$refs.list.refresh();
         },

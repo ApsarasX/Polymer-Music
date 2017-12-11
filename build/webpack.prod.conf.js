@@ -102,7 +102,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new SWPrecacheWebpackPlugin({
       cacheId: 'vue-music',
       filename: 'service-worker.js',
-      staticFileGlobs: ['dist/**/*.{js,html,css}'],
+      staticFileGlobs: ['dist/**/*.{js,html,css,eot,woff,woff2,ttf,svg,png}'],
       minify: true,
       stripPrefix: 'dist/'
     })

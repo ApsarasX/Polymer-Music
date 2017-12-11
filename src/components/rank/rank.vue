@@ -47,8 +47,8 @@ export default {
             });
             this.setTopList(item);
         },
-        handlePlayList(playList) {
-            const bottom = playList.length ? '60px' : '';
+        handlePlayList(playList, bottomEnable = true) {
+            const bottom = playList.length > 0 && bottomEnable ? '60px' : '';
             this.$refs.rank.style.bottom = bottom;
             this.$refs.topList.refresh();
         },

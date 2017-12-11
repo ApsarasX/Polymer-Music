@@ -5,7 +5,7 @@ import { playMode } from '@/assets/js/config';
 // 列表相关的Mixin
 export const playListMixin = {
     computed: {
-        ...mapGetters(['playList'])
+        ...mapGetters(['playList', 'miniPlayerVisible'])
     },
     mounted() {
         this.handlePlayList(this.playList);
@@ -16,6 +16,9 @@ export const playListMixin = {
     watch: {
         playList(newVal) {
             this.handlePlayList(newVal);
+        },
+        miniPlayerVisible(newVal) {
+            this.handlePlayList(this.playList, newVal);
         }
     },
     methods: {

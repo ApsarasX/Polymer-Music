@@ -17,7 +17,7 @@ export default {
         // scroll事件派发设置
         probeType: {
             type: Number,
-            default: 2
+            default: 3
         },
         click: {
             type: Boolean,
@@ -94,6 +94,9 @@ export default {
                     }
                 });
             }
+            this.scroll.on('beforeScrollStart', () => {
+                this.scrollEvent = [];
+            });
             this.scroll.on('scroll', pos => {
                 this.scrollEvent.push(pos.y);
                 if (
