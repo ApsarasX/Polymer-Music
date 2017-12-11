@@ -9,7 +9,7 @@
                     <p class="text " v-html="getDisplayName(item) "></p>
                 </div>
             </li>
-            <loading v-show="hasMore" title=""></loading>
+            <loading v-show="hasMore"></loading>
         </ul>
         <div v-show="!hasMore && !result.length" class="no-result-wrapper">
             <no-result title="抱歉, 暂无搜索结果"></no-result>
