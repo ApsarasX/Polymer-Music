@@ -91,7 +91,7 @@ export default {
                 }
                 .text {
                     position: absolute;
-                    font-size: $font-size-large-x;
+                    font-size: $font-size-large;
                     color: $color-text-white;
                     bottom: 10%;
                     left: 10%;

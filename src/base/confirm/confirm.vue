@@ -1,12 +1,12 @@
 <template>
     <transition name="confirm-fade">
-        <div class="confirm" v-show="showFlag" @click.stop>
+        <div class="confirm" v-show="showFlag" @click.stop="hide">
             <div class="confirm-wrapper">
                 <div class="confirm-content">
                     <p class="text">{{text}}</p>
                     <div class="operate">
-                        <div @click="cancel" class="operate-btn left">{{cancelBtnTxt}}</div>
-                        <div @click="confirm" class="operate-btn">{{confirmBtnTxt}}</div>
+                        <div @click.stop="cancel" class="operate-btn left">{{cancelBtnTxt}}</div>
+                        <div @click.stop="confirm" class="operate-btn">{{confirmBtnTxt}}</div>
                     </div>
                 </div>
             </div>
@@ -64,10 +64,19 @@ export default {
     bottom: 0;
     z-index: 998;
     background-color: $color-background-d;
-    &.confirm-fade-enter-active {
-        animation: confirm-fadein 0.3s;
+    &.confirm-fade-enter-active,
+    &.confirm-fade-leave-active {
+        transition: opacity 0.3s;
         .confirm-content {
-            animation: confirm-zoom 0.3s;
+            transition: all 0.3s;
+            transform: scale(1);
+        }
+    }
+    &.confirm-fade-enter,
+    &.confirm-fade-leave-to {
+        opacity: 0;
+        .confirm-content {
+            transform: scale(0);
         }
     }
     .confirm-wrapper {
@@ -78,14 +87,13 @@ export default {
         z-index: 999;
         .confirm-content {
             width: 270px;
-            border-radius: 13px;
-            background: $color-highlight-background;
+            background: $color-background;
             .text {
                 padding: 19px 15px;
                 line-height: 22px;
                 text-align: center;
                 font-size: $font-size-large;
-                color: $color-text-l;
+                color: $color-text;
             }
             .operate {
                 display: flex;
@@ -97,34 +105,13 @@ export default {
                     line-height: 22px;
                     padding: 10px 0;
                     border-top: 1px solid $color-background-d;
-                    color: $color-text-d;
+                    color: $color-text;
                     &.left {
                         border-right: 1px solid $color-background-d;
                     }
                 }
             }
         }
-    }
-}
-
-@keyframes confirm-fadein {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes confirm-zoom {
-    0% {
-        transform: scale(0);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
     }
 }
 </style>

@@ -102,7 +102,7 @@ export default {
                 if (
                     this.scrollEvent[0] -
                         this.scrollEvent[this.scrollEvent.length - 1] >
-                        150 &&
+                        100 &&
                     this.miniPlayerVisible
                 ) {
                     this.setMiniPlayerVisible(false);
