@@ -21,6 +21,7 @@ export default {
 .loading {
     width: 100%;
     text-align: center;
+    padding-top: 10px;
     .desc {
         line-height: 20px;
         font-size: $font-size-small;

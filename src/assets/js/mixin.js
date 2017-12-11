@@ -3,30 +3,27 @@ import { shuffle } from '@/assets/js/util';
 import { playMode } from '@/assets/js/config';
 
 // 列表相关的Mixin
-export const playListMixin = {
-    computed: {
-        ...mapGetters(['playList', 'miniPlayerVisible'])
-    },
-    mounted() {
-        this.handlePlayList(this.playList);
-    },
-    activated() {
-        this.handlePlayList(this.playList);
-    },
-    watch: {
-        playList(newVal) {
-            this.handlePlayList(newVal);
-        },
-        miniPlayerVisible(newVal) {
-            this.handlePlayList(this.playList, newVal);
-        }
-    },
-    methods: {
-        handlePlayList() {
-            throw new Error('component must implement handlePlayList method');
-        }
-    }
-};
+// export const playListMixin = {
+//     computed: {
+//         ...mapGetters(['playList', 'miniPlayerVisible'])
+//     },
+//     mounted() {
+//         this.handlePlayList(this.playList);
+//     },
+//     activated() {
+//         this.handlePlayList(this.playList);
+//     },
+//     watch: {
+//         playList(newVal) {
+//             this.handlePlayList(newVal);
+//         }
+//     },
+//     methods: {
+//         handlePlayList() {
+//             throw new Error('component must implement handlePlayList method');
+//         }
+//     }
+// };
 
 // 播放相关Mixin
 export const playerMixin = {

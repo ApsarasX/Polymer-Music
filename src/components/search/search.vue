@@ -45,10 +45,10 @@ import SearchList from '@/base/search-list/search-list';
 import { mapActions } from 'vuex';
 import Confirm from '@/base/confirm/confirm';
 import Scroll from '../../base/scroll/scroll';
-import { playListMixin, searchMixin } from '../../assets/js/mixin';
+import { searchMixin } from '../../assets/js/mixin';
 
 export default {
-    mixins: [playListMixin, searchMixin],
+    mixins: [searchMixin],
     components: {
         SearchBox,
         Suggest,
@@ -70,15 +70,15 @@ export default {
         };
     },
     methods: {
-        handlePlayList(playList) {
-            const bottom = playList.length > 0 ? '60px' : '';
-            this.$refs.shortcutWrapper.style.bottom = bottom;
-            // 从新计算整体滚动列表
-            this.$refs.shortcut.refresh();
-            this.$refs.searchResult.style.bottom = bottom;
-            // 从新计算搜索结果滚动列表
-            this.$refs.suggest.refresh();
-        },
+        // handlePlayList(playList) {
+        //     const bottom = playList.length > 0 ? '60px' : '';
+        //     this.$refs.shortcutWrapper.style.bottom = bottom;
+        //     // 从新计算整体滚动列表
+        //     this.$refs.shortcut.refresh();
+        //     this.$refs.searchResult.style.bottom = bottom;
+        //     // 从新计算搜索结果滚动列表
+        //     this.$refs.suggest.refresh();
+        // },
         showConfirm() {
             this.$refs.confirm.show();
         },
@@ -177,7 +177,7 @@ export default {
     .search-result {
         position: fixed;
         width: 100%;
-        top: 178px;
+        top: 160px;
         bottom: 0;
     }
 }

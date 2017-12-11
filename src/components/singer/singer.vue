@@ -11,12 +11,12 @@ import { ERR_OK } from '@/api/config';
 import Singer from '@/assets/js/singer';
 import ListView from '@/base/listview/listview';
 import { mapMutations } from 'vuex';
-import { playListMixin } from '@/assets/js/mixin';
+// import { playListMixin } from '@/assets/js/mixin';
 
 const HOT_NAME = '热门';
 const HOT_SINGER_LEN = 10;
 export default {
-    mixins: [playListMixin],
+    // mixins: [playListMixin],
     data() {
         return {
             singers: []
@@ -29,11 +29,11 @@ export default {
         this._getSingerList();
     },
     methods: {
-        handlePlayList(playList, bottomEnable = true) {
-            const bottom = playList.length > 0 && bottomEnable ? '60px' : '';
-            this.$refs.singer.style.bottom = bottom;
-            this.$refs.list.refresh();
-        },
+        // handlePlayList(playList, bottomEnable = true) {
+        //     const bottom = playList.length > 0 && bottomEnable ? '60px' : '';
+        //     this.$refs.singer.style.bottom = bottom;
+        //     this.$refs.list.refresh();
+        // },
         /**
          * @function selectSinger - 点击歌手进入歌手详情页
          * @param {Object} singer - 歌手数据对象

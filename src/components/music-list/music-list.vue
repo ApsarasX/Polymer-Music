@@ -30,7 +30,7 @@ import SongList from '@/base/song-list/song-list';
 import Loading from '@/base/loading/loading';
 import { prefixStyle } from '@/assets/js/dom';
 import { mapActions } from 'vuex';
-import { playListMixin } from '@/assets/js/mixin';
+// import { playListMixin } from '@/assets/js/mixin';
 
 // 顶部保留高度
 const RESERVED_HEIGHT = 40;
@@ -39,7 +39,7 @@ const transform = prefixStyle('transform');
 const backdrop = prefixStyle('backdrop-filter');
 
 export default {
-    mixins: [playListMixin],
+    // mixins: [playListMixin],
     props: {
         bgImage: {
             type: String,
@@ -78,11 +78,11 @@ export default {
         this.$refs.list.$el.style.top = `${this.$refs.bgImage.clientHeight}px`;
     },
     methods: {
-        handlePlayList(playList, bottomEnable = true) {
-            const bottom = playList.length > 0 && bottomEnable ? '60px' : '';
-            this.$refs.list.$el.style.bottom = bottom;
-            this.$refs.list.refresh();
-        },
+        // handlePlayList(playList, bottomEnable = true) {
+        //     const bottom = playList.length > 0 && bottomEnable ? '60px' : '';
+        //     this.$refs.list.$el.style.bottom = bottom;
+        //     this.$refs.list.refresh();
+        // },
         /**
          * @function scroll - 列表滚动时
          * @param {Object} - 滚动到的新位置

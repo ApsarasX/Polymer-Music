@@ -48,11 +48,11 @@ import Scroll from '@/base/scroll/scroll';
 import Slider from '@/base/slider/slider';
 import { getRecommend, getDiscList } from '@/api/recommend';
 import { ERR_OK } from '@/api/config';
-import { playListMixin } from '@/assets/js/mixin';
+// import { playListMixin } from '@/assets/js/mixin';
 import { mapMutations } from 'vuex';
 
 export default {
-    mixins: [playListMixin],
+    // mixins: [playListMixin],
     created() {
         // 获取Slider内容
         this._getRecommend();
@@ -83,11 +83,11 @@ export default {
             });
             this.setDisc(item);
         },
-        handlePlayList(playList, bottomEnable = true) {
-            const bottom = playList.length > 0 && bottomEnable ? '60px' : '';
-            this.$refs.recommend.style.bottom = bottom;
-            this.$refs.scroll.refresh();
-        },
+        // handlePlayList(playList, bottomEnable = true) {
+        //     const bottom = playList.length > 0 && bottomEnable ? '60px' : '';
+        //     this.$refs.recommend.style.bottom = bottom;
+        //     this.$refs.scroll.refresh();
+        // },
         /**
          * @private
          * @function _getRecommend - 获取Slider数据
@@ -164,7 +164,7 @@ export default {
                 background-color: $color-background;
             }
             .list {
-                padding: 15px 0;
+                margin: 15px 0;
             }
             .item {
                 display: flex;

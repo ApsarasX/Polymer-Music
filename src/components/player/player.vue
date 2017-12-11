@@ -818,7 +818,7 @@ export default {
         box-shadow: 0 -2px 14px 2px rgba(0, 0, 0, 0.12);
         &.mini-enter-active,
         &.mini-leave-active {
-            transition: all 0.25s;
+            transition: all 0.4s;
         }
         &.mini-enter,
         &.mini-leave-to {

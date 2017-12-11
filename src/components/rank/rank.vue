@@ -27,11 +27,11 @@ import { getTopList } from '@/api/rank';
 import { ERR_OK } from '@/api/config';
 import Scroll from '@/base/scroll/scroll';
 import Loading from '@/base/loading/loading';
-import { playListMixin } from '@/assets/js/mixin';
+// import { playListMixin } from '@/assets/js/mixin';
 import { mapMutations } from 'vuex';
 
 export default {
-    mixins: [playListMixin],
+    // mixins: [playListMixin],
     created() {
         this._getTopList();
     },
@@ -47,11 +47,11 @@ export default {
             });
             this.setTopList(item);
         },
-        handlePlayList(playList, bottomEnable = true) {
-            const bottom = playList.length > 0 && bottomEnable ? '60px' : '';
-            this.$refs.rank.style.bottom = bottom;
-            this.$refs.topList.refresh();
-        },
+        // handlePlayList(playList, bottomEnable = true) {
+        //     const bottom = playList.length > 0 && bottomEnable ? '60px' : '';
+        //     this.$refs.rank.style.bottom = bottom;
+        //     this.$refs.topList.refresh();
+        // },
         _getTopList() {
             getTopList().then(res => {
                 if (res.code === ERR_OK) {
