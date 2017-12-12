@@ -19,7 +19,7 @@
                             <h1 class="title">
                                 <span class="text">搜索历史</span>
                                 <span class="clear" @click="showConfirm">
-                                    <i class="icon-clear"></i>
+                                    <i class="material-icons">delete</i>
                                 </span>
                             </h1>
                             <search-list @select="addQuery" @delete="deleteSearchHistory" :searches="searchHistory"></search-list>
@@ -89,11 +89,7 @@ export default {
                 }
             });
         },
-        ...mapActions([
-            // 'saveSearchHistory',
-            // 'deleteSearchHistory',
-            'clearSearchHistory'
-        ])
+        ...mapActions(['clearSearchHistory'])
     },
     watch: {
         query(newQuery) {
@@ -165,9 +161,9 @@ export default {
                     }
                     .clear {
                         @include extend-click;
-                        .icon-clear {
-                            font-size: $font-size-medium;
-                            color: $color-text-d;
+                        .material-icons {
+                            font-size: $font-size-large-x;
+                            color: $color-text-l;
                         }
                     }
                 }

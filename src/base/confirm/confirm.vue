@@ -1,6 +1,6 @@
 <template>
     <transition name="confirm-fade">
-        <div class="confirm" v-show="showFlag" @click.stop="hide">
+        <div class="confirm" v-show="showFlag" @click.stop="unlock">
             <div class="confirm-wrapper">
                 <div class="confirm-content">
                     <p class="text">{{text}}</p>
@@ -36,10 +36,18 @@ export default {
         };
     },
     methods: {
+        // 延迟隐藏, 否则在移动端会有300ms延迟而失效
+        unlock() {
+            if (Date.now() - this.timer > 500) {
+                this.hide();
+            }
+        },
         show() {
+            this.timer = Date.now();
             this.showFlag = true;
         },
         hide() {
+            this.timer = 2000000000000;
             this.showFlag = false;
         },
         cancel() {
