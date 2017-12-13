@@ -43,7 +43,8 @@ export default {
     top: 0;
     width: 100%;
     z-index: 500;
-    background: $color-dialog-background;
+    background: $color-highlight-background;
+    box-shadow: 0 2px 14px 2px rgba(0, 0, 0, 0.12);
     &.drop-enter-active,
     &.drop-leave-active {
         transition: all 0.3s;

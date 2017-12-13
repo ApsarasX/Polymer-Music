@@ -48,19 +48,20 @@
                     </div>
                     <div class="operators">
                         <div class="icon i-left" @click="changeMode">
-                            <i :class="iconMode"></i>
+                            <i class="material-icons">{{iconMode}}</i>
                         </div>
                         <div class="icon i-left" :class="disableCls">
-                            <i @click="prev" class="icon-prev"></i>
+                            <!-- <i  class="icon-prev"></i> -->
+                            <i @click="prev" class="material-icons">fast_rewind</i>
                         </div>
                         <div class="icon i-center" :class="disableCls">
-                            <i class="needsclick" @click="togglePlaying" :class="playIcon"></i>
+                            <i class="needsclick material-icons" @click="togglePlaying">{{playIcon}}</i>
                         </div>
                         <div class="icon i-right" :class="disableCls">
-                            <i @click="next" class="icon-next"></i>
+                            <i @click="next" class="material-icons">fast_forward</i>
                         </div>
                         <div class="icon i-right">
-                            <i class="icon" @click="togglefavorite(currentSong)" :class="getFavoriteIcon(currentSong)"></i>
+                            <i class="material-icons" @click="togglefavorite(currentSong)">{{getFavoriteIcon(currentSong)}}</i>
                         </div>
                     </div>
                 </div>
@@ -140,7 +141,7 @@ export default {
         },
         playIcon() {
             // 播放/暂停按钮
-            return this.playing ? 'icon-pause' : 'icon-play';
+            return this.playing ? 'pause_circle_outline' : 'play_circle_outline';
         },
         miniIcon() {
             // mini播放/暂停按钮
@@ -780,9 +781,6 @@ export default {
                 }
                 .i-right {
                     text-align: left;
-                }
-                .icon-favorite {
-                    color: $color-sub-theme;
                 }
             }
         }

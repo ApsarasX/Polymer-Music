@@ -4,30 +4,31 @@
             <div class="list-wrapper" @click.stop>
                 <div class="list-header">
                     <h1 class="title">
-                        <i class="icon" :class="iconMode" @click="changeMode"></i>
+                        <i class="icon material-icons" @click="changeMode">{{iconMode}}</i>
                         <span class="text">{{modeText}}</span>
                         <span class="clear" @click="showConfirm">
-                            <i class="icon-clear"></i>
+                            <!-- <i class="icon-clear"></i> -->
+                            <i class="material-icons">delete</i>
                         </span>
                     </h1>
                 </div>
                 <scroll class="list-content" :refreshDelay="refreshDelay" :data="sequenceList" ref="listContent">
                     <transition-group name="list" tag="ul" ref="list">
                         <li ref="listItem" class="item" v-for="(item,index) in sequenceList" :key="item.id" @click="selectItem(item,index)">
-                            <i class="current" :class="getCurrentIcon(item)"></i>
+                            <i class="current material-icons">{{getCurrentIcon(item)}}</i>
                             <span class="text">{{item.name}}</span>
                             <span @click.stop="togglefavorite(item)" class="like">
-                                <i :class="getFavoriteIcon(item)"></i>
+                                <i class="material-icons">{{getFavoriteIcon(item)}}</i>
                             </span>
                             <span class="delete" @click.stop="deleteOne(item)">
-                                <i class="icon-delete"></i>
+                                <i class="material-icons">clear</i>
                             </span>
                         </li>
                     </transition-group>
                 </scroll>
                 <div class="list-operate">
                     <div class="add" @click="addSong">
-                        <i class="icon-add"></i>
+                        <i class="material-icons">add</i>
                         <span class="text">添加歌曲到队列</span>
                     </div>
                 </div>
@@ -79,7 +80,8 @@ export default {
         },
         getCurrentIcon(item) {
             if (this.currentSong.id === item.id) {
-                return 'icon-play';
+                // return 'icon-play';
+                return 'play_circle_outline';
             }
             return '';
         },
@@ -191,7 +193,7 @@ export default {
                 align-items: center;
                 .icon {
                     margin-right: 10px;
-                    font-size: 30px;
+                    font-size: 24px;
                     color: $color-theme;
                 }
                 .text {
@@ -201,8 +203,8 @@ export default {
                 }
                 .clear {
                     @include extend-click;
-                    .icon-clear {
-                        font-size: $font-size-medium;
+                    .material-icons {
+                        font-size: $font-size-large-x;
                         color: $color-text;
                     }
                 }
@@ -228,7 +230,7 @@ export default {
                 .current {
                     flex: 0 0 20px;
                     width: 20px;
-                    font-size: $font-size-small;
+                    font-size: $font-size-large;
                     color: $color-theme;
                 }
                 .text {
@@ -242,14 +244,18 @@ export default {
                     margin-right: 15px;
                     font-size: $font-size-small;
                     color: $color-theme;
-                    .icon-favorite {
-                        color: $color-sub-theme;
+                    .material-icons {
+                        color: $color-icon;
+                        font-size: 22px;
                     }
                 }
                 .delete {
                     @include extend-click;
                     font-size: $font-size-small;
                     color: $color-theme;
+                    .material-icons {
+                        font-size: 22px;
+                    }
                 }
             }
         }
@@ -263,9 +269,9 @@ export default {
                 border: 1px solid $color-text-ll;
                 border-radius: 100px;
                 color: $color-text-ll;
-                .icon-add {
+                .material-icons {
                     margin-right: 5px;
-                    font-size: $font-size-small-s;
+                    font-size: $font-size-medium-x;
                 }
                 .text {
                     font-size: $font-size-small;

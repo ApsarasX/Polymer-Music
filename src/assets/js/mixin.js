@@ -30,7 +30,8 @@ export const playerMixin = {
     computed: {
         // 播放模式的图标
         iconMode() {
-            const modeIcons = ['icon-sequence', 'icon-loop', 'icon-random'];
+            // const modeIcons = ['icon-sequence', 'icon-loop', 'icon-random'];
+            const modeIcons = ['repeat', 'repeat_one', 'shuffle'];
             return modeIcons[this.mode];
         },
         ...mapGetters([
@@ -65,9 +66,10 @@ export const playerMixin = {
             return index > -1;
         },
         getFavoriteIcon(song) {
-            return this.isFavorite(song)
-                ? 'icon-favorite'
-                : 'icon-not-favorite';
+            // return this.isFavorite(song)
+            //     ? 'icon-favorite'
+            //     : 'icon-not-favorite';
+            return this.isFavorite(song) ? 'favorite' : 'favorite_border';
         },
         togglefavorite(song) {
             if (this.isFavorite(song)) {

@@ -109,6 +109,11 @@ export default {
         },
         // 选择一首歌曲或者歌手
         selectItem(item) {
+            // 如果是付费歌曲
+            if (item.isPay) {
+                window.alert('付费歌曲暂不支持播放');
+                return;
+            }
             if (item.type === TYPE_SINGER) {
                 const singer = new Singer({
                     id: item.singermid,

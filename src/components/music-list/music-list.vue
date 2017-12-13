@@ -7,7 +7,7 @@
         <div class="bg-image" :style="bgStyle" ref="bgImage">
             <div class="play-wrapper" v-show="songs.length>0" ref="playBtn" @click="random">
                 <div class="play">
-                    <i class="icon-play"></i>
+                    <i class="material-icons">play_circle_outline</i>
                     <span class="text">随机播放全部</span>
                 </div>
             </div>
@@ -223,7 +223,7 @@ export default {
                 color: $color-theme;
                 border-radius: 100px;
                 font-size: 0;
-                .icon-play {
+                .material-icons {
                     display: inline-block;
                     vertical-align: middle;
                     margin-right: 6px;
