@@ -1,11 +1,15 @@
 <template>
     <div class="m-header">
         <div class="user" @click.stop="toggleUserCenter">
-            <i class="material-icons">menu</i>
+            <mu-icon-button>
+                <i class="material-icons">menu</i>
+            </mu-icon-button>
         </div>
         <h1 class="text">聚合音乐</h1>
         <router-link to="/search" class="search" tag="div">
-            <i class="material-icons">search</i>
+            <mu-icon-button>
+                <i class="material-icons">search</i>
+            </mu-icon-button>
         </router-link>
     </div>
 </template>
@@ -49,8 +53,6 @@ export default {
         left: 0;
     }
     .material-icons {
-        display: block;
-        padding: 12px;
         font-size: 28px;
         color: $color-sub-theme;
     }

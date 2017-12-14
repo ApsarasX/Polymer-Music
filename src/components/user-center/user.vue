@@ -27,18 +27,23 @@
                         </mu-list>
                         <mu-divider />
                         <mu-list>
-                            <mu-list-item title="反馈建议" />
-                            <mu-list-item title="关于" @click="openDialog" />
-                            <mu-dialog :open="showDialog" title="关于" @close="closeDialog">
+                            <mu-list-item title="反馈建议" @click="openFeedDialog"/>
+                            <mu-dialog :open="showFeedDialog" title="反馈建议">
+                                 <mu-text-field hintText="最多100个字符"  v-model.trim="feedText" multiLine :rows="3" :rowsMax="6" :maxLength="100"/>
+                                 <mu-flat-button slot="actions"  primary @click="closeFeedDialog" label="取消"/>
+                                 <mu-flat-button slot="actions" primary @click="closeFeedDialog(true)" label="发送"/>
+                            </mu-dialog>
+                            <mu-list-item title="关于" @click="openAboutDialog" />
+                            <mu-dialog :open="showAboutDialog" title="关于" @close="closeAboutDialog">
                                 <mu-list>
                                     <mu-list-item title="软件名称">
-                                        <p slot="after">聚合音乐</p>
+                                        <p slot="after">{{softwareName}}</p>
                                     </mu-list-item>
                                     <mu-list-item title="版本">
                                         <p slot="after">{{version}}</p>
                                     </mu-list-item>
                                     <mu-list-item title="作者" href="https://github.com/pyyzcwg2833">
-                                       <p slot="after">{{author}}</p>
+                                        <p slot="after">{{author}}</p>
                                     </mu-list-item>
                                     <mu-list-item title="项目地址" href="https://github.com/pyyzcwg2833/gg-music">
                                         <p slot="after">
@@ -62,12 +67,21 @@ export default {
         ...mapGetters(['userCenterVisible'])
     },
     data() {
+        /* eslint-disable global-require */
+        const {
+            author,
+            cnName: softwareName,
+            version
+        } = require('../../../package.json');
         return {
+            // 反馈内容
+            feedText: '',
             username: '用户名',
-            showDialog: false,
-            /* eslint-disable global-require */
-            version: require('../../../package.json').version,
-            author: require('../../../package.json').author
+            showAboutDialog: false,
+            showFeedDialog: false,
+            softwareName,
+            version,
+            author
         };
     },
     methods: {
@@ -76,12 +90,24 @@ export default {
             this.setUserCenterVisible(false);
         },
         // 打开对话框
-        openDialog() {
-            this.showDialog = true;
+        openAboutDialog() {
+            this.showAboutDialog = true;
+        },
+        openFeedDialog() {
+            this.showFeedDialog = true;
         },
         // 关闭对话框
-        closeDialog() {
-            this.showDialog = false;
+        closeAboutDialog() {
+            this.showAboutDialog = false;
+        },
+        /**
+         * @param {Boolean} hasContent 反馈输入框是否有内容
+         */
+        closeFeedDialog(hasContent = false) {
+            this.showFeedDialog = false;
+            if (hasContent && this.feedText) {
+                console.info(this.feedText);
+            }
         },
         ...mapMutations({
             setUserCenterVisible: 'SET_USER_CENTER_VISIBLE'
@@ -119,9 +145,8 @@ export default {
     .user-center {
         width: 75%;
         height: 100%;
-        background-color: $color-sub-theme;
         .user-center-inner {
-            height: 100%;
+            box-shadow: none;
             .username-wrapper {
                 display: flex;
                 justify-content: space-between;

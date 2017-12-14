@@ -1,5 +1,5 @@
 @import './variable.scss';
-
+@import './mixin.scss';
 body,
 html {
     line-height: 1;
@@ -18,4 +18,32 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+// List_item
+.mu-item {
+    padding: 2px 16px !important;
+}
+.mu-card-header {
+    padding: 8px !important;
+}
+// Text-Field
+.mu-text-field {
+    width: 100% !important;
+}
+// Switch
+
+.mu-switch {
+    input[type='checkbox'] {
+        &:checked {
+            + .mu-switch-wrapper {
+                .mu-switch-track {
+                    @include background-opacity($color-theme);
+                }
+                .mu-switch-thumb {
+                    background-color: $color-theme !important;
+                    color: $color-theme !important;
+                }
+            }
+        }
+    }
 }
