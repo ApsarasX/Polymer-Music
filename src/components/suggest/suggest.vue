@@ -60,7 +60,7 @@ export default {
             // 顶部提示框
             showPopup: false,
             // 顶部提示框消失延迟
-            popupDelay: 3000
+            popupDelay: 13000
         };
     },
     methods: {

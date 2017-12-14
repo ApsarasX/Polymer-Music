@@ -8,9 +8,26 @@ import store from './store';
 import fastclick from 'fastclick';
 import VueLazyLoad from 'vue-lazyload';
 import '@/assets/scss/index.scss';
-import 'muse-ui/src/styles/base.less';
+// import 'muse-ui/src/styles/base.less';
 // Muse-UI组件引入
+import avatar from 'muse-ui/src/avatar';
+import {
+    card,
+    cardHeader,
+    cardMedia,
+    cardTitle,
+    cardText,
+    cardActions
+} from 'muse-ui/src/card';
+import checkbox from 'muse-ui/src/checkbox';
+import dialog from 'muse-ui/src/dialog';
+import divider from 'muse-ui/src/divider';
+import drawer from 'muse-ui/src/drawer';
+import { list, listItem } from 'muse-ui/src/list';
 import popup from 'muse-ui/src/popup';
+import subHeader from 'muse-ui/src/subHeader';
+import _switch from 'muse-ui/src/switch';
+// import flatButton from 'muse-ui/src/flatButton';
 // /* eslint-disable no-unused-vars */
 // import VConsole from 'vconsole';
 // // 移动端调试
@@ -25,9 +42,23 @@ fastclick.attach(document.body);
 Vue.use(VueLazyLoad, {
     loading: defaultImage
 });
-
+Vue.component(avatar.name, avatar);
+Vue.component(card.name, card);
+Vue.component(cardHeader.name, cardHeader);
+Vue.component(cardMedia.name, cardMedia);
+Vue.component(cardTitle.name, cardTitle);
+Vue.component(cardText.name, cardText);
+Vue.component(cardActions.name, cardActions);
+Vue.component(checkbox.name, checkbox);
+Vue.component(dialog.name, dialog);
+Vue.component(divider.name, divider);
+Vue.component(drawer.name, drawer);
+Vue.component(list.name, list);
+Vue.component(listItem.name, listItem);
 Vue.component(popup.name, popup);
-
+Vue.component(subHeader.name, subHeader);
+Vue.component(_switch.name, _switch);
+// Vue.component(flatButton.name, flatButton);
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
