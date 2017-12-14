@@ -609,11 +609,9 @@ export default {
                 top: 0;
                 left: 6px;
                 z-index: 50;
-                .icon-back {
-                    display: block;
-                    padding: 9px;
-                    font-size: $font-size-large-x;
-                    color: $color-text-white;
+                .material-icons {
+                    font-size: 40px;
+                    @include extend-click;
                 }
             }
             .title {

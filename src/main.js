@@ -4,9 +4,13 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import store from './store';
+
 import fastclick from 'fastclick';
 import VueLazyLoad from 'vue-lazyload';
 import '@/assets/scss/index.scss';
+import 'muse-ui/src/styles/base.less';
+// Muse-UI组件引入
+import popup from 'muse-ui/src/popup';
 // /* eslint-disable no-unused-vars */
 // import VConsole from 'vconsole';
 // // 移动端调试
@@ -21,6 +25,9 @@ fastclick.attach(document.body);
 Vue.use(VueLazyLoad, {
     loading: defaultImage
 });
+
+Vue.component(popup.name, popup);
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

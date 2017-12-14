@@ -3,10 +3,19 @@
 body,
 html {
     line-height: 1;
-    font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial,
-        sans-serif, 'Droid Sans Fallback';
+    font-family: 'Roboto', sans-serif, 'PingFang SC', 'STHeitiSC-Light',
+        'Helvetica-Light', arial, sans-serif, 'Droid Sans Fallback';
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     background: $color-background;
     color: $color-text;
+}
+.popup-top {
+    width: 100%;
+    opacity: 0.8;
+    height: 48px;
+    line-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
