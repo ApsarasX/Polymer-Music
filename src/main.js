@@ -23,11 +23,13 @@ import checkbox from 'muse-ui/src/checkbox';
 import dialog from 'muse-ui/src/dialog';
 import divider from 'muse-ui/src/divider';
 import drawer from 'muse-ui/src/drawer';
+import flatButton from 'muse-ui/src/flatButton';
 import { list, listItem } from 'muse-ui/src/list';
 import popup from 'muse-ui/src/popup';
 import subHeader from 'muse-ui/src/subHeader';
+import textField from 'muse-ui/src/textField';
 import _switch from 'muse-ui/src/switch';
-// import flatButton from 'muse-ui/src/flatButton';
+
 // /* eslint-disable no-unused-vars */
 // import VConsole from 'vconsole';
 // // 移动端调试
@@ -53,12 +55,14 @@ Vue.component(checkbox.name, checkbox);
 Vue.component(dialog.name, dialog);
 Vue.component(divider.name, divider);
 Vue.component(drawer.name, drawer);
+Vue.component(flatButton.name, flatButton);
 Vue.component(list.name, list);
 Vue.component(listItem.name, listItem);
 Vue.component(popup.name, popup);
 Vue.component(subHeader.name, subHeader);
+Vue.component(textField.name, textField);
 Vue.component(_switch.name, _switch);
-// Vue.component(flatButton.name, flatButton);
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

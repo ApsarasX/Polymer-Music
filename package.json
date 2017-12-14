@@ -1,5 +1,6 @@
 {
     "name": "gg-music",
+    "cnName": "聚合音乐",
     "version": "1.1.4",
     "description": "a music player built with vue.js",
     "author": "陈文岗",
