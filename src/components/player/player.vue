@@ -11,6 +11,11 @@
                     </div>
                     <h1 class="title" v-html="currentSong.name"></h1>
                     <h2 class="subtitle" v-html="currentSong.singer"></h2>
+                    <div class="download">
+                        <a ref="dlink">
+                            <i class="material-icons">file_download</i>
+                        </a>
+                    </div>
                 </div>
                 <div class="middle" @touchstart.prevent="middleTouchStart" @touchmove.prevent="middleTouchMove" @touchend.prevent="middleTouchEnd">
                     <div class="middle-l" ref="middleL">
@@ -141,7 +146,9 @@ export default {
         },
         playIcon() {
             // 播放/暂停按钮
-            return this.playing ? 'pause_circle_outline' : 'play_circle_outline';
+            return this.playing
+                ? 'pause_circle_outline'
+                : 'play_circle_outline';
         },
         miniIcon() {
             // mini播放/暂停按钮
@@ -533,7 +540,12 @@ export default {
                 this.playingLyric = '';
                 this.currentLineNum = 0;
             }
-            this.$refs.audio.src = newSong.url;
+            // 处理Audio源和下载链接
+            const {url} = newSong;
+            this.$refs.audio.src = url;
+            const fileUrl = url.slice(0, url.indexOf('?'));
+            this.$refs.dlink.href = fileUrl;
+            this.$refs.dlink.download = `${this.currentSong.name}${fileUrl.slice(fileUrl.lastIndexOf('.'))}`;
             this.$refs.audio.play();
             // this.getLyric();
         },
@@ -628,6 +640,17 @@ export default {
                 text-align: center;
                 font-size: $font-size-medium;
                 color: $color-text-white;
+            }
+            .download {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                z-index: 50;
+                .material-icons {
+                    color: $color-theme;
+                    font-size: 32px;
+                    @include extend-click;
+                }
             }
         }
         .middle {

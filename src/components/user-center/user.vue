@@ -45,7 +45,7 @@
                                     <mu-list-item title="作者" href="https://github.com/pyyzcwg2833">
                                         <p slot="after">{{author}}</p>
                                     </mu-list-item>
-                                    <mu-list-item title="项目地址" href="https://github.com/pyyzcwg2833/gg-music">
+                                    <mu-list-item title="项目地址" :href="repository.url">
                                         <p slot="after">
                                             <img src="~@/assets/image/github.svg" alt="github" width="40">
                                         </p>
@@ -71,7 +71,8 @@ export default {
         const {
             author,
             cnName: softwareName,
-            version
+            version,
+            repository
         } = require('../../../package.json');
         return {
             // 反馈内容
@@ -81,7 +82,8 @@ export default {
             showFeedDialog: false,
             softwareName,
             version,
-            author
+            author,
+            repository
         };
     },
     methods: {

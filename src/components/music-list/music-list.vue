@@ -5,10 +5,14 @@
         </div>
         <h1 class="title" v-html="title"></h1>
         <div class="bg-image" :style="bgStyle" ref="bgImage">
-            <div class="play-wrapper" v-show="songs.length>0" ref="playBtn" @click="random">
-                <div class="play">
+            <div class="play-wrapper" v-show="songs.length>0">
+                <div class="play" ref="playBtn" @click="random">
                     <i class="material-icons">play_circle_outline</i>
                     <span class="text">随机播放全部</span>
+                </div>
+                <div class="favor" v-show="isDisc" ref="favorBtn">
+                    <i class="material-icons">favorite</i>
+                    <span class="text">收藏此歌单</span>
                 </div>
             </div>
             <div class="filter" ref="filter"></div>
@@ -54,6 +58,11 @@ export default {
             default: ''
         },
         rank: {
+            type: Boolean,
+            default: false
+        },
+        // 是否是歌单里的
+        isDisc: {
             type: Boolean,
             default: false
         }
@@ -146,12 +155,14 @@ export default {
                 this.$refs.bgImage.style.height = `${RESERVED_HEIGHT}px`;
                 // 随机播放按钮隐藏
                 this.$refs.playBtn.style.display = 'none';
+                this.$refs.favorBtn.style.display = 'none';
             } else {
                 // 图片恢复原来大小
                 this.$refs.bgImage.style.paddingTop = '70%';
                 this.$refs.bgImage.style.height = 0;
                 // 随机播放按钮显示
                 this.$refs.playBtn.style.display = '';
+                this.$refs.favorBtn.style.display = '';
             }
             this.$refs.bgImage.style.zIndex = zIndex;
             this.$refs.bgImage.style[transform] = `scale(${scale})`;
@@ -211,6 +222,9 @@ export default {
             bottom: 20px;
             z-index: 50;
             width: 100%;
+            display: flex;
+            justify-content: center;
+            .favor,
             .play {
                 box-sizing: border-box;
                 width: 135px;

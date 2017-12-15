@@ -22,6 +22,10 @@ html {
 // List_item
 .mu-item {
     padding: 2px 16px !important;
+    align-items: center!important;
+}
+.mu-item-left {
+    position: static!important;
 }
 .mu-card-header {
     padding: 8px !important;

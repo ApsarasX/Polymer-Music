@@ -1,4 +1,4 @@
-聚合音乐 - Polymer Music
+# 聚合音乐 - Polymer Music
 
 > A music player based on Vue.js
 > 基于Vue.js的聚合音乐播放器WebAPP
