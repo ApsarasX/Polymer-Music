@@ -24,18 +24,12 @@ import dialog from 'muse-ui/src/dialog';
 import divider from 'muse-ui/src/divider';
 import drawer from 'muse-ui/src/drawer';
 import flatButton from 'muse-ui/src/flatButton';
-<<<<<<< HEAD
 import iconButton from 'muse-ui/src/iconButton';
-=======
->>>>>>> 08b5776b2b8d2fd47d75a6918cc047a555b1146f
 import { list, listItem } from 'muse-ui/src/list';
 import popup from 'muse-ui/src/popup';
 import subHeader from 'muse-ui/src/subHeader';
 import textField from 'muse-ui/src/textField';
-<<<<<<< HEAD
 import { tab, tabs } from 'muse-ui/src/tabs';
-=======
->>>>>>> 08b5776b2b8d2fd47d75a6918cc047a555b1146f
 import _switch from 'muse-ui/src/switch';
 
 // /* eslint-disable no-unused-vars */
