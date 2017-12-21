@@ -16,7 +16,7 @@ const Disc = () => import('@/components/disc/disc');
 // 榜单详情
 const TopList = () => import('@/components/top-list/top-list');
 // 用户中心
-const Mine = () => import('@/components/mine');
+const Mine = () => import('@/components/mine/mine');
 
 Vue.use(Router);
 
@@ -68,16 +68,27 @@ const router = new Router({
         },
         {
             path: '/mine',
-            component: Mine
+            component: Mine,
+            // 用户收藏歌单
+            children: [
+                {
+                    path: ':id',
+                    component: Disc
+                }
+            ]
         }
     ]
 });
 
 router.beforeEach((to, from, next) => {
     const { fullScreen, userCenterVisible, playListVisible } = store.getters;
-    if (fullScreen || userCenterVisible || playListVisible) {
+    if (fullScreen) {
         store.commit('SET_FULL_SCREEN', false);
+        next(false);
+    } else if (userCenterVisible) {
         store.commit('SET_USER_CENTER_VISIBLE', false);
+        next(false);
+    } else if (playListVisible) {
         store.commit('SET_PLAY_LIST_VISIBLE', false);
         next(false);
     } else {

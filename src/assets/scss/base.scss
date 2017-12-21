@@ -22,10 +22,10 @@ html {
 // List_item
 .mu-item {
     padding: 2px 16px !important;
-    align-items: center!important;
+    align-items: center !important;
 }
 .mu-item-left {
-    position: static!important;
+    position: static !important;
 }
 .mu-card-header {
     padding: 8px !important;
@@ -50,4 +50,14 @@ html {
             }
         }
     }
+}
+// Button
+.mu-flat-button-primary {
+    color: $color-theme !important;
+}
+.mu-text-field-focus-line {
+    background-color: $color-theme !important;
+}
+.mu-text-field.focus-state {
+    color: $color-theme !important;
 }

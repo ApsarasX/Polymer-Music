@@ -14,9 +14,6 @@
         <div v-show="!hasMore && !result.length" class="no-result-wrapper">
             <no-result title="抱歉, 暂无搜索结果"></no-result>
         </div>
-        <mu-popup position="top" :overlay="false" popupClass="popup-top" :open="showPopup">
-            付费歌曲暂时不能播放
-        </mu-popup>
     </scroll>
 </template>
 <script>
@@ -56,11 +53,7 @@ export default {
             pullup: true,
             beforeScroll: true,
             // 有更多搜索结果标志位
-            hasMore: true,
-            // 顶部提示框
-            showPopup: false,
-            // 顶部提示框消失延迟
-            popupDelay: 1500
+            hasMore: true
         };
     },
     methods: {
@@ -118,7 +111,7 @@ export default {
         selectItem(item) {
             // 如果是付费歌曲
             if (item.isPay) {
-                this.showPopup = true;
+                this.setPopup('付费歌曲不能播放');
                 return;
             }
             if (item.type === TYPE_SINGER) {
@@ -180,7 +173,7 @@ export default {
         ...mapMutations({
             setSinger: 'SET_SINGER'
         }),
-        ...mapActions(['insertSong'])
+        ...mapActions(['insertSong', 'setPopup'])
     },
     watch: {
         query(newQuery) {
@@ -188,13 +181,6 @@ export default {
                 return;
             }
             this.search(newQuery);
-        },
-        showPopup(val) {
-            if (val) {
-                setTimeout(() => {
-                    this.showPopup = false;
-                }, this.popupDelay);
-            }
         }
     }
 };

@@ -1,7 +1,7 @@
 <template>
     <div class="search-box">
         <i class="material-icons">search</i>
-        <input ref="query" type="text" class="box" v-model="query" :placeholder="placeholder">
+        <input ref="query" type="text" class="box" @focus="onfocus" @blur="onblur" v-model="query" :placeholder="placeholder">
         <i v-if="query" class="material-icons" @click="clear">clear</i>
     </div>
 </template>
@@ -31,6 +31,12 @@ export default {
         },
         blur() {
             this.$refs.query.blur();
+        },
+        onfocus() {
+            this.$emit('focus');
+        },
+        onblur() {
+            this.$emit('blur');
         }
     },
     created() {

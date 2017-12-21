@@ -1,12 +1,13 @@
 <template>
     <transition name="slide">
+        <!-- isDisc 是否是歌单 -->
         <music-list :title="title" :bg-image="bgImage" :songs="songs" :isDisc="true"></music-list>
     </transition>
 </template>
 
 <script>
 import MusicList from '../music-list/music-list';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import { getSongList } from '@/api/recommend';
 import { ERR_OK } from '@/api/config';
 import { createSong, isValidMusic } from '@/assets/js/song';
@@ -41,14 +42,18 @@ export default {
          * @function _getSongList 获取歌单里的歌曲数据
          */
         _getSongList() {
-            // 如果没有歌单id, 返回排行榜页
+            // 如果没有歌单id, 根据页面url获取
             if (!this.disc.dissid) {
-                this.$router.push('/recommend');
-                return;
+                this.dissid = this.$router.currentRoute.params.id;
             }
-            getSongList(this.disc.dissid).then(res => {
+            getSongList(this.disc.dissid || this.dissid).then(res => {
                 if (res.code === ERR_OK) {
                     this.songs = this._normalizeSongs(res.cdlist[0].songlist);
+                    this.setDisc({
+                        dissid: res.cdlist[0].disstid,
+                        dissname: res.cdlist[0].dissname,
+                        imgurl: res.cdlist[0].logo
+                    });
                 }
             });
         },
@@ -70,7 +75,8 @@ export default {
                 }
             }
             return ret;
-        }
+        },
+        ...mapMutations({ setDisc: 'SET_DISC' })
     }
 };
 </script>

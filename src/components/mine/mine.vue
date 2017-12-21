@@ -24,6 +24,7 @@
                 </ul>
             </div>
         </scroll>
+        <router-view></router-view>
     </div>
 </template>
 <script>
@@ -47,10 +48,10 @@ export default {
     methods: {
         // 点击歌单进入详情
         selectItem(item) {
-            this.$router.push({
-                path: `/recommend/${item.dissid}`
-            });
             this.setDisc(item);
+            this.$router.push({
+                path: `/mine/${item.dissid}`
+            });
         },
         /**
          * @private

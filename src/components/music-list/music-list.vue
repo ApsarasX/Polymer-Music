@@ -111,6 +111,10 @@ export default {
          * @param {Number} index - 歌曲索引号
          */
         selectItem(item, index) {
+            if (item.isPay) {
+                this.setPopup('付费歌曲不能播放');
+                return;
+            }
             this.selectPlay({
                 list: this.songs,
                 index
@@ -124,7 +128,7 @@ export default {
                 list: this.songs
             });
         },
-        ...mapActions(['selectPlay', 'randomPlay'])
+        ...mapActions(['selectPlay', 'randomPlay', 'setPopup'])
     },
     watch: {
         scrollY(newY) {

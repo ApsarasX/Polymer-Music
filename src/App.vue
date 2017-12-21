@@ -6,6 +6,9 @@
             <router-view></router-view>
         </keep-alive>
         <player></player>
+        <mu-popup position="top" :overlay="false" popupClass="popup-top" :open="popupVisible">
+            {{popupContent}}
+        </mu-popup>
         <user-center></user-center>
     </div>
 </template>
@@ -20,7 +23,7 @@ import { mapGetters, mapMutations } from 'vuex';
 
 export default {
     computed: {
-        ...mapGetters(['userCenterVisible'])
+        ...mapGetters(['userCenterVisible', 'popupVisible', 'popupContent'])
     },
     components: {
         MHeader,

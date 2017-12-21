@@ -32,7 +32,11 @@ const state = {
     // 播放列表显示
     playListVisible: false,
     // mini播放器显示
-    miniPlayerVisible: true
+    miniPlayerVisible: true,
+    // 顶部提示框
+    popupVisible: false,
+    // 顶部提示框内容
+    popupContent: ''
 };
 
 export default state;

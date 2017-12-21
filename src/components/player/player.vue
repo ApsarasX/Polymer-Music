@@ -11,10 +11,8 @@
                     </div>
                     <h1 class="title" v-html="currentSong.name"></h1>
                     <h2 class="subtitle" v-html="currentSong.singer"></h2>
-                    <div class="download">
-                        <a ref="dlink">
-                            <i class="material-icons">file_download</i>
-                        </a>
+                    <div class="download" @click="openDownloadBox">
+                        <i class="material-icons">file_download</i>
                     </div>
                 </div>
                 <div class="middle" @touchstart.prevent="middleTouchStart" @touchmove.prevent="middleTouchMove" @touchend.prevent="middleTouchEnd">
@@ -93,6 +91,12 @@
         </transition>
         <play-list ref="playList"></play-list>
         <audio ref="audio" autoplay @play="ready" @error="error" @timeupdate="updateTime" @ended="end" @pause="paused"></audio>
+        <mu-dialog :open="downloadBox" title="下载" @close="closeDownloadBox">
+            是否下载
+            <span class="download-name">&nbsp;{{currentSong.name}}&nbsp;</span>这首歌曲?
+            <mu-flat-button slot="actions" primary @click="closeDownloadBox" label="取消" />
+            <mu-flat-button slot="actions" primary @click="triggerDownload" label="确定" />
+        </mu-dialog>
     </div>
 </template>
 
@@ -132,7 +136,9 @@ export default {
             // 当前行歌词
             playingLyric: '',
             isPureMusic: false,
-            pureMusicLyric: ''
+            pureMusicLyric: '',
+            downloadBox: false,
+            url: ''
         };
     },
     created() {
@@ -182,6 +188,30 @@ export default {
         back() {
             // 关闭全屏播放器
             this.setFullScreen(false);
+        },
+        openDownloadBox() {
+            this.downloadBox = true;
+        },
+        // 触发下载
+        closeDownloadBox() {
+            this.downloadBox = false;
+        },
+        triggerDownload() {
+            this.closeDownloadBox();
+            setTimeout(() => {
+                if (this.url) {
+                    /* eslint-disable */
+                    const a = document.createElement('a');
+                    a.href = `/download${this.url.match(
+                        /^https?\:\/\/[\w\.]+(.+)$/
+                    )[1]}`;
+                    a.rel = 'nofollow';
+                    a.download = `${this.currentSong.name}${this.url.match(
+                        /^https?:\/\/[\w\.\/]+(\.[a-z1-9]{3})\?.+$/
+                    )[1]}`;
+                    a.click();
+                }
+            }, 400);
         },
         /**
          * @function open - 打开全屏播放器
@@ -541,11 +571,8 @@ export default {
                 this.currentLineNum = 0;
             }
             // 处理Audio源和下载链接
-            const {url} = newSong;
-            this.$refs.audio.src = url;
-            const fileUrl = url.slice(0, url.indexOf('?'));
-            this.$refs.dlink.href = fileUrl;
-            this.$refs.dlink.download = `${this.currentSong.name}${fileUrl.slice(fileUrl.lastIndexOf('.'))}`;
+            this.$refs.audio.src = newSong.url;
+            this.url = newSong.url;
             this.$refs.audio.play();
             // this.getLyric();
         },
@@ -895,6 +922,9 @@ export default {
             }
         }
     }
+}
+.download-name {
+    color: $color-theme;
 }
 
 @keyframes rotate {

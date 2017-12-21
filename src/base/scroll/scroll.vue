@@ -57,7 +57,7 @@ export default {
         }, this.refreshDelay);
     },
     computed: {
-        ...mapGetters(['miniPlayerVisible'])
+        ...mapGetters(['miniPlayerVisible', 'playList'])
     },
     data() {
         return {
@@ -103,7 +103,8 @@ export default {
                     this.scrollEvent[0] -
                         this.scrollEvent[this.scrollEvent.length - 1] >
                         100 &&
-                    this.miniPlayerVisible
+                    this.miniPlayerVisible &&
+                    this.playList.length > 0
                 ) {
                     this.setMiniPlayerVisible(false);
                     this.scrollEvent = [];
@@ -111,7 +112,8 @@ export default {
                     this.scrollEvent[0] -
                         this.scrollEvent[this.scrollEvent.length - 1] <
                         -100 &&
-                    !this.miniPlayerVisible
+                    !this.miniPlayerVisible &&
+                    this.playList.length > 0
                 ) {
                     this.setMiniPlayerVisible(true);
                     this.scrollEvent = [];

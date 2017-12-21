@@ -1,5 +1,5 @@
 import * as types from './mutation-types';
-import { playMode } from '../assets/js/config';
+import { playMode, popupDelay } from '../assets/js/config';
 import { shuffle } from '../assets/js/util';
 import {
     saveSearch,
@@ -137,4 +137,13 @@ export function saveFavoriteList({ commit }, song) {
 
 export function deleteFavoriteList({ commit }, song) {
     commit(types.SET_FAVORITE_LIST, deleteFavorite(song));
+}
+
+export function setPopup({ commit }, content) {
+    commit(types.SET_POPUP_CONTENT, content);
+    commit(types.SET_POPUP_VISIBLE, true);
+    setTimeout(() => {
+        commit(types.SET_POPUP_CONTENT, '');
+        commit(types.SET_POPUP_VISIBLE, false);
+    }, popupDelay);
 }

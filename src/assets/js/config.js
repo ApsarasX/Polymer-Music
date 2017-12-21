@@ -5,5 +5,5 @@ export const playMode = {
     random: 2
 };
 
-// 需要删除
-export const x = 1;
+// 顶部提示框消失延迟
+export const popupDelay = 1500;

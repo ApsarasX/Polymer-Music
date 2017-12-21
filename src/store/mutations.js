@@ -45,6 +45,12 @@ const mutations = {
     },
     [types.SET_MINI_PLAYER_VISIBLE](state, visible) {
         state.miniPlayerVisible = visible;
+    },
+    [types.SET_POPUP_VISIBLE](state, visible) {
+        state.popupVisible = Boolean(state.popupContent && visible);
+    },
+    [types.SET_POPUP_CONTENT](state, content) {
+        state.popupContent = content;
     }
 };
 

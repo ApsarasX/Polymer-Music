@@ -27,11 +27,11 @@
                         </mu-list>
                         <mu-divider />
                         <mu-list>
-                            <mu-list-item title="反馈建议" @click="openFeedDialog"/>
+                            <mu-list-item title="反馈建议" @click="openFeedDialog" />
                             <mu-dialog :open="showFeedDialog" title="反馈建议">
-                                 <mu-text-field hintText="最多100个字符"  v-model.trim="feedText" multiLine :rows="3" :rowsMax="6" :maxLength="100"/>
-                                 <mu-flat-button slot="actions"  primary @click="closeFeedDialog" label="取消"/>
-                                 <mu-flat-button slot="actions" primary @click="closeFeedDialog(true)" label="发送"/>
+                                <mu-text-field hintText="最多100个字符" v-model.trim="feedText" multiLine :rows="3" :rowsMax="6" :maxLength="100" />
+                                <mu-flat-button slot="actions" primary @click="closeFeedDialog(true)" label="取消" />
+                                <mu-flat-button slot="actions" primary @click="closeFeedDialog(true)" label="发送" />
                             </mu-dialog>
                             <mu-list-item title="关于" @click="openAboutDialog" />
                             <mu-dialog :open="showAboutDialog" title="关于" @close="closeAboutDialog">
@@ -109,11 +109,20 @@ export default {
             this.showFeedDialog = false;
             if (hasContent && this.feedText) {
                 console.info(this.feedText);
+                this.feedText = '';
             }
         },
         ...mapMutations({
             setUserCenterVisible: 'SET_USER_CENTER_VISIBLE'
         })
+    },
+    watch: {
+        userCenterVisible(newVisible) {
+            if (!newVisible) {
+                this.closeAboutDialog();
+                this.closeFeedDialog();
+            }
+        }
     }
 };
 </script>

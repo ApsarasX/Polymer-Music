@@ -29,3 +29,7 @@ export const userCenterVisible = state => state.userCenterVisible;
 export const playListVisible = state => state.playListVisible;
 
 export const miniPlayerVisible = state => state.miniPlayerVisible;
+
+export const popupVisible = state => state.popupVisible;
+
+export const popupContent = state => state.popupContent;
