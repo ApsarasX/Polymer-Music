@@ -41,7 +41,7 @@ export default {
         selectSinger(singer) {
             // 切换到歌手详情页面
             this.$router.push({
-                path: `/singer/${singer.id}`
+                path: `/main/singer/${singer.id}`
             });
             // 将歌手数据放入Vuex
             this.setSinger(singer);

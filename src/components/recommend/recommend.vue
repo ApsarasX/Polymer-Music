@@ -79,7 +79,7 @@ export default {
         // 点击歌单进入详情
         selectItem(item) {
             this.$router.push({
-                path: `/recommend/${item.dissid}`
+                path: `/main/recommend/${item.dissid}`
             });
             this.setDisc(item);
         },

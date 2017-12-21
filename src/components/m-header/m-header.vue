@@ -6,7 +6,7 @@
             </mu-icon-button>
         </div>
         <h1 class="text">聚合音乐</h1>
-        <router-link to="/search" class="search" tag="div">
+        <router-link to="/main/search" class="search" tag="div">
             <mu-icon-button>
                 <i class="material-icons">search</i>
             </mu-icon-button>

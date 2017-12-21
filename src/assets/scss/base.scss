@@ -19,6 +19,15 @@ html {
     align-items: center;
     justify-content: center;
 }
+.mu-appbar,
+.mu-step-label.active .mu-step-label-circle,
+.mu-raised-button-primary,
+.mu-text-field-focus-line {
+    background-color: $color-theme !important;
+}
+.mu-text-field-label {
+    font-size: 18px !important;
+}
 // List_item
 .mu-item {
     padding: 2px 16px !important;
@@ -52,12 +61,9 @@ html {
     }
 }
 // Button
-.mu-flat-button-primary {
-    color: $color-theme !important;
-}
-.mu-text-field-focus-line {
-    background-color: $color-theme !important;
-}
-.mu-text-field.focus-state {
+.mu-flat-button-primary,
+.mu-text-field.focus-state,
+.mu-step-label.completed .mu-step-label-icon,
+.mu-step-label.active .mu-step-label-icon {
     color: $color-theme !important;
 }

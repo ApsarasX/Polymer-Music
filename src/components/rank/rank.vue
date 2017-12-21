@@ -43,7 +43,7 @@ export default {
     methods: {
         selectItem(item) {
             this.$router.push({
-                path: `/rank/${item.id}`
+                path: `/main/rank/${item.id}`
             });
             this.setTopList(item);
         },

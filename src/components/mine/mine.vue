@@ -50,7 +50,7 @@ export default {
         selectItem(item) {
             this.setDisc(item);
             this.$router.push({
-                path: `/mine/${item.dissid}`
+                path: `/main/mine/${item.dissid}`
             });
         },
         /**

@@ -121,7 +121,7 @@ export default {
                 });
                 this.setSinger(singer);
                 this.$router.push({
-                    path: `/search/${singer.id}`
+                    path: `/main/search/${singer.id}`
                 });
             } else {
                 this.insertSong(item);

@@ -18,64 +18,85 @@ const TopList = () => import('@/components/top-list/top-list');
 // 用户中心
 const Mine = () => import('@/components/mine/mine');
 
+const Main = () => import('@/pages/main/main');
+
+const Login = () => import('@/pages/login/login');
+
+const Register = () => import('@/pages/register/register');
+
 Vue.use(Router);
 
 const router = new Router({
     routes: [
         {
             path: '/',
-            redirect: '/recommend'
+            redirect: '/register'
         },
         {
-            path: '/recommend',
-            component: Recommend,
+            path: '/main',
+            component: Main,
+            redirect: '/main/recommend',
             children: [
                 {
-                    path: ':id',
-                    component: Disc
+                    path: 'recommend',
+                    component: Recommend,
+                    children: [
+                        {
+                            path: ':id',
+                            component: Disc
+                        }
+                    ]
+                },
+                {
+                    path: 'singer',
+                    component: Singer,
+                    children: [
+                        {
+                            path: ':id',
+                            component: SingerDetail
+                        }
+                    ]
+                },
+                {
+                    path: 'rank',
+                    component: Rank,
+                    children: [
+                        {
+                            path: ':id',
+                            component: TopList
+                        }
+                    ]
+                },
+                {
+                    path: 'search',
+                    component: Search,
+                    children: [
+                        {
+                            path: ':id',
+                            component: SingerDetail
+                        }
+                    ]
+                },
+                {
+                    path: 'mine',
+                    component: Mine,
+                    // 用户收藏歌单
+                    children: [
+                        {
+                            path: ':id',
+                            component: Disc
+                        }
+                    ]
                 }
             ]
         },
         {
-            path: '/singer',
-            component: Singer,
-            children: [
-                {
-                    path: ':id',
-                    component: SingerDetail
-                }
-            ]
+            path: '/login',
+            component: Login
         },
         {
-            path: '/rank',
-            component: Rank,
-            children: [
-                {
-                    path: ':id',
-                    component: TopList
-                }
-            ]
-        },
-        {
-            path: '/search',
-            component: Search,
-            children: [
-                {
-                    path: ':id',
-                    component: SingerDetail
-                }
-            ]
-        },
-        {
-            path: '/mine',
-            component: Mine,
-            // 用户收藏歌单
-            children: [
-                {
-                    path: ':id',
-                    component: Disc
-                }
-            ]
+            path: '/register',
+            component: Register
         }
     ]
 });

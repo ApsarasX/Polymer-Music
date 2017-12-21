@@ -10,6 +10,7 @@ import VueLazyLoad from 'vue-lazyload';
 import '@/assets/scss/index.scss';
 // import 'muse-ui/src/styles/base.less';
 // Muse-UI组件引入
+import appBar from 'muse-ui/src/appBar';
 import avatar from 'muse-ui/src/avatar';
 import {
     card,
@@ -28,6 +29,8 @@ import icon from 'muse-ui/src/icon';
 import iconButton from 'muse-ui/src/iconButton';
 import { list, listItem } from 'muse-ui/src/list';
 import popup from 'muse-ui/src/popup';
+import raisedButton from 'muse-ui/src/raisedButton';
+import { stepper, step, stepLabel } from 'muse-ui/src/stepper';
 import subHeader from 'muse-ui/src/subHeader';
 import textField from 'muse-ui/src/textField';
 import { tab, tabs } from 'muse-ui/src/tabs';
@@ -47,6 +50,7 @@ fastclick.attach(document.body);
 Vue.use(VueLazyLoad, {
     loading: defaultImage
 });
+Vue.component(appBar.name, appBar);
 Vue.component(avatar.name, avatar);
 Vue.component(card.name, card);
 Vue.component(cardHeader.name, cardHeader);
@@ -64,6 +68,11 @@ Vue.component(iconButton.name, iconButton);
 Vue.component(list.name, list);
 Vue.component(listItem.name, listItem);
 Vue.component(popup.name, popup);
+Vue.component(raisedButton.name, raisedButton);
+Vue.component(stepper.name, stepper);
+Vue.component(step.name, step);
+// Vue.component(stepContent.name, stepContent);
+Vue.component(stepLabel.name, stepLabel);
 Vue.component(subHeader.name, subHeader);
 Vue.component(textField.name, textField);
 Vue.component(tab.name, tab);
