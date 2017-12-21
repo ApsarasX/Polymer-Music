@@ -86,7 +86,7 @@
                     </ul>
                     <ul class="form-list" v-show="activeStep===3">
                         <div class="center">
-                            <mu-icon value="done" size="72" />
+                            <mu-icon value="done" :size="72" />
                             <p>所有注册步骤都已完成</p>
                         </div>
                         <mu-raised-button label="开始音乐之旅" fullWidth primary @click="toListen" />

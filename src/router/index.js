@@ -30,7 +30,7 @@ const router = new Router({
     routes: [
         {
             path: '/',
-            redirect: '/register'
+            redirect: '/main'
         },
         {
             path: '/main',

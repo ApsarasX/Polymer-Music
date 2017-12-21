@@ -33,6 +33,7 @@
                                 <mu-flat-button slot="actions" primary @click="closeFeedDialog(true)" label="取消" />
                                 <mu-flat-button slot="actions" primary @click="closeFeedDialog(true)" label="发送" />
                             </mu-dialog>
+                            <mu-list-item title="清除缓存" @click="clearStorage" />
                             <mu-list-item title="关于" @click="openAboutDialog" />
                             <mu-dialog :open="showAboutDialog" title="关于" @close="closeAboutDialog">
                                 <mu-list>
@@ -60,7 +61,8 @@
     </transition>
 </template>
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
+import storage from 'good-storage';
 
 export default {
     computed: {
@@ -112,9 +114,15 @@ export default {
                 this.feedText = '';
             }
         },
+        clearStorage() {
+            storage.clear();
+            storage.session.clear();
+            this.setPopup('清除缓存成功');
+        },
         ...mapMutations({
             setUserCenterVisible: 'SET_USER_CENTER_VISIBLE'
-        })
+        }),
+        ...mapActions(['setPopup'])
     },
     watch: {
         userCenterVisible(newVisible) {
