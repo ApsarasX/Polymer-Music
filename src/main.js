@@ -8,13 +8,11 @@ import store from './store';
 import fastclick from 'fastclick';
 import VueLazyLoad from 'vue-lazyload';
 import '@/assets/scss/index.scss';
-// import 'muse-ui/src/styles/base.less';
 // Muse-UI组件引入
 import appBar from 'muse-ui/src/appBar';
-import avatar from 'muse-ui/src/avatar';
+// import avatar from 'muse-ui/src/avatar';
 import {
     card,
-    cardHeader,
     cardMedia,
     cardTitle,
     cardText,
@@ -51,9 +49,8 @@ Vue.use(VueLazyLoad, {
     loading: defaultImage
 });
 Vue.component(appBar.name, appBar);
-Vue.component(avatar.name, avatar);
+// Vue.component(avatar.name, avatar);
 Vue.component(card.name, card);
-Vue.component(cardHeader.name, cardHeader);
 Vue.component(cardMedia.name, cardMedia);
 Vue.component(cardTitle.name, cardTitle);
 Vue.component(cardText.name, cardText);
@@ -71,7 +68,6 @@ Vue.component(popup.name, popup);
 Vue.component(raisedButton.name, raisedButton);
 Vue.component(stepper.name, stepper);
 Vue.component(step.name, step);
-// Vue.component(stepContent.name, stepContent);
 Vue.component(stepLabel.name, stepLabel);
 Vue.component(subHeader.name, subHeader);
 Vue.component(textField.name, textField);

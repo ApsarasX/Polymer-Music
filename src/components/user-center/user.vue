@@ -4,14 +4,13 @@
             <div @click.stop>
                 <mu-drawer class="user-center" :open="true" :docked="true" @close="hide">
                     <mu-card class="user-center-inner">
-                        <mu-card-header>
-                            <div class="username-wrapper">
-                                <mu-avatar src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=144480181,2572619715&fm=27&gp=0.jpg" slot="avatar" />
-                                <p class="username">用户名</p>
-                            </div>
-                        </mu-card-header>
-                        <mu-card-media>
-                            <img src="https://web-linux.com/img/daily_pic.png" />
+                        <mu-card-media title="pyyzcwg2833">
+                            <img src="https://web-linux.com/img/daily_pic.png" @click="openNicknameDialog" />
+                            <mu-dialog :open="showNicknameDialog" title="修改昵称">
+                                <mu-text-field v-model.trim="nickname" :hintText="`最多${nicknameMaxLen}个字符`" :maxLength="nicknameMaxLen" @textOverflow="cutNickname" />
+                                <mu-flat-button slot="actions" primary @click="closeNicknameDialog(false)" label="取消" />
+                                <mu-flat-button slot="actions" primary @click="closeNicknameDialog(true)" label="确定" />
+                            </mu-dialog>
                         </mu-card-media>
                         <mu-list>
                             <mu-sub-header>音乐来源</mu-sub-header>
@@ -29,8 +28,8 @@
                         <mu-list>
                             <mu-list-item title="反馈建议" @click="openFeedDialog" />
                             <mu-dialog :open="showFeedDialog" title="反馈建议">
-                                <mu-text-field hintText="最多100个字符" v-model.trim="feedText" multiLine :rows="3" :rowsMax="6" :maxLength="100" />
-                                <mu-flat-button slot="actions" primary @click="closeFeedDialog(true)" label="取消" />
+                                <mu-text-field :hintText="`最多${feedTextMaxLen}个字符`" v-model.trim="feedText" @textOverflow="cutFeddback" multiLine :rows="3" :rowsMax="6" :maxLength="feedTextMaxLen" />
+                                <mu-flat-button slot="actions" primary @click="closeFeedDialog(false)" label="取消" />
                                 <mu-flat-button slot="actions" primary @click="closeFeedDialog(true)" label="发送" />
                             </mu-dialog>
                             <mu-list-item title="清除缓存" @click="clearStorage" />
@@ -65,6 +64,16 @@ import { mapGetters, mapMutations, mapActions } from 'vuex';
 import storage from 'good-storage';
 
 export default {
+    props: {
+        nicknameMaxLen: {
+            type: Number,
+            default: 10
+        },
+        feedTextMaxLen: {
+            type: Number,
+            default: 100
+        }
+    },
     computed: {
         ...mapGetters(['userCenterVisible'])
     },
@@ -79,9 +88,11 @@ export default {
         return {
             // 反馈内容
             feedText: '',
+            nickname: '',
             username: '用户名',
             showAboutDialog: false,
             showFeedDialog: false,
+            showNicknameDialog: false,
             softwareName,
             version,
             author,
@@ -100,6 +111,9 @@ export default {
         openFeedDialog() {
             this.showFeedDialog = true;
         },
+        openNicknameDialog() {
+            this.showNicknameDialog = true;
+        },
         // 关闭对话框
         closeAboutDialog() {
             this.showAboutDialog = false;
@@ -107,11 +121,34 @@ export default {
         /**
          * @param {Boolean} hasContent 反馈输入框是否有内容
          */
-        closeFeedDialog(hasContent = false) {
+        closeFeedDialog(isSend) {
             this.showFeedDialog = false;
-            if (hasContent && this.feedText) {
-                console.info(this.feedText);
+            if (this.feedText) {
+                if (isSend) {
+                    // 在此处发送反馈
+                    console.info(this.feedText, isSend);
+                }
                 this.feedText = '';
+            }
+        },
+        closeNicknameDialog(isSend) {
+            this.showNicknameDialog = false;
+            if (this.nickname) {
+                if (isSend) {
+                    // 此处发送昵称
+                    console.info(this.nickname, isSend);
+                }
+                this.nickname = '';
+            }
+        },
+        cutNickname(isOverflow) {
+            if (isOverflow) {
+                this.nickname = this.nickname.slice(0, this.nicknameMaxLen);
+            }
+        },
+        cutFeddback(isOverflow) {
+            if (isOverflow) {
+                this.feedText = this.feedText.slice(0, this.feedTextMaxLen);
             }
         },
         clearStorage() {
