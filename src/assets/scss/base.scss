@@ -39,6 +39,9 @@ html {
 .mu-card-header {
     padding: 8px !important;
 }
+.mu-flat-button.disabled {
+    color: rgba(0, 0, 0, 0.38) !important;
+}
 // Text-Field
 .mu-text-field {
     width: 100% !important;

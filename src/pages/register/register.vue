@@ -26,19 +26,18 @@
                     <ul class="form-list" v-show="activeStep===0">
                         <li>
                             <div class="mobile">
-                                <mu-text-field hintText="手机号" />
+                                <mu-text-field v-model="mobile" hintText="手机号" />
                             </div>
                             <div class="validate-code">
-                                <!-- <span>获取验证码</span> -->
-                                <mu-flat-button label="获取验证码" primary/>
+                                <mu-flat-button :label="vcodeBtnLabel" :disabled="vcodeBtnLabel!=='获取验证码'" @click="getVcode" primary/>
                             </div>
                         </li>
                         <li>
                             <div class="vcode-input">
-                                <mu-text-field hintText="验证码" />
+                                <mu-text-field v-model="vcode" hintText="验证码" />
                             </div>
                             <div>
-                                <mu-raised-button label="下一步" primary @click="nextStep" />
+                                <mu-raised-button label="下一步" primary @click="validateMobile" />
                             </div>
                         </li>
                     </ul>
@@ -59,12 +58,6 @@
                     <ul class="form-list" v-show="activeStep===2">
                         <li>
                             <mu-text-field hintText="昵称(可选)" />
-                        </li>
-                        <li>
-                            <mu-text-field hintText="密码" />
-                        </li>
-                        <li>
-                            <mu-text-field hintText="重复密码确认" />
                         </li>
                         <div>
                             <mu-list>
@@ -98,11 +91,16 @@
 </template>
 <script>
 import Mtransition from '@/base/mtransition/mtransition';
+import { mapActions } from 'vuex';
 
 export default {
     data() {
         return {
-            activeStep: 0
+            activeStep: 0,
+            mobile: '',
+            vcode: '',
+            vcodeBtnLabel: '获取验证码',
+            countDown: 60
         };
     },
     components: {
@@ -112,12 +110,52 @@ export default {
         nextStep() {
             this.activeStep += 1;
         },
+        // 获取验证码
+        getVcode() {
+            if (!this._validate(this.mobile)) {
+                this.setPopup('请输入正确的手机号');
+                return;
+            }
+            clearInterval(this.timer);
+            this.timer = setInterval(() => {
+                if (this.countDown === 0) {
+                    clearInterval(this.timer);
+                    this.countDown = 60;
+                    this.vcodeBtnLabel = '获取验证码';
+                    return;
+                }
+                this.vcodeBtnLabel = `${this.countDown}s`;
+                this.countDown -= 1;
+            }, 1000);
+        },
+        // 根据输入的验证码校验手机号
+        validateMobile() {
+            if (!this._validate(this.vcode, 'vcode')) {
+                this.setPopup('验证码格式错误');
+                return;
+            }
+            // ... 发送验证码
+            if (true) {
+                this.activeStep += 1;
+            }
+        },
+        // 返回
         back() {
             this.$router.back();
         },
+        // 完成所有步骤,取听歌
         toListen() {
             this.$router.replace('/main/recommend');
-        }
+        },
+        // 校验数字
+        _validate(str, type = 'mobile') {
+            const reg = {
+                mobile: /^1(3|4|5|6|7|8)\d{9}$/,
+                vcode: /^\d{4}$/
+            };
+            return reg[type].test(str);
+        },
+        ...mapActions(['setPopup'])
     }
 };
 </script>
@@ -146,6 +184,7 @@ export default {
         }
     }
 }
+
 .mobile {
     width: 60%;
 }

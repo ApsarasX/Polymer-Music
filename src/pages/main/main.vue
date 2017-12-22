@@ -6,9 +6,6 @@
             <router-view></router-view>
         </keep-alive>
         <player></player>
-        <mu-popup position="top" :overlay="false" popupClass="popup-top" :open="popupVisible">
-            {{popupContent}}
-        </mu-popup>
         <user-center></user-center>
         <mu-dialog :open="dialog" title="登录/注册">
             <p class="dialogText">注册并登陆后可以您的体验更好, 是否登录/注册?</p>
@@ -28,7 +25,7 @@ import storage from 'good-storage';
 
 export default {
     computed: {
-        ...mapGetters(['userCenterVisible', 'popupVisible', 'popupContent'])
+        ...mapGetters(['userCenterVisible'])
     },
     components: {
         MHeader,
