@@ -1,5 +1,10 @@
 import { playMode } from '@/assets/js/config';
-import { loadSearch, loadPlay, loadFavorite } from '@/assets/js/cache';
+import {
+    loadSearch,
+    loadPlay,
+    loadFavorite,
+    loadSrcTypes
+} from '@/assets/js/cache';
 /**
  * @constant state - Vuex状态
  * */
@@ -37,7 +42,10 @@ const state = {
     popupVisible: false,
     // 顶部提示框内容
     popupContent: '',
-    direction: 'forward'
+    // 主页Tab切换方向
+    direction: 'forward',
+    // 音乐来源类型
+    srcTypes: loadSrcTypes()
 };
 
 export default state;

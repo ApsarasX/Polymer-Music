@@ -21,7 +21,7 @@
 import MHeader from '@/components/m-header/m-header';
 import Tab from '@/components/tab/tab';
 import Player from '@/components/player/player';
-import UserCenter from '@/components/user-center/user';
+import UserCenter from '@/components/user-center/user-center';
 import { mapGetters, mapMutations } from 'vuex';
 import storage from 'good-storage';
 

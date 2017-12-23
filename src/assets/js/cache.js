@@ -7,7 +7,10 @@ const PLAY_KEY = '__play__';
 const PLAY_MAX_LENGTH = 200;
 
 const FAVORITE_KEY = '__favorite__';
+// const FAVORITE_LIST_KEY = '__favorite_list__';
 const FAVORITE_MAX_LENGTH = 200;
+
+const SRC_TYPES_KEY = '__src_types__';
 
 function insertArray(arr, val, compare, maxLen) {
     const index = arr.findIndex(compare);
@@ -83,4 +86,20 @@ export function deleteFavorite(song) {
 // 载入收藏夹
 export function loadFavorite() {
     return storage.get(FAVORITE_KEY, []);
+}
+// export function loadFavoriteList() {
+//     return storage.get(FAVORITE_LIST_KEY, []);
+// }
+
+// export function saveFavoriteList(list) {
+//     const lists = storage.get(FAVORITE_LIST_KEY, []);
+//     insertArray(lists, list, item => item.id === list.id, FAVORITE_MAX_LENGTH);
+// }
+
+export function loadSrcTypes() {
+    return storage.get(SRC_TYPES_KEY, { qq: false, ne: false, xm: false });
+}
+
+export function saveSrcTypes({ qq = false, ne = false, xm = false }) {
+    storage.set(SRC_TYPES_KEY, { qq, ne, xm });
 }

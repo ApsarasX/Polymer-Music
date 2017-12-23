@@ -560,6 +560,11 @@ export default {
             if (!newSong.id || !newSong.url || newSong.id === oldSong.id) {
                 return;
             }
+            // 如果是付费歌曲
+            if (newSong.isPay) {
+                this.next();
+                return;
+            }
             this.songReady = false;
             this.canLyricPlay = false;
             if (this.currentLyric) {

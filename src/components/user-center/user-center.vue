@@ -15,13 +15,13 @@
                         <mu-list>
                             <mu-sub-header>音乐来源</mu-sub-header>
                             <mu-list-item disableRipple title="网易云音乐">
-                                <mu-switch slot="right" />
+                                <mu-switch slot="right" v-model="_srcTypes.ne" @input="srcTypesChange" />
                             </mu-list-item>
                             <mu-list-item disableRipple title="QQ音乐">
-                                <mu-switch slot="right" />
+                                <mu-switch slot="right" v-model="_srcTypes.qq" @input="srcTypesChange" />
                             </mu-list-item>
                             <mu-list-item disableRipple title="虾米音乐">
-                                <mu-switch slot="right" />
+                                <mu-switch slot="right" v-model="_srcTypes.xm" @input="srcTypesChange" />
                             </mu-list-item>
                         </mu-list>
                         <mu-divider />
@@ -61,7 +61,6 @@
 </template>
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import storage from 'good-storage';
 
 export default {
     props: {
@@ -74,8 +73,13 @@ export default {
             default: 100
         }
     },
+    created() {
+        // 初始化音乐来源类型
+        const { qq, ne, xm } = this.srcTypes;
+        this._srcTypes = { qq, ne, xm };
+    },
     computed: {
-        ...mapGetters(['userCenterVisible'])
+        ...mapGetters(['userCenterVisible', 'srcTypes'])
     },
     data() {
         /* eslint-disable global-require */
@@ -104,23 +108,26 @@ export default {
         hide() {
             this.setUserCenterVisible(false);
         },
-        // 打开对话框
+        srcTypesChange() {
+            this.setSrcTypes({ ...this._srcTypes });
+        },
+        // 打开关于对话框
         openAboutDialog() {
             this.showAboutDialog = true;
         },
+        // 打开反馈对话框
         openFeedDialog() {
             this.showFeedDialog = true;
         },
+        // 打开昵称对话框
         openNicknameDialog() {
             this.showNicknameDialog = true;
         },
-        // 关闭对话框
+        // 关闭关于对话框
         closeAboutDialog() {
             this.showAboutDialog = false;
         },
-        /**
-         * @param {Boolean} hasContent 反馈输入框是否有内容
-         */
+        // 关闭反馈对话框
         closeFeedDialog(isSend) {
             this.showFeedDialog = false;
             if (this.feedText) {
@@ -131,6 +138,7 @@ export default {
                 this.feedText = '';
             }
         },
+        // 关闭昵称对话框
         closeNicknameDialog(isSend) {
             this.showNicknameDialog = false;
             if (this.nickname) {
@@ -152,14 +160,14 @@ export default {
             }
         },
         clearStorage() {
-            storage.clear();
-            storage.session.clear();
+            localStorage.clear();
+            sessionStorage.clear();
             this.setPopup('清除缓存成功');
         },
         ...mapMutations({
             setUserCenterVisible: 'SET_USER_CENTER_VISIBLE'
         }),
-        ...mapActions(['setPopup'])
+        ...mapActions(['setPopup', 'setSrcTypes'])
     },
     watch: {
         userCenterVisible(newVisible) {

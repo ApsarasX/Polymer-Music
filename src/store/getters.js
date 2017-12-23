@@ -35,3 +35,5 @@ export const popupVisible = state => state.popupVisible;
 export const popupContent = state => state.popupContent;
 
 export const direction = state => state.direction;
+
+export const srcTypes = state => state.srcTypes;

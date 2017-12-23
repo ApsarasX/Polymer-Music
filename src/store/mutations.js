@@ -54,6 +54,9 @@ const mutations = {
     },
     [types.UPDATE_DIRECTION](state, direction) {
         state.direction = direction;
+    },
+    [types.SET_SRC_TYPES](state, srcTypes) {
+        state.srcTypes = srcTypes;
     }
 };
 

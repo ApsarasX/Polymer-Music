@@ -11,6 +11,7 @@
 ## Preview(预览地址)
 
 [https://music.io-code.com/](https://music.io-code.com/ "https://music.io-code.com/")
+> PC浏览器查看时请设置成手机视图
 
 ## ScreenShots(运行截图)
 

@@ -7,7 +7,8 @@ import {
     clearSearch,
     savePlay,
     saveFavorite,
-    deleteFavorite
+    deleteFavorite,
+    saveSrcTypes
 } from '../assets/js/cache';
 
 function findIndex(list, song) {
@@ -146,4 +147,9 @@ export function setPopup({ commit }, content) {
         commit(types.SET_POPUP_CONTENT, '');
         commit(types.SET_POPUP_VISIBLE, false);
     }, popupDelay);
+}
+
+export function setSrcTypes({ commit }, srcTypes) {
+    commit(types.SET_SRC_TYPES, srcTypes);
+    saveSrcTypes(srcTypes);
 }
