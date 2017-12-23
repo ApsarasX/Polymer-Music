@@ -33,6 +33,14 @@ const router = new Router({
             redirect: '/main'
         },
         {
+            path: '/login',
+            component: Login
+        },
+        {
+            path: '/register',
+            component: Register
+        },
+        {
             path: '/main',
             component: Main,
             redirect: '/main/recommend',
@@ -90,14 +98,6 @@ const router = new Router({
                     ]
                 }
             ]
-        },
-        {
-            path: '/login',
-            component: Login
-        },
-        {
-            path: '/register',
-            component: Register
         }
     ]
 });

@@ -1,6 +1,6 @@
 <template>
     <mtransition>
-        <div class="wrapper">
+        <div>
             <mu-appbar title="注册">
                 <mu-icon-button icon="arrow_back" slot="left" @click="back" />
             </mu-appbar>
@@ -117,6 +117,7 @@ export default {
                 return;
             }
             clearInterval(this.timer);
+            // ... 发送验证码
             this.timer = setInterval(() => {
                 if (this.countDown === 0) {
                     clearInterval(this.timer);
@@ -130,12 +131,17 @@ export default {
         },
         // 根据输入的验证码校验手机号
         validateMobile() {
+            if (!this._validate(this.mobile)) {
+                this.setPopup('请输入正确的手机号');
+                return;
+            }
             if (!this._validate(this.vcode, 'vcode')) {
                 this.setPopup('验证码格式错误');
                 return;
             }
-            // ... 发送验证码
-            if (true) {
+            // 验证码正确
+            const isCorrect = true;
+            if (isCorrect) {
                 this.activeStep += 1;
             }
         },
@@ -162,10 +168,6 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/scss/variable.scss';
 
-.wrapper {
-    overflow: hidden;
-}
-
 .main {
     width: 100%;
     height: 90vh;
@@ -174,7 +176,7 @@ export default {
     overflow-y: scroll;
     .form-group {
         width: 85%;
-        margin: 10px auto;
+        margin: 0 auto;
         li {
             padding: 10px 0;
             display: block;

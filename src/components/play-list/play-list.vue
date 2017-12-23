@@ -6,7 +6,7 @@
                     <h1 class="title">
                         <i class="icon material-icons" @click="changeMode">{{iconMode}}</i>
                         <span class="text">{{modeText}}</span>
-                        <span class="clear" @click="showConfirm">
+                        <span class="clear" @click="showConfirm=true">
                             <!-- <i class="icon-clear"></i> -->
                             <i class="material-icons">delete</i>
                         </span>
@@ -26,18 +26,15 @@
                         </li>
                     </transition-group>
                 </scroll>
-                <div class="list-operate">
-                    <div class="add" @click="addSong">
-                        <i class="material-icons">add</i>
-                        <span class="text">添加歌曲到队列</span>
-                    </div>
-                </div>
                 <div class="list-close" @click="hide">
                     <span>关闭</span>
                 </div>
             </div>
-            <confirm ref="confirm" @confirm="confirmClear" text="是否清空播放列表" confirmBtnText="清空"></confirm>
-            <add-song ref="addSong"></add-song>
+            <mu-dialog :open="showConfirm" title="清空" @close="closeConfirm">
+                是否清空播放列表
+                <mu-flat-button slot="actions" @click="closeConfirm" primary label="取消" />
+                <mu-flat-button slot="actions" primary @click="confirmClear" label="清空" />
+            </mu-dialog>
         </div>
     </transition>
 </template>
@@ -45,15 +42,14 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import Scroll from '@/base/scroll/scroll';
 import { playMode } from '@/assets/js/config';
-import Confirm from '@/base/confirm/confirm';
 import { playerMixin } from '@/assets/js/mixin';
-import AddSong from '../add-song/add-song';
 
 export default {
     mixins: [playerMixin],
     data() {
         return {
-            refreshDelay: 100
+            refreshDelay: 100,
+            showConfirm: false
         };
     },
     computed: {
@@ -119,15 +115,13 @@ export default {
                 item.deleting = false;
             }, 300);
         },
-        showConfirm() {
-            this.$refs.confirm.show();
+        closeConfirm() {
+            this.showConfirm = false;
         },
         confirmClear() {
             this.deleteSongList();
+            this.closeConfirm();
             this.hide();
-        },
-        addSong() {
-            this.$refs.addSong.show();
         },
         ...mapActions(['deleteSong', 'deleteSongList']),
         ...mapMutations({
@@ -146,9 +140,7 @@ export default {
         }
     },
     components: {
-        Scroll,
-        Confirm,
-        AddSong
+        Scroll
     }
 };
 </script>
@@ -213,6 +205,7 @@ export default {
         .list-content {
             max-height: 240px;
             overflow: hidden;
+            margin-bottom: 20px;
             .item {
                 display: flex;
                 align-items: center;

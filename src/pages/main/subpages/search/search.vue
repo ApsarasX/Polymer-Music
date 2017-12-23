@@ -18,7 +18,7 @@
                         <div class="search-history" v-show="searchHistory.length">
                             <h1 class="title">
                                 <span class="text">搜索历史</span>
-                                <span class="clear" @click="showConfirm">
+                                <span class="clear" @click="showConfirm=true">
                                     <i class="material-icons">delete</i>
                                 </span>
                             </h1>
@@ -30,7 +30,11 @@
             <div ref="searchResult" class="search-result">
                 <suggest ref="suggest" :query="query" v-show="query" @listScroll="blurInput" @select="saveSearch"></suggest>
             </div>
-            <confirm ref="confirm" text="是否清空所有搜索历史" confirmBtnTxt="清空" @confirm="clearSearchHistory"></confirm>
+            <mu-dialog :open="showConfirm" title="清空" @close="closeConfirm">
+                是否清空所有搜索历史
+                <mu-flat-button slot="actions" @click="closeConfirm" primary label="取消" />
+                <mu-flat-button slot="actions" primary @click="confirmClear" label="清空" />
+            </mu-dialog>
             <router-view></router-view>
         </div>
     </transition>
@@ -43,7 +47,6 @@ import { ERR_OK } from '@/api/config';
 import Suggest from '@/components/suggest/suggest';
 import SearchList from '@/base/search-list/search-list';
 import { mapActions } from 'vuex';
-import Confirm from '@/base/confirm/confirm';
 import Scroll from '@/base/scroll/scroll';
 import { searchMixin } from '@/assets/js/mixin';
 
@@ -53,7 +56,6 @@ export default {
         SearchBox,
         Suggest,
         SearchList,
-        Confirm,
         Scroll
     },
     computed: {
@@ -66,21 +68,17 @@ export default {
     },
     data() {
         return {
-            hotKey: []
+            hotKey: [],
+            showConfirm: false
         };
     },
     methods: {
-        // handlePlayList(playList) {
-        //     const bottom = playList.length > 0 ? '60px' : '';
-        //     this.$refs.shortcutWrapper.style.bottom = bottom;
-        //     // 从新计算整体滚动列表
-        //     this.$refs.shortcut.refresh();
-        //     this.$refs.searchResult.style.bottom = bottom;
-        //     // 从新计算搜索结果滚动列表
-        //     this.$refs.suggest.refresh();
-        // },
-        showConfirm() {
-            this.$refs.confirm.show();
+        closeConfirm() {
+            this.showConfirm = false;
+        },
+        confirmClear() {
+            this.clearSearchHistory();
+            this.closeConfirm();
         },
         _getHotKey() {
             getHotKey().then(res => {
