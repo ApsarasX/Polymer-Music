@@ -51,6 +51,9 @@ const mutations = {
     },
     [types.SET_POPUP_CONTENT](state, content) {
         state.popupContent = content;
+    },
+    [types.UPDATE_DIRECTION](state, direction) {
+        state.direction = direction;
     }
 };
 

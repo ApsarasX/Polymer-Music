@@ -1,28 +1,28 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from '../store';
+// 登录页
+const Login = () => import('@/pages/login/login');
+// 注册页
+const Register = () => import('@/pages/register/register');
+// 最主要的页面
+const Main = () => import('@/pages/main/main');
 // 首页-推荐页
-const Recommend = () => import('@/components/recommend/recommend');
+const Recommend = () => import('@/pages/main/subpages/recommend/recommend');
 // 首页-歌手页
-const Singer = () => import('@/components/singer/singer');
+const Singer = () => import('@/pages/main/subpages/singer/singer');
 // 首页-排行榜页
-const Rank = () => import('@/components/rank/rank');
+const Rank = () => import('@/pages/main/subpages/rank/rank');
+// 首页-我的页
+const Mine = () => import('@/pages/main/subpages/mine/mine');
 // 首页-搜索页
-const Search = () => import('@/components/search/search');
+const Search = () => import('@/pages/main/subpages/search/search');
 // 歌手详情(所有歌曲)
 const SingerDetail = () => import('@/components/singer-detail/singer-detail');
 // 歌单详情
 const Disc = () => import('@/components/disc/disc');
 // 榜单详情
 const TopList = () => import('@/components/top-list/top-list');
-// 用户中心
-const Mine = () => import('@/components/mine/mine');
-
-const Main = () => import('@/pages/main/main');
-
-const Login = () => import('@/pages/login/login');
-
-const Register = () => import('@/pages/register/register');
 
 Vue.use(Router);
 
@@ -80,6 +80,7 @@ const router = new Router({
                 {
                     path: 'mine',
                     component: Mine,
+                    meta: { requiresAuth: true },
                     // 用户收藏歌单
                     children: [
                         {
@@ -101,6 +102,9 @@ const router = new Router({
     ]
 });
 
+const mainRouteList = ['recommend', 'singer', 'rank', 'mine', 'search'];
+const pathReg = /^\/main\/([a-z]{4,9})$/;
+
 router.beforeEach((to, from, next) => {
     const { fullScreen, userCenterVisible, playListVisible } = store.getters;
     if (fullScreen) {
@@ -113,6 +117,17 @@ router.beforeEach((to, from, next) => {
         store.commit('SET_PLAY_LIST_VISIBLE', false);
         next(false);
     } else {
+        const toPath = pathReg.exec(to.path);
+        const fromPath = pathReg.exec(from.path);
+        if (toPath && toPath[1] && fromPath && fromPath[1]) {
+            const toIndex = mainRouteList.indexOf(toPath[1]);
+            const fromIndex = mainRouteList.indexOf(fromPath[1]);
+            if (toIndex - fromIndex > 0) {
+                store.commit('UPDATE_DIRECTION', 'forward');
+            } else if (toIndex - fromIndex < 0) {
+                store.commit('UPDATE_DIRECTION', 'reverse');
+            }
+        }
         next();
     }
 });

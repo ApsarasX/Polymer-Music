@@ -2,9 +2,11 @@
     <div>
         <m-header @userCenterVisibleChange="userCenterVisibleChange"></m-header>
         <tab></tab>
-        <keep-alive>
-            <router-view></router-view>
-        </keep-alive>
+        <transition :name="'slide-' + (direction === 'forward' ? 'in' : 'out')">
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
+        </transition>
         <player></player>
         <user-center></user-center>
         <mu-dialog :open="dialog" title="登录/注册">
@@ -25,7 +27,7 @@ import storage from 'good-storage';
 
 export default {
     computed: {
-        ...mapGetters(['userCenterVisible'])
+        ...mapGetters(['userCenterVisible', 'direction'])
     },
     components: {
         MHeader,
@@ -67,5 +69,37 @@ export default {
 <style lang="scss" scoped>
 .dialogText {
     line-height: 30px;
+}
+.slide-out-enter-active,
+.slide-out-leave-active,
+.slide-in-enter-active,
+.slide-in-leave-active {
+    will-change: transform;
+    transition: all 250ms;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    backface-visibility: hidden;
+    perspective: 1000;
+}
+
+.slide-out-enter {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+}
+
+.slide-out-leave-active {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+}
+
+.slide-in-enter {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+}
+
+.slide-in-leave-active {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
 }
 </style>

@@ -44,8 +44,8 @@ import Suggest from '@/components/suggest/suggest';
 import SearchList from '@/base/search-list/search-list';
 import { mapActions } from 'vuex';
 import Confirm from '@/base/confirm/confirm';
-import Scroll from '../../base/scroll/scroll';
-import { searchMixin } from '../../assets/js/mixin';
+import Scroll from '@/base/scroll/scroll';
+import { searchMixin } from '@/assets/js/mixin';
 
 export default {
     mixins: [searchMixin],
@@ -108,6 +108,7 @@ export default {
 @import '~@/assets/scss/mixin.scss';
 
 .search {
+    position: relative;
     &.slide-enter-active,
     &.slide-leave-active {
         transition: all 0.3s;
@@ -117,6 +118,7 @@ export default {
         transform: translate3d(100%, 0, 0);
     }
     .search-box-wrapper {
+        position: relative;
         padding: 10px;
         background-color: $color-highlight-background;
     }

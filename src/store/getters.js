@@ -33,3 +33,5 @@ export const miniPlayerVisible = state => state.miniPlayerVisible;
 export const popupVisible = state => state.popupVisible;
 
 export const popupContent = state => state.popupContent;
+
+export const direction = state => state.direction;
