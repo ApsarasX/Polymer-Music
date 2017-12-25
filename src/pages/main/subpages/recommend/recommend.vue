@@ -50,6 +50,7 @@ import { getRecommend, getDiscList } from '@/api/recommend';
 import { ERR_OK } from '@/api/config';
 // import { playListMixin } from '@/assets/js/mixin';
 import { mapMutations } from 'vuex';
+import { createList } from '@/assets/js/list';
 
 export default {
     // mixins: [playListMixin],
@@ -78,10 +79,11 @@ export default {
     methods: {
         // 点击歌单进入详情
         selectItem(item) {
+            const formatItem = createList(item).format();
             this.$router.push({
-                path: `/main/recommend/${item.dissid}`
+                path: `/main/recommend/${formatItem.id}`
             });
-            this.setDisc(item);
+            this.setDisc(formatItem);
         },
         // handlePlayList(playList, bottomEnable = true) {
         //     const bottom = playList.length > 0 && bottomEnable ? '60px' : '';

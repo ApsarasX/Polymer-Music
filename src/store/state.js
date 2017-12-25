@@ -3,6 +3,7 @@ import {
     loadSearch,
     loadPlay,
     loadFavorite,
+    loadFavoriteList,
     loadSrcTypes
 } from '@/assets/js/cache';
 /**
@@ -32,6 +33,8 @@ const state = {
     playHistory: loadPlay(),
     // 收藏歌曲
     favoriteList: loadFavorite(),
+    // 收藏歌单
+    favoriteListList: loadFavoriteList(),
     // 用户中心可见性
     userCenterVisible: false,
     // 播放列表显示

@@ -24,6 +24,8 @@ export const playHistory = state => state.playHistory;
 
 export const favoriteList = state => state.favoriteList;
 
+export const favoriteListList = state => state.favoriteListList;
+
 export const userCenterVisible = state => state.userCenterVisible;
 
 export const playListVisible = state => state.playListVisible;

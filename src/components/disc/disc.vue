@@ -1,18 +1,20 @@
 <template>
     <transition name="slide">
         <!-- isDisc 是否是歌单 -->
-        <music-list :title="title" :bg-image="bgImage" :songs="songs" :isDisc="true"></music-list>
+        <music-list :title="title" :bg-image="bgImage" :songs="songs" :isDisc="true" :isFavorite="isFavorite" @favoriteChange="toggleFavorite"></music-list>
     </transition>
 </template>
 
 <script>
 import MusicList from '../music-list/music-list';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapMutations } from 'vuex';
 import { getSongList } from '@/api/recommend';
 import { ERR_OK } from '@/api/config';
 import { createSong, isValidMusic } from '@/assets/js/song';
+import { sheetMixin } from '@/assets/js/mixin';
 
 export default {
+    mixins: [sheetMixin],
     components: {
         MusicList
     },
@@ -27,14 +29,12 @@ export default {
     computed: {
         // 歌单标题
         title() {
-            return this.disc.dissname;
+            return this.disc.name;
         },
         // 歌单顶部背景图片
         bgImage() {
-            return this.disc.imgurl;
-        },
-        // 从Vuex获取过来的当前歌单信息
-        ...mapGetters(['disc'])
+            return this.disc.image;
+        }
     },
     methods: {
         /**
@@ -43,17 +43,19 @@ export default {
          */
         _getSongList() {
             // 如果没有歌单id, 根据页面url获取
-            if (!this.disc.dissid) {
-                this.dissid = this.$router.currentRoute.params.id;
+            if (!this.disc || !this.disc.id) {
+                this.discId = this.$router.currentRoute.params.id;
             }
-            getSongList(this.disc.dissid || this.dissid).then(res => {
+            getSongList(this.disc.id || this.discId).then(res => {
                 if (res.code === ERR_OK) {
                     this.songs = this._normalizeSongs(res.cdlist[0].songlist);
-                    this.setDisc({
-                        dissid: res.cdlist[0].disstid,
-                        dissname: res.cdlist[0].dissname,
-                        imgurl: res.cdlist[0].logo
-                    });
+                    if (!this.disc || !this.disc.id) {
+                        this.setDisc({
+                            id: res.cdlist[0].disstid,
+                            name: res.cdlist[0].dissname,
+                            image: res.cdlist[0].logo
+                        });
+                    }
                 }
             });
         },

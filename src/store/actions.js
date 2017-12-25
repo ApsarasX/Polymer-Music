@@ -8,6 +8,8 @@ import {
     savePlay,
     saveFavorite,
     deleteFavorite,
+    saveFavoriteList as saveFavoriteSheet,
+    deleteFavoriteList as deleteFavoriteSheet,
     saveSrcTypes
 } from '../assets/js/cache';
 
@@ -138,6 +140,14 @@ export function saveFavoriteList({ commit }, song) {
 
 export function deleteFavoriteList({ commit }, song) {
     commit(types.SET_FAVORITE_LIST, deleteFavorite(song));
+}
+
+export function saveFavoriteListList({ commit }, list) {
+    commit(types.SET_FAVORITE_LIST_LIST, saveFavoriteSheet(list));
+}
+
+export function deleteFavoriteListList({ commit }, list) {
+    commit(types.SET_FAVORITE_LIST_LIST, deleteFavoriteSheet(list));
 }
 
 export function setPopup({ commit }, content) {

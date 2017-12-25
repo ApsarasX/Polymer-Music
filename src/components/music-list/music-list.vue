@@ -10,9 +10,9 @@
                     <i class="material-icons">play_circle_outline</i>
                     <span class="text">随机播放全部</span>
                 </div>
-                <div class="favor" v-show="isDisc" ref="favorBtn">
-                    <i class="material-icons">favorite</i>
-                    <span class="text">收藏此歌单</span>
+                <div class="favor" v-show="isDisc" @click="toggleFavorite" ref="favorBtn">
+                    <i class="material-icons">{{isFavorite?'favorite':'favorite_border'}}</i>
+                    <span class="text">{{isFavorite?'取消收藏':'收藏此歌单'}}</span>
                 </div>
             </div>
             <div class="filter" ref="filter"></div>
@@ -34,7 +34,7 @@ import SongList from '@/base/song-list/song-list';
 import Loading from '@/base/loading/loading';
 import { prefixStyle } from '@/assets/js/dom';
 import { mapActions } from 'vuex';
-// import { playListMixin } from '@/assets/js/mixin';
+// import { sheetMixin } from '@/assets/js/mixin';
 
 // 顶部保留高度
 const RESERVED_HEIGHT = 40;
@@ -43,7 +43,7 @@ const transform = prefixStyle('transform');
 const backdrop = prefixStyle('backdrop-filter');
 
 export default {
-    // mixins: [playListMixin],
+    // mixins: [sheetMixin],
     props: {
         bgImage: {
             type: String,
@@ -63,6 +63,10 @@ export default {
         },
         // 是否是歌单里的
         isDisc: {
+            type: Boolean,
+            default: false
+        },
+        isFavorite: {
             type: Boolean,
             default: false
         }
@@ -127,6 +131,9 @@ export default {
             this.randomPlay({
                 list: this.songs
             });
+        },
+        toggleFavorite() {
+            this.$emit('favoriteChange');
         },
         ...mapActions(['selectPlay', 'randomPlay', 'setPopup'])
     },

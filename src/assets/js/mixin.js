@@ -1,7 +1,7 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import { shuffle } from '@/assets/js/util';
 import { playMode } from '@/assets/js/config';
-
+// import { createList } from '@/assets/js/list';
 // 列表相关的Mixin
 // export const playListMixin = {
 //     computed: {
@@ -24,6 +24,33 @@ import { playMode } from '@/assets/js/config';
 //         }
 //     }
 // };
+
+export const sheetMixin = {
+    computed: {
+        isFavorite() {
+            const list = this.disc;
+            if (!list) {
+                return false;
+            }
+            const index = this.favoriteListList.findIndex(
+                item => item.id === list.id
+            );
+            return index > -1;
+        },
+        ...mapGetters(['disc', 'favoriteListList'])
+    },
+    methods: {
+        toggleFavorite() {
+            const list = this.disc;
+            if (this.isFavorite) {
+                this.deleteFavoriteListList(list);
+            } else {
+                this.saveFavoriteListList(list);
+            }
+        },
+        ...mapActions(['saveFavoriteListList', 'deleteFavoriteListList'])
+    }
+};
 
 // 播放相关Mixin
 export const playerMixin = {
