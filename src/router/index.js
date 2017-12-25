@@ -23,6 +23,10 @@ const SingerDetail = () => import('@/components/singer-detail/singer-detail');
 const Disc = () => import('@/components/disc/disc');
 // 榜单详情
 const TopList = () => import('@/components/top-list/top-list');
+// 播放历史
+const playHistory = () => import('@/components/play-history/play-history');
+
+const favoriteSong = () => import('../components/favorite-song/favorite-song');
 
 Vue.use(Router);
 
@@ -88,12 +92,19 @@ const router = new Router({
                 {
                     path: 'mine',
                     component: Mine,
-                    meta: { requiresAuth: true },
                     // 用户收藏歌单
                     children: [
                         {
-                            path: ':id',
+                            path: 'history',
+                            component: playHistory
+                        },
+                        {
+                            path: 'favorite_sheet/:id',
                             component: Disc
+                        },
+                        {
+                            path: 'favorite_song',
+                            component: favoriteSong
                         }
                     ]
                 }

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import MusicList from '../music-list/music-list';
+import MusicList from '@/components/music-list/music-list';
 import { mapMutations } from 'vuex';
 import { getSongList } from '@/api/recommend';
 import { ERR_OK } from '@/api/config';
@@ -53,7 +53,8 @@ export default {
                         this.setDisc({
                             id: res.cdlist[0].disstid,
                             name: res.cdlist[0].dissname,
-                            image: res.cdlist[0].logo
+                            image: res.cdlist[0].logo,
+                            creatorName: res.cdlist[0].nick
                         });
                     }
                 }

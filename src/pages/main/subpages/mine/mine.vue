@@ -3,22 +3,22 @@
         <scroll :data="discList" class="mine-content">
             <div>
                 <mu-list class="option-list">
-                    <mu-list-item title="最近收听">
+                    <mu-list-item title="最近收听" disableRipple @click="enterHistory">
                         <mu-icon slot="left" value="history" />
                     </mu-list-item>
-                    <mu-list-item title="收藏歌曲">
+                    <mu-list-item title="收藏歌曲" disableRipple @click="enterFavoriteSongs">
                         <mu-icon slot="left" value="favorite" />
                     </mu-list-item>
                 </mu-list>
                 <mu-sub-header class="title">收藏歌单</mu-sub-header>
                 <ul class="list">
-                    <li @click="selectItem(item)" v-for="(item, index) in discList" class="item" :key="index">
+                    <li @click="selectItem(item)" v-for="(item, index) in favoriteListList" class="item" :key="index">
                         <div class="icon">
-                            <img width="60" height="60" v-lazy="item.imgurl" alt="discItem">
+                            <img width="60" height="60" v-lazy="item.image" alt="discItem">
                         </div>
                         <div class="text">
-                            <h2 class="name" v-html="item.creator.name"></h2>
-                            <p class="desc" v-html="item.dissname"></p>
+                            <h2 class="name" v-html="item.creatorName"></h2>
+                            <p class="desc" v-html="item.name"></p>
                         </div>
                     </li>
                 </ul>
@@ -28,15 +28,10 @@
     </div>
 </template>
 <script>
-import { ERR_OK } from '@/api/config';
-import { getDiscList } from '@/api/recommend';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 import Scroll from '@/base/scroll/scroll';
 
 export default {
-    created() {
-        this._getDiscList();
-    },
     components: {
         Scroll
     },
@@ -45,27 +40,20 @@ export default {
             discList: []
         };
     },
+    computed: {
+        ...mapGetters(['favoriteListList'])
+    },
     methods: {
+        enterHistory() {
+            this.$router.push('/main/mine/history');
+        },
+        enterFavoriteSongs() {
+            this.$router.push('/main/mine/favorite_song');
+        },
         // 点击歌单进入详情
         selectItem(item) {
+            this.$router.push(`/main/mine/favorite_sheet/${item.id}`);
             this.setDisc(item);
-            this.$router.push({
-                path: `/main/mine/${item.dissid}`
-            });
-        },
-        /**
-         * @private
-         * @function _getDiscList - 获取歌单数据
-         * */
-        async _getDiscList() {
-            try {
-                const res = await getDiscList();
-                if (res.code === ERR_OK) {
-                    this.discList = res.data.list.slice(0, 2);
-                }
-            } catch (err) {
-                throw err;
-            }
         },
         ...mapMutations({ setDisc: 'SET_DISC' })
     }
@@ -90,7 +78,7 @@ export default {
     }
 }
 .list {
-    padding-top: 20px;
+    padding-top: 15px;
     .item {
         display: flex;
         box-sizing: border-box;

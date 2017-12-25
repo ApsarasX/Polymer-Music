@@ -102,7 +102,7 @@ export default {
                 if (
                     this.scrollEvent[0] -
                         this.scrollEvent[this.scrollEvent.length - 1] >
-                        100 &&
+                        50 &&
                     this.miniPlayerVisible &&
                     this.playList.length > 0
                 ) {
@@ -111,7 +111,7 @@ export default {
                 } else if (
                     this.scrollEvent[0] -
                         this.scrollEvent[this.scrollEvent.length - 1] <
-                        -100 &&
+                        -70 &&
                     !this.miniPlayerVisible &&
                     this.playList.length > 0
                 ) {
