@@ -43,3 +43,5 @@ npm run build --report
 ```
 
 ## Roadmap(未来实现)
+1. 首屏渲染加速(组件懒加载)
+2. Skeleton骨架屏

@@ -2,13 +2,13 @@
     <div>
         <m-header @userCenterVisibleChange="userCenterVisibleChange"></m-header>
         <tab></tab>
-        <transition :name="'slide-' + (direction === 'forward' ? 'in' : 'out')">
+        <transition :name="`slide-${direction === 'forward' ? 'in' : 'out'}`">
             <keep-alive>
                 <router-view></router-view>
             </keep-alive>
         </transition>
-        <player></player>
-        <user-center></user-center>
+        <component :is="playerComponent"></component>
+        <component :is="userCenterComponent"></component>
         <mu-dialog :open="dialog" title="登录/注册">
             <p class="dialogText">注册并登陆后可以您的体验更好, 是否登录/注册?</p>
             <mu-flat-button label="取消" slot="actions" primary @click="close" />
@@ -20,8 +20,6 @@
 <script>
 import MHeader from '@/components/m-header/m-header';
 import Tab from '@/components/tab/tab';
-import Player from '@/components/player/player';
-import UserCenter from '@/components/user-center/user-center';
 import { mapGetters, mapMutations } from 'vuex';
 import storage from 'good-storage';
 
@@ -31,9 +29,7 @@ export default {
     },
     components: {
         MHeader,
-        Tab,
-        Player,
-        UserCenter
+        Tab
     },
     created() {
         if (!storage.get('__login_suggest__')) {
@@ -42,9 +38,20 @@ export default {
             }, 2000);
         }
     },
+    mounted() {
+        this.$nextTick(() => {
+            const Player = () => import('@/components/player/player');
+            const UserCenter = () =>
+                import('@/components/user-center/user-center');
+            this.userCenterComponent = UserCenter;
+            this.playerComponent = Player;
+        });
+    },
     data() {
         return {
-            dialog: false
+            dialog: false,
+            userCenterComponent: null,
+            playerComponent: null
         };
     },
     methods: {

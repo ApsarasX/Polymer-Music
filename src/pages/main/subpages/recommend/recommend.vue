@@ -2,6 +2,10 @@
     <div class="recommend" ref="recommend">
         <scroll ref="scroll" class="recommend-content" :data="discList">
             <div>
+                <div v-show="!recommends.length" class="slider-wrapper">
+                    <div class="slider-content">
+                    </div>
+                </div>
                 <!-- 注意此处, 必须有v-if, 否则获取不到数据使得slider的DOM出错-->
                 <div v-if="recommends.length" class="slider-wrapper">
                     <div class="slider-content">
@@ -48,12 +52,10 @@ import Scroll from '@/base/scroll/scroll';
 import Slider from '@/base/slider/slider';
 import { getRecommend, getDiscList } from '@/api/recommend';
 import { ERR_OK } from '@/api/config';
-// import { playListMixin } from '@/assets/js/mixin';
 import { mapMutations } from 'vuex';
 import { createList } from '@/assets/js/list';
 
 export default {
-    // mixins: [playListMixin],
     created() {
         // 获取Slider内容
         this._getRecommend();
@@ -166,7 +168,7 @@ export default {
                 background-color: $color-background;
             }
             .list {
-                margin: 15px 0;
+                padding: 15px 0;
             }
             .item {
                 display: flex;

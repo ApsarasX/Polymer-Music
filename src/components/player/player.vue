@@ -1,5 +1,5 @@
 <template>
-    <div class="player" v-show="playList.length>0" @touchmove.stop.prevent @click.stop>
+    <div class="player" v-if="playList.length>0" @touchmove.stop.prevent @click.stop>
         <transition name="normal" @enter="enter" @after-enter="afterEnter" @leave="leave" @after-leave="afterLeave">
             <div class="normal-player" v-show="fullScreen">
                 <div class="background">
@@ -555,31 +555,32 @@ export default {
     watch: {
         // 当currentSong变化的时候, 播放音乐
         currentSong(newSong, oldSong) {
-            // 如果没有歌曲可供播放
-            this.setMiniPlayerVisible(true);
-            if (!newSong.id || !newSong.url || newSong.id === oldSong.id) {
-                return;
-            }
-            // 如果是付费歌曲
-            if (newSong.isPay) {
-                this.next();
-                return;
-            }
-            this.songReady = false;
-            this.canLyricPlay = false;
-            if (this.currentLyric) {
-                this.currentLyric.stop();
-                // 重置为null
-                this.currentLyric = null;
-                this.currentTime = 0;
-                this.playingLyric = '';
-                this.currentLineNum = 0;
-            }
-            // 处理Audio源和下载链接
-            this.$refs.audio.src = newSong.url;
-            this.url = newSong.url;
-            this.$refs.audio.play();
-            // this.getLyric();
+            this.$nextTick(() => {
+                this.setMiniPlayerVisible(true);
+                // 如果没有歌曲可供播放
+                if (!newSong.id || !newSong.url || newSong.id === oldSong.id) {
+                    return;
+                }
+                // 如果是付费歌曲
+                if (newSong.isPay) {
+                    this.next();
+                    return;
+                }
+                this.songReady = false;
+                this.canLyricPlay = false;
+                if (this.currentLyric) {
+                    this.currentLyric.stop();
+                    // 重置为null
+                    this.currentLyric = null;
+                    this.currentTime = 0;
+                    this.playingLyric = '';
+                    this.currentLineNum = 0;
+                }
+                // 处理Audio源和下载链接
+                this.$refs.audio.src = newSong.url;
+                this.url = newSong.url;
+                this.$refs.audio.play();
+            });
         },
         playing(newPlaying) {
             if (!this.songReady) {

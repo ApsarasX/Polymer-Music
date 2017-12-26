@@ -18,7 +18,6 @@ import {
     cardText,
     cardActions
 } from 'muse-ui/src/card';
-import checkbox from 'muse-ui/src/checkbox';
 import dialog from 'muse-ui/src/dialog';
 import divider from 'muse-ui/src/divider';
 import drawer from 'muse-ui/src/drawer';
@@ -31,7 +30,6 @@ import raisedButton from 'muse-ui/src/raisedButton';
 import { stepper, step, stepLabel } from 'muse-ui/src/stepper';
 import subHeader from 'muse-ui/src/subHeader';
 import textField from 'muse-ui/src/textField';
-import { tab, tabs } from 'muse-ui/src/tabs';
 import _switch from 'muse-ui/src/switch';
 
 // /* eslint-disable no-unused-vars */
@@ -55,7 +53,6 @@ Vue.component(cardMedia.name, cardMedia);
 Vue.component(cardTitle.name, cardTitle);
 Vue.component(cardText.name, cardText);
 Vue.component(cardActions.name, cardActions);
-Vue.component(checkbox.name, checkbox);
 Vue.component(dialog.name, dialog);
 Vue.component(divider.name, divider);
 Vue.component(drawer.name, drawer);
@@ -71,8 +68,6 @@ Vue.component(step.name, step);
 Vue.component(stepLabel.name, stepLabel);
 Vue.component(subHeader.name, subHeader);
 Vue.component(textField.name, textField);
-Vue.component(tab.name, tab);
-Vue.component(tabs.name, tabs);
 Vue.component(_switch.name, _switch);
 
 /* eslint-disable no-new */

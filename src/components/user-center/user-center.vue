@@ -4,8 +4,13 @@
             <div @click.stop>
                 <mu-drawer class="user-center" :open="true" :docked="true" @close="hide">
                     <mu-card class="user-center-inner">
-                        <mu-card-media title="pyyzcwg2833">
-                            <img src="https://web-linux.com/img/daily_pic.png" @click="openNicknameDialog" />
+                        <mu-card-media>
+                            <img src="https://web-linux.com/img/daily_pic.png"/>
+                            <div class="mu-card-media-title" @click="openNicknameDialog">
+                                <div class="mu-card-title">
+                                    pyyzcwg2833
+                                </div>
+                            </div>
                             <mu-dialog :open="showNicknameDialog" title="修改昵称">
                                 <mu-text-field v-model.trim="nickname" :hintText="`最多${nicknameMaxLen}个字符`" :maxLength="nicknameMaxLen" @textOverflow="cutNickname" />
                                 <mu-flat-button slot="actions" primary @click="closeNicknameDialog(false)" label="取消" />
