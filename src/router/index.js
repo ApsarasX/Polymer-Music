@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from '../store';
+import store from '@/store';
 // 登录页
 const Login = () => import('@/pages/login/login');
 // 注册页
@@ -25,12 +25,15 @@ const Disc = () => import('@/components/disc/disc');
 const TopList = () => import('@/components/top-list/top-list');
 // 播放历史
 const playHistory = () => import('@/components/play-history/play-history');
-
-const favoriteSong = () => import('../components/favorite-song/favorite-song');
+// 收藏的歌曲
+const favoriteSong = () => import('@/components/favorite-song/favorite-song');
+// 错误页
+const NotFound = () => import('@/pages/not-found/not-found');
 
 Vue.use(Router);
 
 const router = new Router({
+    mode: 'history',
     routes: [
         {
             path: '/',
@@ -109,6 +112,10 @@ const router = new Router({
                     ]
                 }
             ]
+        },
+        {
+            path: '*',
+            component: NotFound
         }
     ]
 });

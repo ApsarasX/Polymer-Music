@@ -5,7 +5,7 @@
                 <mu-drawer class="user-center" :open="true" :docked="true" @close="hide">
                     <mu-card class="user-center-inner">
                         <mu-card-media>
-                            <img src="https://web-linux.com/img/daily_pic.png"/>
+                            <img src="https://web-linux.com/img/daily_pic.png" />
                             <div class="mu-card-media-title" @click="openNicknameDialog">
                                 <div class="mu-card-title">
                                     pyyzcwg2833
@@ -48,7 +48,7 @@
                                         <p slot="after">{{version}}</p>
                                     </mu-list-item>
                                     <mu-list-item title="作者" href="https://github.com/pyyzcwg2833">
-                                        <p slot="after">{{author}}</p>
+                                        <p slot="after">{{authorName}}</p>
                                     </mu-list-item>
                                     <mu-list-item title="项目地址" :href="repository.url">
                                         <p slot="after">
@@ -104,7 +104,7 @@ export default {
             showNicknameDialog: false,
             softwareName,
             version,
-            author,
+            authorName: author.name,
             repository
         };
     },

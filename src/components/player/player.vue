@@ -54,7 +54,6 @@
                             <i class="material-icons">{{iconMode}}</i>
                         </div>
                         <div class="icon i-left" :class="disableCls">
-                            <!-- <i  class="icon-prev"></i> -->
                             <i @click="prev" class="material-icons">fast_rewind</i>
                         </div>
                         <div class="icon i-center" :class="disableCls">
@@ -81,11 +80,11 @@
                 </div>
                 <div class="control">
                     <progress-circle :radius="radius" :percent="percent">
-                        <i @click.stop="togglePlaying" class="icon-mini" :class="miniIcon"></i>
+                        <mu-icon @click.stop="togglePlaying" class="mini-op" :value="miniIcon"></mu-icon>
                     </progress-circle>
                 </div>
                 <div class="control" @click.stop="showPlayList">
-                    <i class="icon-playlist"></i>
+                    <mu-icon value="playlist_play" :size="48"></mu-icon>
                 </div>
             </div>
         </transition>
@@ -158,7 +157,7 @@ export default {
         },
         miniIcon() {
             // mini播放/暂停按钮
-            return this.playing ? 'icon-pause-mini' : 'icon-play-mini';
+            return this.playing ? 'pause' : 'play_arrow';
         },
         disableCls() {
             return this.songReady ? '' : 'disable';
@@ -914,17 +913,10 @@ export default {
             flex: 0 0 30px;
             width: 30px;
             padding: 0 10px;
-            .icon-play-mini,
-            .icon-pause-mini,
-            .icon-playlist {
-                font-size: 30px;
-                color: $color-icon;
-            }
-            .icon-mini {
-                font-size: 32px;
+            .mini-op {
                 position: absolute;
-                left: 0;
-                top: 0;
+                left: 4px;
+                top: 4px;
             }
         }
     }

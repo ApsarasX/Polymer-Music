@@ -21,22 +21,22 @@ export default {};
     padding-top: 10px;
     @keyframes lds-rolling {
         0% {
-            -webkit-transform: translate(-50%, -50%) rotate(0deg);
-            transform: translate(-50%, -50%) rotate(0deg);
+            -webkit-transform: translate3d(-50%, -50%, 0) rotateZ(0deg);
+            transform: translate3d(-50%, -50%, 0) rotateZ(0deg);
         }
         100% {
-            -webkit-transform: translate(-50%, -50%) rotate(360deg);
-            transform: translate(-50%, -50%) rotate(360deg);
+            -webkit-transform: translate3d(-50%, -50%, 0) rotateZ(360deg);
+            transform: translate3d(-50%, -50%, 0) rotateZ(360deg);
         }
     }
     @-webkit-keyframes lds-rolling {
         0% {
-            -webkit-transform: translate(-50%, -50%) rotate(0deg);
-            transform: translate(-50%, -50%) rotate(0deg);
+            -webkit-transform: translate3d(-50%, -50%, 0) rotateZ(0deg);
+            transform: translate3d(-50%, -50%, 0) rotateZ(0deg);
         }
         100% {
-            -webkit-transform: translate(-50%, -50%) rotate(360deg);
-            transform: translate(-50%, -50%) rotate(360deg);
+            -webkit-transform: translate3d(-50%, -50%, 0) rotateZ(360deg);
+            transform: translate3d(-50%, -50%, 0) rotateZ(360deg);
         }
     }
     .lds-rolling {
@@ -58,15 +58,15 @@ export default {};
         left: 100px;
     }
     .lds-rolling div:after {
-        -webkit-transform: rotate(90deg);
-        transform: rotate(90deg);
+        -webkit-transform: rotateZ(90deg);
+        transform: rotateZ(90deg);
     }
     .lds-rolling {
         width: 36px !important;
         height: 36px !important;
-        -webkit-transform: translate(-18px, -18px) scale(0.18)
-            translate(18px, 18px);
-        transform: translate(-18px, -18px) scale(0.18) translate(18px, 18px);
+        -webkit-transform: translate3d(-18px, -18px, 0) scale(0.18)
+            translate3d(18px, 18px, 0);
+        transform: translate3d(-18px, -18px, 0) scale(0.18) translate3d(18px, 18px, 0);
     }
 }
 </style>

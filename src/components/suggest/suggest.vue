@@ -3,7 +3,7 @@
         <ul class="suggest-list">
             <li @click="selectItem(item)" class="suggest-item " v-for="(item,index) in result " :key="index ">
                 <div class="icon ">
-                    <i :class="getIconClass(item)"></i>
+                    <mu-icon :value="getIcon(item)" :size="20"></mu-icon>
                 </div>
                 <div class="name ">
                     <p class="text " v-html="getDisplayName(item) "></p>
@@ -95,11 +95,11 @@ export default {
                 }
             });
         },
-        getIconClass(item) {
+        getIcon(item) {
             if (item.type === TYPE_SINGER) {
-                return 'icon-mine';
+                return 'person';
             }
-            return 'icon-music';
+            return 'music_note';
         },
         getDisplayName(item) {
             if (item.type === TYPE_SINGER) {
@@ -204,9 +204,6 @@ export default {
         .icon {
             flex: 0 0 30px;
             width: 30px;
-            [class^='icon-'] {
-                font-size: 14px;
-            }
         }
         .name {
             flex: 1;

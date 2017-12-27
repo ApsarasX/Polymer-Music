@@ -70,3 +70,9 @@ html {
 .mu-step-label.active .mu-step-label-icon {
     color: $color-theme !important;
 }
+.material-icons {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
