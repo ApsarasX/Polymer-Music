@@ -11,7 +11,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
-// const PrerenderSpaPlugin = require('prerender-spa-plugin');
+const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const loadMinified = require('./load-minified');
 
@@ -35,11 +35,13 @@ const webpackConfig = merge(baseWebpackConfig, {
         new webpack.DefinePlugin({
             'process.env': env
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            sourceMap: true
+        new ParallelUglifyPlugin({
+            uglifyJS: {
+                compress: {
+                    warnings: false
+                },
+                sourceMap: false
+            }
         }),
         // extract css into its own file
         new ExtractTextPlugin({
@@ -92,6 +94,7 @@ const webpackConfig = merge(baseWebpackConfig, {
             name: 'manifest',
             chunks: ['vendor']
         }),
+        new webpack.optimize.ModuleConcatenationPlugin(),
         // copy custom static assets
         new CopyWebpackPlugin([
             {
@@ -100,13 +103,6 @@ const webpackConfig = merge(baseWebpackConfig, {
                 ignore: ['.*']
             }
         ]),
-        // new PrerenderSpaPlugin(
-        //     // Absolute path to compiled SPA
-        //     path.resolve(__dirname, '../dist'),
-        //     // List of routes to prerender
-        //     ['/']
-        // ),
-        // service worker caching
         new SWPrecacheWebpackPlugin({
             cacheId: 'vue-music',
             filename: 'service-worker.js',
@@ -114,7 +110,8 @@ const webpackConfig = merge(baseWebpackConfig, {
                 'dist/**/*.{js,html,css,eot,woff,woff2,ttf,svg,png,jpg}'
             ],
             minify: true,
-            stripPrefix: 'dist/'
+            stripPrefix: 'dist/',
+            navigateFallback: '/index.html'
         })
     ]
 });

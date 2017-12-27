@@ -4,6 +4,7 @@ const path = require('path');
 const utils = require('./utils');
 const config = require('../config');
 const vueLoaderConfig = require('./vue-loader.conf');
+const HappyPack = require('happypack');
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
@@ -25,31 +26,28 @@ module.exports = {
         extensions: ['.js', '.vue', '.json'],
         alias: {
             '@': resolve('src')
-        }
+        },
+        mainFields: ['jsnext:main', 'browser', 'main']
     },
     module: {
         rules: [
             {
                 test: /\.(js|vue)$/,
-                loader: 'eslint-loader',
+                loader: 'happypack/loader?id=eslint',
                 enforce: 'pre',
-                include: [resolve('src'), resolve('test')],
-                options: {
-                    formatter: require('eslint-friendly-formatter')
-                }
+                include: [resolve('src'), resolve('test')]
             },
             {
                 test: /muse-ui.src.*?js$/,
-                loader: 'babel-loader'
+                loader: 'happypack/loader?id=museui'
             },
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
-                options: vueLoaderConfig
+                loader: 'happypack/loader?id=vue'
             },
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
+                loader: 'happypack/loader?id=js',
                 include: [resolve('src'), resolve('test')]
             },
             {
@@ -77,5 +75,35 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new HappyPack({
+            id: 'eslint',
+            loaders: [
+                {
+                    loader: 'eslint-loader',
+                    options: {
+                        formatter: require('eslint-friendly-formatter')
+                    }
+                }
+            ]
+        }),
+        new HappyPack({
+            id: 'museui',
+            loaders: ['babel-loader']
+        }),
+        new HappyPack({
+            id: 'vue',
+            loaders: [
+                {
+                    loader: 'vue-loader',
+                    options: vueLoaderConfig
+                }
+            ]
+        }),
+        new HappyPack({
+            id: 'js',
+            loaders: ['babel-loader']
+        })
+    ]
 };
