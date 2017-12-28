@@ -90,7 +90,7 @@
     </m-transition>
 </template>
 <script>
-import MTransition from '@/base/mtransition/mtransition';
+import MTransition from '@/base/m-transition/m-transition';
 import { mapActions } from 'vuex';
 
 export default {

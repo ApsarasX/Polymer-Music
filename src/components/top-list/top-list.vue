@@ -10,7 +10,7 @@ import { mapGetters } from 'vuex';
 import { getMusicList } from '@/api/rank';
 import { ERR_OK } from '@/api/config';
 import { createSong, isValidMusic } from '@/assets/js/song';
-import MTransition from '@/base/mtransition/mtransition';
+import MTransition from '@/base/m-transition/m-transition';
 
 export default {
     created() {

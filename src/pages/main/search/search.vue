@@ -51,7 +51,7 @@ import SearchList from '@/base/search-list/search-list';
 import { mapActions } from 'vuex';
 import Scroll from '@/base/scroll/scroll';
 import { searchMixin } from '@/assets/js/mixin';
-import MTransition from '@/base/mtransition/mtransition';
+import MTransition from '@/base/m-transition/m-transition';
 
 export default {
     mixins: [searchMixin],

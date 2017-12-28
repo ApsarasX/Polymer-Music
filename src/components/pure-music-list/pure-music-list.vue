@@ -15,7 +15,7 @@
 
 <script>
 import SongList from '@/base/song-list/song-list';
-import MTransition from '@/base/mtransition/mtransition';
+import MTransition from '@/base/m-transition/m-transition';
 import Scroll from '@/base/scroll/scroll';
 import Song from '@/assets/js/song';
 import { mapActions } from 'vuex';

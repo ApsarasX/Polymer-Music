@@ -8,15 +8,15 @@ const Register = () => import('@/pages/register/register');
 // 最主要的页面
 const Main = () => import('@/pages/main/main');
 // 首页-推荐页
-const Recommend = () => import('@/pages/main/subpages/recommend/recommend');
+const Recommend = () => import('@/pages/main/recommend/recommend');
 // 首页-歌手页
-const Singer = () => import('@/pages/main/subpages/singer/singer');
+const Singer = () => import('@/pages/main/singer/singer');
 // 首页-排行榜页
-const Rank = () => import('@/pages/main/subpages/rank/rank');
+const Rank = () => import('@/pages/main/rank/rank');
 // 首页-我的页
-const Mine = () => import('@/pages/main/subpages/mine/mine');
+const Mine = () => import('@/pages/main/mine/mine');
 // 首页-搜索页
-const Search = () => import('@/pages/main/subpages/search/search');
+const Search = () => import('@/pages/main/search/search');
 // 歌手详情(所有歌曲)
 const SingerDetail = () => import('@/components/singer-detail/singer-detail');
 // 歌单详情
@@ -29,6 +29,17 @@ const playHistory = () => import('@/components/play-history/play-history');
 const favoriteSong = () => import('@/components/favorite-song/favorite-song');
 // 个人信息页
 const Profile = () => import('@/pages/profile/profile');
+// 换绑昵称页
+const ChangeNickname = () =>
+    import('@/pages/profile/change-nickname/change-nickname');
+// 换绑手机号页
+const ChangePhone = () => import('@/pages/profile/change-phone/change-phone');
+// 换绑密码页
+const ChangePassword = () =>
+    import('@/pages/profile/change-password/change-password');
+// 换绑设备页
+const ChangeDevice = () =>
+    import('@/pages/profile/change-device/change-device');
 // 错误页
 const NotFound = () => import('@/pages/not-found/not-found');
 
@@ -52,7 +63,25 @@ const router = new Router({
         },
         {
             path: '/profile',
-            component: Profile
+            component: Profile,
+            children: [
+                {
+                    path: 'phone',
+                    component: ChangePhone
+                },
+                {
+                    path: 'nickname',
+                    component: ChangeNickname
+                },
+                {
+                    path: 'password',
+                    component: ChangePassword
+                },
+                {
+                    path: 'device',
+                    component: ChangeDevice
+                }
+            ]
         },
         {
             path: '/main',

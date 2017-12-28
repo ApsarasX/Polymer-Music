@@ -11,7 +11,7 @@
 import { getSingerList } from '@/api/singer';
 import { ERR_OK } from '@/api/config';
 import Singer from '@/assets/js/singer';
-import ListView from '@/base/listview/listview';
+import ListView from '@/base/list-view/list-view';
 import { mapMutations } from 'vuex';
 // import { playListMixin } from '@/assets/js/mixin';
 

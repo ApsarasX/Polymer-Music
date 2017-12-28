@@ -1,6 +1,6 @@
 # 聚合音乐 - Polymer Music
 
-> A music player based on Vue.js
+> A music player based on Vue.js<br/>
 > 基于Vue.js的聚合音乐播放器WebAPP
 
 ## Technology stack(技术栈)

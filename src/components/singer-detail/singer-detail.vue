@@ -9,7 +9,7 @@ import { getSingerDetail } from '@/api/singer';
 import { ERR_OK } from '@/api/config';
 import { createSong } from '@/assets/js/song';
 import MusicList from '@/components/music-list/music-list';
-import MTransition from '@/base/mtransition/mtransition';
+import MTransition from '@/base/m-transition/m-transition';
 
 export default {
     data() {

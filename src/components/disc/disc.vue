@@ -12,7 +12,7 @@ import { getSongList } from '@/api/recommend';
 import { ERR_OK } from '@/api/config';
 import { createSong, isValidMusic } from '@/assets/js/song';
 import { sheetMixin } from '@/assets/js/mixin';
-import MTransition from '@/base/mtransition/mtransition';
+import MTransition from '@/base/m-transition/m-transition';
 
 export default {
     mixins: [sheetMixin],

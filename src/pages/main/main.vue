@@ -1,5 +1,5 @@
 <template>
-    <m-transition type="cross">
+    <m-transition type="static">
         <div>
             <m-header @userCenterVisibleChange="userCenterVisibleChange"></m-header>
             <tab></tab>
@@ -20,7 +20,7 @@
     </m-transition>
 </template>
 <script>
-import MTransition from '@/base/mtransition/mtransition';
+import MTransition from '@/base/m-transition/m-transition';
 import MHeader from '@/components/m-header/m-header';
 import Tab from '@/components/tab/tab';
 import { mapGetters, mapMutations } from 'vuex';

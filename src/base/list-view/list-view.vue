@@ -1,5 +1,5 @@
 <template>
-    <scroll class="listview" :data="data" ref="listview" :listen-scroll="listenScroll" @scroll="scroll" :probeType="probeType">
+    <scroll class="list-view" :data="data" ref="listView" :listen-scroll="listenScroll" @scroll="scroll" :probeType="probeType">
         <ul>
             <li v-for="(group, index) in data" :key="index" class="list-group" ref="listGroup">
                 <h2 class="list-group-title">{{group.title}}</h2>
@@ -166,7 +166,7 @@ export default {
             this._scrollTo(anchorIndex);
         },
         refresh() {
-            this.$refs.listview.refresh();
+            this.$refs.listView.refresh();
         },
         /**
          * @function scroll - 滚动
@@ -195,8 +195,8 @@ export default {
                 index = this.listHeight.length - 2;
             }
             // 滚动到相应位置
-            this.scrollY = this.$refs.listview.scroll.y;
-            this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0);
+            this.scrollY = this.$refs.listView.scroll.y;
+            this.$refs.listView.scrollToElement(this.$refs.listGroup[index], 0);
         },
         /**
          * @private
@@ -218,7 +218,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@/assets/scss/variable.scss';
-.listview {
+.list-view {
     position: relative;
     width: 100%;
     height: 100%;
