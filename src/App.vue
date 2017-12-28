@@ -1,6 +1,8 @@
 <template>
     <div id="app">
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
         <mu-popup position="top" :overlay="false" popupClass="popup-top" :open="popupVisible">
             {{popupContent}}
         </mu-popup>

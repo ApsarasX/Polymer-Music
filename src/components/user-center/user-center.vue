@@ -6,16 +6,11 @@
                     <mu-card class="user-center-inner">
                         <mu-card-media>
                             <img src="https://web-linux.com/img/daily_pic.png" />
-                            <div class="mu-card-media-title" @click="openNicknameDialog">
+                            <div class="mu-card-media-title" @click.stop="enterProfile">
                                 <div class="mu-card-title">
                                     pyyzcwg2833
                                 </div>
                             </div>
-                            <mu-dialog :open="showNicknameDialog" title="修改昵称">
-                                <mu-text-field v-model.trim="nickname" :hintText="`最多${nicknameMaxLen}个字符`" :maxLength="nicknameMaxLen" @textOverflow="cutNickname" />
-                                <mu-flat-button slot="actions" primary @click="closeNicknameDialog(false)" label="取消" />
-                                <mu-flat-button slot="actions" primary @click="closeNicknameDialog(true)" label="确定" />
-                            </mu-dialog>
                         </mu-card-media>
                         <mu-list>
                             <mu-sub-header>音乐来源</mu-sub-header>
@@ -33,7 +28,7 @@
                         <mu-list>
                             <mu-list-item title="反馈建议" @click="openFeedDialog" />
                             <mu-dialog :open="showFeedDialog" title="反馈建议">
-                                <mu-text-field :hintText="`最多${feedTextMaxLen}个字符`" v-model.trim="feedText" @textOverflow="cutFeddback" multiLine :rows="3" :rowsMax="6" :maxLength="feedTextMaxLen" />
+                                <mu-text-field :hintText="`最多${feedTextMaxLen}个字符(超出部分不会被发送)`" v-model.trim="feedText" @textOverflow="cutFeddback" multiLine :rows="3" :rowsMax="6" :maxLength="feedTextMaxLen" />
                                 <mu-flat-button slot="actions" primary @click="closeFeedDialog(false)" label="取消" />
                                 <mu-flat-button slot="actions" primary @click="closeFeedDialog(true)" label="发送" />
                             </mu-dialog>
@@ -69,10 +64,6 @@ import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
     props: {
-        nicknameMaxLen: {
-            type: Number,
-            default: 10
-        },
         feedTextMaxLen: {
             type: Number,
             default: 100
@@ -97,11 +88,9 @@ export default {
         return {
             // 反馈内容
             feedText: '',
-            nickname: '',
             username: '用户名',
             showAboutDialog: false,
             showFeedDialog: false,
-            showNicknameDialog: false,
             softwareName,
             version,
             authorName: author.name,
@@ -113,6 +102,9 @@ export default {
         hide() {
             this.setUserCenterVisible(false);
         },
+        enterProfile() {
+            this.$router.push('/profile');
+        },
         srcTypesChange() {
             this.setSrcTypes({ ...this._srcTypes });
         },
@@ -123,10 +115,6 @@ export default {
         // 打开反馈对话框
         openFeedDialog() {
             this.showFeedDialog = true;
-        },
-        // 打开昵称对话框
-        openNicknameDialog() {
-            this.showNicknameDialog = true;
         },
         // 关闭关于对话框
         closeAboutDialog() {
@@ -141,22 +129,6 @@ export default {
                     console.info(this.feedText, isSend);
                 }
                 this.feedText = '';
-            }
-        },
-        // 关闭昵称对话框
-        closeNicknameDialog(isSend) {
-            this.showNicknameDialog = false;
-            if (this.nickname) {
-                if (isSend) {
-                    // 此处发送昵称
-                    console.info(this.nickname, isSend);
-                }
-                this.nickname = '';
-            }
-        },
-        cutNickname(isOverflow) {
-            if (isOverflow) {
-                this.nickname = this.nickname.slice(0, this.nicknameMaxLen);
             }
         },
         cutFeddback(isOverflow) {

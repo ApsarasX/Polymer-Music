@@ -35,7 +35,9 @@
                 <mu-flat-button slot="actions" @click="closeConfirm" primary label="取消" />
                 <mu-flat-button slot="actions" primary @click="confirmClear" label="清空" />
             </mu-dialog>
-            <router-view></router-view>
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
         </div>
     </transition>
 </template>

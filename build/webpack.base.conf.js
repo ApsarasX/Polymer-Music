@@ -5,7 +5,9 @@ const utils = require('./utils');
 const config = require('../config');
 const vueLoaderConfig = require('./vue-loader.conf');
 const HappyPack = require('happypack');
-
+const threadSize = require('os').cpus().length;
+const happyThreadSize = Math.min(threadSize, 8);
+const happyThreadPool = HappyPack.ThreadPool({ size: happyThreadSize });
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
 }
@@ -79,6 +81,7 @@ module.exports = {
     plugins: [
         new HappyPack({
             id: 'eslint',
+            threadPool: happyThreadPool,
             loaders: [
                 {
                     loader: 'eslint-loader',
@@ -90,10 +93,12 @@ module.exports = {
         }),
         new HappyPack({
             id: 'museui',
+            threadPool: happyThreadPool,
             loaders: ['babel-loader']
         }),
         new HappyPack({
             id: 'vue',
+            threadPool: happyThreadPool,
             loaders: [
                 {
                     loader: 'vue-loader',
@@ -103,6 +108,7 @@ module.exports = {
         }),
         new HappyPack({
             id: 'js',
+            threadPool: happyThreadPool,
             loaders: ['babel-loader']
         })
     ]

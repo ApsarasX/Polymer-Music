@@ -7,10 +7,10 @@
             <div class="main">
                 <ul class="form-list">
                     <li>
-                        <mu-text-field v-model="username" label="用户名/手机号" />
+                        <mu-text-field v-model="username" label="用户名/手机号" labelFloat />
                     </li>
                     <li>
-                        <mu-text-field v-model="password" label="密码" />
+                        <mu-text-field v-model="password" label="密码" labelFloat />
                     </li>
                     <li>
                         <router-link to="/register" tag="a" class="option">注册账号</router-link>
@@ -56,10 +56,10 @@ export default {
         width: 80%;
         margin: 0 auto;
         li {
-            padding: 10px 0;
             display: block;
             &:last-child {
                 float: right;
+                padding-top: 10px;
                 .option {
                     margin-right: 10px;
                     font-size: 14px;

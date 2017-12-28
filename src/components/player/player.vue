@@ -913,6 +913,9 @@ export default {
             flex: 0 0 30px;
             width: 30px;
             padding: 0 10px;
+            &:last-child {
+                padding-right: 16px;
+            }
             .mini-op {
                 position: absolute;
                 left: 4px;

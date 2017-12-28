@@ -27,6 +27,8 @@ const TopList = () => import('@/components/top-list/top-list');
 const playHistory = () => import('@/components/play-history/play-history');
 // 收藏的歌曲
 const favoriteSong = () => import('@/components/favorite-song/favorite-song');
+// 个人信息页
+const Profile = () => import('@/pages/profile/profile');
 // 错误页
 const NotFound = () => import('@/pages/not-found/not-found');
 
@@ -37,7 +39,8 @@ const router = new Router({
     routes: [
         {
             path: '/',
-            redirect: '/main'
+            redirect: '/main/recommend',
+            alias: '/index.html'
         },
         {
             path: '/login',
@@ -46,6 +49,10 @@ const router = new Router({
         {
             path: '/register',
             component: Register
+        },
+        {
+            path: '/profile',
+            component: Profile
         },
         {
             path: '/main',
@@ -129,8 +136,12 @@ router.beforeEach((to, from, next) => {
         store.commit('SET_FULL_SCREEN', false);
         next(false);
     } else if (userCenterVisible) {
-        store.commit('SET_USER_CENTER_VISIBLE', false);
-        next(false);
+        if (to.path === '/profile' || from.path === '/profile') {
+            next();
+        } else {
+            store.commit('SET_USER_CENTER_VISIBLE', false);
+            next(false);
+        }
     } else if (playListVisible) {
         store.commit('SET_PLAY_LIST_VISIBLE', false);
         next(false);

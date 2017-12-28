@@ -1,7 +1,9 @@
 <template>
     <div class="singer" ref="singer">
         <list-view @select="selectSinger" :data="singers" ref="list"></list-view>
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
     </div>
 </template>
 

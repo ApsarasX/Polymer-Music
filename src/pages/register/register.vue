@@ -26,7 +26,7 @@
                     <ul class="form-list" v-show="activeStep===0">
                         <li>
                             <div class="mobile">
-                                <mu-text-field v-model="mobile" hintText="手机号" />
+                                <mu-text-field v-model="mobile" label="手机号" labelFloat />
                             </div>
                             <div class="validate-code">
                                 <mu-flat-button :label="vcodeBtnLabel" :disabled="vcodeBtnLabel!=='获取验证码'" @click="getVcode" primary/>
@@ -34,7 +34,7 @@
                         </li>
                         <li>
                             <div class="vcode-input">
-                                <mu-text-field v-model="vcode" hintText="验证码" />
+                                <mu-text-field v-model="vcode" label="验证码" labelFloat />
                             </div>
                             <div>
                                 <mu-raised-button label="下一步" primary @click="validateMobile" />
@@ -43,13 +43,13 @@
                     </ul>
                     <ul class="form-list" v-show="activeStep===1">
                         <li>
-                            <mu-text-field hintText="用户名" />
+                            <mu-text-field label="用户名" labelFloat />
                         </li>
                         <li>
-                            <mu-text-field hintText="密码" />
+                            <mu-text-field label="密码" labelFloat />
                         </li>
                         <li>
-                            <mu-text-field hintText="重复密码确认" />
+                            <mu-text-field label="重复密码确认" labelFloat />
                         </li>
                         <li class="right">
                             <mu-raised-button label="下一步" primary @click="nextStep" />
@@ -57,7 +57,7 @@
                     </ul>
                     <ul class="form-list" v-show="activeStep===2">
                         <li>
-                            <mu-text-field hintText="昵称(可选)" />
+                            <mu-text-field label="昵称(可选)" labelFloat />
                         </li>
                         <div>
                             <mu-list>
