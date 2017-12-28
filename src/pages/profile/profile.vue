@@ -40,7 +40,7 @@
                     <mu-list>
                         <mu-list-item title="设备" @click="alterInfo('device')">
                             <mu-icon slot="left" value="devices_other" />
-                            <p slot="after">iPhone</p>
+                            <p slot="after">{{device}}</p>
                             <mu-icon slot="after" value="chevron_right" />
                         </mu-list-item>
                     </mu-list>
@@ -57,10 +57,25 @@
 </template>
 <script>
 import MTransition from '@/base/m-transition/m-transition';
+import UA from 'ua-device';
 
 export default {
     components: {
         MTransition
+    },
+    computed: {
+        device() {
+            // 检测移动设备型号
+            const { userAgent } = window.navigator;
+            const deviceInfo = new UA(userAgent).device;
+            window.UA = UA;
+            if (!deviceInfo.manufacturer && !deviceInfo.mode) {
+                return '未识别机型(请点击修改)';
+            }
+            return `${deviceInfo.manufacturer
+                ? deviceInfo.manufacturer
+                : ''} ${deviceInfo.model ? deviceInfo.model : ''}`;
+        }
     },
     methods: {
         back() {

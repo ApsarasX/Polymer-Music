@@ -1,6 +1,6 @@
 <template>
-    <m-transition>
-        <div class="wrapper">
+    <m-transition type="slide-to-staic">
+        <div class="page-wrapper">
             <mu-appbar title="登录">
                 <mu-icon-button icon="arrow_back" slot="left" @click="back" />
             </mu-appbar>
@@ -45,8 +45,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '~@/assets/scss/variable.scss';
-.wrapper {
-    overflow: hidden;
+.page-wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 20171228;
+    background-color: #fff;
 }
 .main {
     width: 100%;
