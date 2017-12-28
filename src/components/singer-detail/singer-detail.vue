@@ -1,7 +1,7 @@
 <template>
-    <transition name="slide">
+    <m-transition name="slide">
         <music-list :songs="songs" :title="title" :bg-image="bgImage"></music-list>
-    </transition>
+    </m-transition>
 </template>
 <script>
 import { mapGetters } from 'vuex';
@@ -9,6 +9,7 @@ import { getSingerDetail } from '@/api/singer';
 import { ERR_OK } from '@/api/config';
 import { createSong } from '@/assets/js/song';
 import MusicList from '@/components/music-list/music-list';
+import MTransition from '@/base/mtransition/mtransition';
 
 export default {
     data() {
@@ -58,7 +59,8 @@ export default {
         }
     },
     components: {
-        MusicList
+        MusicList,
+        MTransition
     }
 };
 </script>

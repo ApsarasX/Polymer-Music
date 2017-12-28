@@ -1,23 +1,26 @@
 <template>
-    <div>
-        <m-header @userCenterVisibleChange="userCenterVisibleChange"></m-header>
-        <tab></tab>
-        <transition :name="`slide-${direction === 'forward' ? 'in' : 'out'}`">
-            <keep-alive>
-                <router-view></router-view>
-            </keep-alive>
-        </transition>
-        <component :is="playerComponent"></component>
-        <component :is="userCenterComponent"></component>
-        <mu-dialog :open="dialog" title="登录/注册">
-            <p class="dialogText">注册并登陆后可以您的体验更好, 是否登录/注册?</p>
-            <mu-flat-button label="取消" slot="actions" primary @click="close" />
-            <mu-flat-button label="注册" slot="actions" primary @click="redirect('/register')" />
-            <mu-flat-button label="登录" slot="actions" primary @click="redirect('/login')" />
-        </mu-dialog>
-    </div>
+    <m-transition type="cross">
+        <div>
+            <m-header @userCenterVisibleChange="userCenterVisibleChange"></m-header>
+            <tab></tab>
+            <transition :name="`slide-${direction === 'forward' ? 'in' : 'out'}`">
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
+            </transition>
+            <component :is="playerComponent"></component>
+            <component :is="userCenterComponent"></component>
+            <mu-dialog :open="dialog" title="登录/注册">
+                <p class="dialogText">注册并登陆后可以您的体验更好, 是否登录/注册?</p>
+                <mu-flat-button label="取消" slot="actions" primary @click="close" />
+                <mu-flat-button label="注册" slot="actions" primary @click="redirect('/register')" />
+                <mu-flat-button label="登录" slot="actions" primary @click="redirect('/login')" />
+            </mu-dialog>
+        </div>
+    </m-transition>
 </template>
 <script>
+import MTransition from '@/base/mtransition/mtransition';
 import MHeader from '@/components/m-header/m-header';
 import Tab from '@/components/tab/tab';
 import { mapGetters, mapMutations } from 'vuex';
@@ -29,7 +32,8 @@ export default {
     },
     components: {
         MHeader,
-        Tab
+        Tab,
+        MTransition
     },
     created() {
         if (!storage.get('__login_suggest__')) {
@@ -60,8 +64,8 @@ export default {
             storage.set('__login_suggest__', true);
         },
         redirect(path = '/login') {
+            this.close();
             this.$router.push(path);
-            storage.set('__login_suggest__', true);
         },
         userCenterVisibleChange() {
             this.setUserCenterVisible(!this.userCenterVisible);

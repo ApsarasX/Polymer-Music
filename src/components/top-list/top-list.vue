@@ -1,15 +1,16 @@
 <template>
-    <transition name="slide">
+    <m-transition>
         <music-list :rank="rank" :title="title" :bg-image="bgImage" :songs="songs"></music-list>
-    </transition>
+    </m-transition>
 </template>
 
 <script>
-import MusicList from '../music-list/music-list';
+import MusicList from '@/components/music-list/music-list';
 import { mapGetters } from 'vuex';
 import { getMusicList } from '@/api/rank';
 import { ERR_OK } from '@/api/config';
 import { createSong, isValidMusic } from '@/assets/js/song';
+import MTransition from '@/base/mtransition/mtransition';
 
 export default {
     created() {
@@ -37,7 +38,8 @@ export default {
         ...mapGetters(['topList'])
     },
     components: {
-        MusicList
+        MusicList,
+        MTransition
     },
     methods: {
         /**
@@ -77,12 +79,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.slide-enter-active,
-.slide-leave-active {
-    transition: all 0.3s ease;
-}
-.slide-enter,
-.slide-leave-to {
-    transform: translate3d(100%, 0, 0);
-}
 </style>

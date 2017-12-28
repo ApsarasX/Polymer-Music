@@ -1,5 +1,5 @@
 <template>
-    <mtransition>
+    <m-transition>
         <div>
             <mu-appbar title="注册">
                 <mu-icon-button icon="arrow_back" slot="left" @click="back" />
@@ -87,10 +87,10 @@
                 </div>
             </div>
         </div>
-    </mtransition>
+    </m-transition>
 </template>
 <script>
-import Mtransition from '@/base/mtransition/mtransition';
+import MTransition from '@/base/mtransition/mtransition';
 import { mapActions } from 'vuex';
 
 export default {
@@ -104,7 +104,7 @@ export default {
         };
     },
     components: {
-        Mtransition
+        MTransition
     },
     methods: {
         nextStep() {

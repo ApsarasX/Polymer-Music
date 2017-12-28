@@ -1,5 +1,5 @@
 <template>
-    <transition name="slide">
+    <m-transition>
         <div class="search">
             <div class="search-box-wrapper">
                 <search-box ref="searchBox" @query="onQueryChange"></search-box>
@@ -39,7 +39,7 @@
                 <router-view></router-view>
             </keep-alive>
         </div>
-    </transition>
+    </m-transition>
 </template>
 
 <script>
@@ -51,6 +51,7 @@ import SearchList from '@/base/search-list/search-list';
 import { mapActions } from 'vuex';
 import Scroll from '@/base/scroll/scroll';
 import { searchMixin } from '@/assets/js/mixin';
+import MTransition from '@/base/mtransition/mtransition';
 
 export default {
     mixins: [searchMixin],
@@ -58,7 +59,8 @@ export default {
         SearchBox,
         Suggest,
         SearchList,
-        Scroll
+        Scroll,
+        MTransition
     },
     computed: {
         shortcut() {
@@ -109,14 +111,6 @@ export default {
 
 .search {
     position: relative;
-    &.slide-enter-active,
-    &.slide-leave-active {
-        transition: all 0.3s;
-    }
-    &.slide-enter,
-    &.slide-leave-to {
-        transform: translate3d(100%, 0, 0);
-    }
     .search-box-wrapper {
         position: relative;
         padding: 10px;

@@ -15,6 +15,8 @@ export default {
 </script>
 
 <style scoped>
+.cross-enter-active,
+.cross-leave-active,
 .slide-enter-active,
 .slide-leave-active {
     transition: all 0.3s;
@@ -22,5 +24,9 @@ export default {
 .slide-enter,
 .slide-leave-to {
     transform: translate3d(100%, 0, 0);
+}
+.cross-enter,
+.cross-leave-to {
+    transform: translate3d(-100%, 0, 0);
 }
 </style>

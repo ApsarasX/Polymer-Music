@@ -1,5 +1,5 @@
 <template>
-    <mtransition>
+    <m-transition>
         <div class="wrapper">
             <mu-appbar title="登录">
                 <mu-icon-button icon="arrow_back" slot="left" @click="back" />
@@ -20,10 +20,10 @@
                 </ul>
             </div>
         </div>
-    </mtransition>
+    </m-transition>
 </template>
 <script>
-import Mtransition from '@/base/mtransition/mtransition';
+import MTransition from '@/base/mtransition/mtransition';
 
 export default {
     data() {
@@ -33,7 +33,7 @@ export default {
         };
     },
     components: {
-        Mtransition
+        MTransition
     },
     methods: {
         login() {},

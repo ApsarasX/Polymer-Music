@@ -1,8 +1,8 @@
 <template>
-    <transition name="slide">
+    <m-transition>
         <!-- isDisc 是否是歌单 -->
         <music-list :title="title" :bg-image="bgImage" :songs="songs" :isDisc="true" :isFavorite="isFavorite" @favoriteChange="toggleFavorite"></music-list>
-    </transition>
+    </m-transition>
 </template>
 
 <script>
@@ -12,11 +12,13 @@ import { getSongList } from '@/api/recommend';
 import { ERR_OK } from '@/api/config';
 import { createSong, isValidMusic } from '@/assets/js/song';
 import { sheetMixin } from '@/assets/js/mixin';
+import MTransition from '@/base/mtransition/mtransition';
 
 export default {
     mixins: [sheetMixin],
     components: {
-        MusicList
+        MusicList,
+        MTransition
     },
     data() {
         return {
@@ -85,12 +87,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.slide-enter-active,
-.slide-leave-active {
-    transition: all 0.3s;
-}
-.slide-enter,
-.slide-leave-to {
-    transform: translate3d(100%, 0, 0);
-}
 </style>

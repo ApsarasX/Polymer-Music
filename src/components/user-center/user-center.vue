@@ -178,7 +178,7 @@ export default {
     position: fixed;
     top: 0;
     bottom: 0;
-    z-index: 200;
+    z-index: 20171229;
     width: 100%;
     background-color: $color-background-d;
     box-shadow: 3px 0px 14px 4px rgba(0, 0, 0, 0.12);
