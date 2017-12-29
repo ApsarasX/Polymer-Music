@@ -1,4 +1,5 @@
 # 聚合音乐 - Polymer Music
+[![Build Status](https://travis-ci.org/pyyzcwg2833/Polymer-Music.svg?branch=v2-beta)](https://travis-ci.org/pyyzcwg2833/Polymer-Music)
 
 > A music player based on Vue.js<br/>
 > 基于Vue.js的聚合音乐播放器WebAPP
