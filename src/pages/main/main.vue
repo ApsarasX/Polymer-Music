@@ -3,11 +3,13 @@
         <div>
             <m-header @userCenterVisibleChange="userCenterVisibleChange"></m-header>
             <tab></tab>
-            <transition :name="`slide-${direction === 'forward' ? 'in' : 'out'}`">
-                <keep-alive>
-                    <router-view></router-view>
-                </keep-alive>
-            </transition>
+            <div class="main-body">
+                <transition :name="`slide-${direction === 'forward' ? 'in' : 'out'}`">
+                    <keep-alive>
+                        <router-view></router-view>
+                    </keep-alive>
+                </transition>
+            </div>
             <component :is="playerComponent"></component>
             <component :is="userCenterComponent"></component>
             <mu-dialog :open="dialog" title="登录/注册">
@@ -35,13 +37,6 @@ export default {
         Tab,
         MTransition
     },
-    created() {
-        if (!storage.get('__login_suggest__')) {
-            setTimeout(() => {
-                this.dialog = true;
-            }, 2000);
-        }
-    },
     mounted() {
         this.$nextTick(() => {
             const Player = () => import('@/components/player/player');
@@ -49,6 +44,11 @@ export default {
                 import('@/components/user-center/user-center');
             this.userCenterComponent = UserCenter;
             this.playerComponent = Player;
+            if (!storage.get('__login_suggest__')) {
+                setTimeout(() => {
+                    this.dialog = true;
+                }, 2000);
+            }
         });
     },
     data() {
@@ -78,6 +78,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.main-body {
+    height: calc(100vh - 88px);
+}
 .dialogText {
     line-height: 30px;
 }
@@ -86,29 +89,18 @@ export default {
 .slide-in-enter-active,
 .slide-in-leave-active {
     will-change: transform;
-    transition: all 250ms;
+    transition: all .3s;
     height: 100%;
-    top: 0;
-    position: absolute;
     backface-visibility: hidden;
     perspective: 1000;
 }
 
-.slide-out-enter {
-    opacity: 0;
-    transform: translate3d(-100%, 0, 0);
-}
-
+.slide-in-enter,
 .slide-out-leave-active {
     opacity: 0;
     transform: translate3d(100%, 0, 0);
 }
-
-.slide-in-enter {
-    opacity: 0;
-    transform: translate3d(100%, 0, 0);
-}
-
+.slide-out-enter,
 .slide-in-leave-active {
     opacity: 0;
     transform: translate3d(-100%, 0, 0);

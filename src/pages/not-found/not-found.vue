@@ -36,12 +36,8 @@ export default {
 @import '~@/assets/scss/variable.scss';
 
 .wrapper {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 20171228;
+    width: 100%;
+    height: 100vh;
     background-color: $color-background;
 }
 .content {

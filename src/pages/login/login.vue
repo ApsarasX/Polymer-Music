@@ -57,24 +57,24 @@ export default {
 .main {
     width: 100%;
     height: 75vh;
-    margin-top: 50px;
-    .form-list {
-        width: 80%;
-        margin: 0 auto;
-        li {
-            display: block;
-            &:last-child {
-                float: right;
-                padding-top: 10px;
-                .option {
-                    margin-right: 10px;
-                    font-size: 14px;
-                    color: $color-theme;
-                }
-                &::after {
-                    content: '';
-                    clear: both;
-                }
+    margin-top: 25px;
+}
+.form-list {
+    width: 80%;
+    margin: 0 auto;
+    li {
+        display: block;
+        &:last-child {
+            float: right;
+            padding-top: 10px;
+            .option {
+                margin-right: 10px;
+                font-size: 14px;
+                color: $color-theme;
+            }
+            &::after {
+                content: '';
+                clear: both;
             }
         }
     }

@@ -60,12 +60,12 @@ export default {
     bottom: 0;
     right: 0;
     background: $color-highlight-background;
-    .list-scroll {
-        height: calc(100% - 56px);
-        overflow: hidden;
-        .list-inner {
-            padding: 20px 15px;
-        }
-    }
+}
+.list-scroll {
+    height: calc(100% - 56px);
+    overflow: hidden;
+}
+.list-inner {
+    padding: 20px 15px;
 }
 </style>

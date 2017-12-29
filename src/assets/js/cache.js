@@ -105,11 +105,11 @@ export function deleteFavoriteList(list) {
     storage.set(FAVORITE_LIST_KEY, lists);
     return lists;
 }
-
+// 载入本地的音乐源配置
 export function loadSrcTypes() {
     return storage.get(SRC_TYPES_KEY, { qq: false, ne: false, xm: false });
 }
-
+// 保存用户设置的音乐源
 export function saveSrcTypes({ qq = false, ne = false, xm = false }) {
     storage.set(SRC_TYPES_KEY, { qq, ne, xm });
 }

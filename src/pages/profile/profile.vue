@@ -38,7 +38,7 @@
                 </mu-card>
                 <mu-card class="card">
                     <mu-list>
-                        <mu-list-item title="设备" @click="alterInfo('device')">
+                        <mu-list-item title="设备小尾巴" @click="alterInfo('device')">
                             <mu-icon slot="left" value="devices_other" />
                             <p slot="after">{{device}}</p>
                             <mu-icon slot="after" value="chevron_right" />
@@ -100,13 +100,13 @@ export default {
 .content {
     width: 100%;
     height: calc(100vh - 56px);
-    .card {
-        width: 95%;
-        margin: 10px auto;
-        &:first-child,
-        &:last-child {
-            margin-top: 20px;
-        }
+}
+.card {
+    width: 95%;
+    margin: 10px auto;
+    &:first-child,
+    &:last-child {
+        margin-top: 20px;
     }
 }
 </style>

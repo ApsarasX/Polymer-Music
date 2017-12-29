@@ -88,7 +88,6 @@ export default {
         return {
             // 反馈内容
             feedText: '',
-            username: '用户名',
             showAboutDialog: false,
             showFeedDialog: false,
             softwareName,
@@ -178,26 +177,16 @@ export default {
     position: fixed;
     top: 0;
     bottom: 0;
+    z-index: 220;
     width: 100%;
     background-color: $color-background-d;
     box-shadow: 3px 0px 14px 4px rgba(0, 0, 0, 0.12);
-
-    .user-center {
-        width: 75%;
-        height: 100%;
-        .user-center-inner {
-            box-shadow: none;
-            .username-wrapper {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                .username {
-                    flex: 1;
-                    font-size: 18px;
-                    color: $color-text;
-                }
-            }
-        }
-    }
+}
+.user-center {
+    width: 75%;
+    height: 100%;
+}
+.user-center-inner {
+    box-shadow: none;
 }
 </style>
