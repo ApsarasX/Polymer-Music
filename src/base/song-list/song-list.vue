@@ -55,56 +55,53 @@ export default {
 @import '~@/assets/scss/variable.scss';
 @import '~@/assets/scss/mixin.scss';
 
-.song-list {
-    .item {
-        display: flex;
-        align-items: center;
-        box-sizing: border-box;
-        height: 72px;
-        font-size: $font-size-medium;
-        // border-bottom: 1px solid $color-split;
-        background-color: $color-background;
-        margin-bottom: 10px;
-        padding: 30px 20px;
-        .rank {
-            flex: 0 0 25px;
-            width: 25px;
-            margin-right: 30px;
-            text-align: center;
-            .icon {
-                display: inline-block;
-                width: 25px;
-                height: 24px;
-                background-size: 25px 24px;
-                &.icon0 {
-                    @include bg-image('first');
-                }
-                &.icon1 {
-                    @include bg-image('second');
-                }
-                &.icon2 {
-                    @include bg-image('third');
-                }
-            }
-            .text {
-                color: $color-text;
-                font-size: $font-size-large;
-            }
+.item {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: 72px;
+    font-size: $font-size-medium;
+    background-color: $color-background;
+    margin-bottom: 10px;
+    padding: 30px 20px;
+}
+.rank {
+    flex: 0 0 25px;
+    width: 25px;
+    margin-right: 30px;
+    text-align: center;
+    .icon {
+        display: inline-block;
+        width: 25px;
+        height: 24px;
+        background-size: 25px 24px;
+        &.icon0 {
+            @include bg-image('first');
         }
-        .content {
-            flex: 1;
-            line-height: 20px;
-            overflow: hidden;
-            .name {
-                @include no-wrap;
-                color: $color-text;
-            }
-            .desc {
-                @include no-wrap;
-                margin-top: 4px;
-                color: $color-text-d;
-            }
+        &.icon1 {
+            @include bg-image('second');
         }
+        &.icon2 {
+            @include bg-image('third');
+        }
+    }
+    .text {
+        color: $color-text;
+        font-size: $font-size-large;
+    }
+}
+.content {
+    flex: 1;
+    line-height: 20px;
+    overflow: hidden;
+    .name {
+        @include no-wrap;
+        color: $color-text;
+    }
+    .desc {
+        @include no-wrap;
+        margin-top: 4px;
+        color: $color-text-d;
     }
 }
 </style>

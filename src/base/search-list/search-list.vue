@@ -34,30 +34,28 @@ export default {
 @import '~@/assets/scss/variable.scss';
 @import '~@/assets/scss/mixin.scss';
 
-.search-list {
-    .search-item {
-        display: flex;
-        align-items: center;
-        height: 40px;
-        overflow: hidden;
-        &.list-enter-active,
-        &.list-leave-active {
-            transition: all 0.1s;
-        }
-        &.list-enter,
-        &.list-leave-to {
-            height: 0;
-        }
-        .text {
-            flex: 1;
+.search-item {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    overflow: hidden;
+    &.list-enter-active,
+    &.list-leave-active {
+        transition: all 0.1s;
+    }
+    &.list-enter,
+    &.list-leave-to {
+        height: 0;
+    }
+    .text {
+        flex: 1;
+        color: $color-text-l;
+    }
+    .icon {
+        @include extend-click;
+        .material-icons {
+            font-size: $font-size-large-x;
             color: $color-text-l;
-        }
-        .icon {
-            @include extend-click;
-            .material-icons {
-                font-size: $font-size-large-x;
-                color: $color-text-l;
-            }
         }
     }
 }

@@ -29,20 +29,20 @@ export default {};
     line-height: 44px;
     font-size: $font-size-medium;
     background-color: $color-theme-background;
-    .tab-item {
-        flex: 1;
-        text-align: center;
+}
+.tab-item {
+    flex: 1;
+    text-align: center;
 
+    .tab-link {
+        padding-bottom: 5px;
+        color: $color-sub-theme;
+    }
+
+    &.router-link-active {
         .tab-link {
-            padding-bottom: 5px;
-            color: $color-sub-theme;
-        }
-
-        &.router-link-active {
-            .tab-link {
-                color: $color-text-white;
-                border-bottom: 2px solid $color-text-white;
-            }
+            color: $color-text-white;
+            border-bottom: 2px solid $color-text-white;
         }
     }
 }

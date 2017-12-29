@@ -81,46 +81,46 @@ export default {
     width: 100%;
     top: 88px;
     bottom: 0;
-    .toplist {
-        height: 100%;
-        overflow: hidden;
-        background-color: $color-highlight-background;
-        .item {
-            display: flex;
-            margin: 0 10px;
-            padding-top: 10px;
-            height: 100px;
-            &:last-child {
-                padding-bottom: 20px;
-            }
-            .icon {
-                flex: 0 0 100px;
-                width: 100px;
-                height: 100px;
-            }
-            .songlist {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                padding: 0 20px;
-                height: 100px;
-                overflow: hidden;
-                background: $color-background;
-                color: $color-text-l;
-                font-size: $font-size-small;
-                .song {
-                    @include no-wrap;
-                    line-height: 26px;
-                }
-            }
+}
+.toplist {
+    height: 100%;
+    overflow: hidden;
+    background-color: $color-highlight-background;
+    .item {
+        display: flex;
+        margin: 0 10px;
+        padding-top: 10px;
+        height: 100px;
+        &:last-child {
+            padding-bottom: 20px;
         }
-        .loading-container {
-            position: absolute;
-            width: 100%;
-            top: 50%;
-            transform: translateY(-50%);
+        .icon {
+            flex: 0 0 100px;
+            width: 100px;
+            height: 100px;
+        }
+        .songlist {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 20px;
+            height: 100px;
+            overflow: hidden;
+            background: $color-background;
+            color: $color-text-l;
+            font-size: $font-size-small;
+            .song {
+                @include no-wrap;
+                line-height: 26px;
+            }
         }
     }
+}
+.loading-container {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 </style>

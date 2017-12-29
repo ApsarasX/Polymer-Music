@@ -142,76 +142,76 @@ export default {
     width: 100%;
     top: 88px;
     bottom: 0;
-    .recommend-content {
+}
+.recommend-content {
+    height: 100%;
+    overflow: hidden;
+}
+.slider-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 40%;
+    overflow: hidden;
+    .slider-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         height: 100%;
-        overflow: hidden;
-        .slider-wrapper {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-top: 40%;
+    }
+}
+.recommend-list {
+    background-color: $color-highlight-background;
+    .list-title {
+        height: 65px;
+        line-height: 65px;
+        text-align: center;
+        font-size: $font-size-medium;
+        color: $color-text;
+        background-color: $color-background;
+    }
+    .list {
+        padding: 15px 0;
+    }
+    .item {
+        display: flex;
+        box-sizing: border-box;
+        align-items: center;
+        margin: 0 15px 10px;
+        padding: 10px;
+        background-color: $color-background;
+        .icon {
+            flex: 0 0 60px;
+            width: 60px;
+            padding-right: 20px;
+        }
+        .text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+            line-height: 20px;
             overflow: hidden;
-            .slider-content {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-            }
-        }
-        .recommend-list {
-            background-color: $color-highlight-background;
-            .list-title {
-                height: 65px;
-                line-height: 65px;
-                text-align: center;
-                font-size: $font-size-medium;
+            font-size: $font-size-medium;
+            .name {
+                margin-bottom: 10px;
                 color: $color-text;
-                background-color: $color-background;
             }
-            .list {
-                padding: 15px 0;
+            .desc {
+                width: 100%;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                color: $color-text-d;
             }
-            .item {
-                display: flex;
-                box-sizing: border-box;
-                align-items: center;
-                margin: 0 15px 10px;
-                padding: 10px;
-                background-color: $color-background;
-                .icon {
-                    flex: 0 0 60px;
-                    width: 60px;
-                    padding-right: 20px;
-                }
-                .text {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    flex: 1;
-                    line-height: 20px;
-                    overflow: hidden;
-                    font-size: $font-size-medium;
-                    .name {
-                        margin-bottom: 10px;
-                        color: $color-text;
-                    }
-                    .desc {
-                        width: 100%;
-                        text-overflow: ellipsis;
-                        overflow: hidden;
-                        white-space: nowrap;
-                        color: $color-text-d;
-                    }
-                }
-            }
-        }
-        .loading-container {
-            position: absolute;
-            width: 100%;
-            top: 50%;
-            transform: translateY(-50%);
         }
     }
+}
+.loading-container {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 </style>

@@ -97,34 +97,34 @@ export default {
 
 .progress-bar {
     height: 30px;
-    .bar-inner {
-        position: relative;
-        top: 13px;
-        height: 2px;
-        background: rgba(225, 225, 225, 0.42);
-        .progress {
-            position: absolute;
-            height: 100%;
-            background: $color-theme;
-        }
-        .progress-btn-wrapper {
-            position: absolute;
-            left: -8px;
-            top: -13px;
-            width: 30px;
-            height: 30px;
-            .progress-btn {
-                position: relative;
-                top: 7px;
-                left: 7px;
-                box-sizing: border-box;
-                width: 16px;
-                height: 16px;
-                border: 3px solid #fff;
-                border-radius: 50%;
-                background: #fff;
-            }
-        }
-    }
+}
+.bar-inner {
+    position: relative;
+    top: 13px;
+    height: 2px;
+    background: rgba(225, 225, 225, 0.42);
+}
+.progress {
+    position: absolute;
+    height: 100%;
+    background: $color-theme;
+}
+.progress-btn-wrapper {
+    position: absolute;
+    left: -8px;
+    top: -13px;
+    width: 30px;
+    height: 30px;
+}
+.progress-btn {
+    position: relative;
+    top: 7px;
+    left: 7px;
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: #fff;
 }
 </style>

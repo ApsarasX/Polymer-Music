@@ -626,304 +626,303 @@ export default {
 @import '~@/assets/scss/variable.scss';
 @import '~@/assets/scss/mixin.scss';
 
-.player {
-    .normal-player {
-        position: fixed;
+.normal-player {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 150;
+    background: $color-background-blur;
+    .background {
+        position: absolute;
         left: 0;
-        right: 0;
         top: 0;
-        bottom: 0;
-        z-index: 150;
-        background: $color-background-blur;
-        .background {
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.6;
+        filter: blur(20px);
+    }
+    .top {
+        position: relative;
+        margin-bottom: 25px;
+        .back {
             position: absolute;
-            left: 0;
             top: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.6;
-            filter: blur(20px);
-        }
-        .top {
-            position: relative;
-            margin-bottom: 25px;
-            .back {
-                position: absolute;
-                top: 0;
-                left: 6px;
-                z-index: 50;
-                .material-icons {
-                    font-size: 40px;
-                    @include extend-click;
-                }
-            }
-            .title {
-                width: 70%;
-                margin: 0 auto;
-                line-height: 40px;
-                text-align: center;
-                @include no-wrap;
-                font-size: $font-size-large;
-                color: $color-text-white;
-            }
-            .subtitle {
-                line-height: 20px;
-                text-align: center;
-                font-size: $font-size-medium;
-                color: $color-text-white;
-            }
-            .download {
-                position: absolute;
-                top: 5px;
-                right: 10px;
-                z-index: 50;
-                .material-icons {
-                    color: $color-theme;
-                    font-size: 32px;
-                    @include extend-click;
-                }
+            left: 6px;
+            z-index: 50;
+            .material-icons {
+                font-size: 40px;
+                @include extend-click;
             }
         }
-        .middle {
-            position: fixed;
-            width: 100%;
-            top: 80px;
-            bottom: 170px;
-            white-space: nowrap;
-            font-size: 0;
-            .middle-l {
-                display: inline-block;
-                vertical-align: top;
-                position: relative;
-                width: 100%;
-                height: 0;
-                padding-top: 80%;
-                .cd-wrapper {
-                    position: absolute;
-                    left: 10%;
-                    top: 0;
-                    width: 80%;
-                    height: 100%;
-                    .cd {
-                        width: 100%;
-                        height: 100%;
-                        box-sizing: border-box;
-                        border: 10px solid rgba(255, 255, 255, 0.1);
-                        border-radius: 50%;
-                        &.play {
-                            animation: rotate 20s linear infinite;
-                        }
-                        &.pause {
-                            animation-play-state: paused;
-                        }
-                        .image {
-                            position: absolute;
-                            left: 0;
-                            top: 0;
-                            width: 100%;
-                            height: 100%;
-                            border-radius: 50%;
-                        }
-                    }
-                }
-
-                .playing-lyric-wrapper {
-                    width: 80%;
-                    margin: 30px auto 0 auto;
-                    overflow: hidden;
-                    text-align: center;
-                    .playing-lyric {
-                        height: 20px;
-                        line-height: 20px;
-                        font-size: $font-size-medium;
-                        color: $color-text-white-ll;
-                    }
-                }
-            }
-            .middle-r {
-                display: inline-block;
-                vertical-align: top;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-                .lyric-wrapper {
-                    width: 80%;
-                    margin: 0 auto;
-                    overflow: hidden;
-                    text-align: center;
-                    .text {
-                        line-height: 32px;
-                        color: #aaa;
-                        font-size: $font-size-medium;
-                        &.current {
-                            color: $color-text-white;
-                        }
-                    }
-                }
-            }
+        .title {
+            width: 70%;
+            margin: 0 auto;
+            line-height: 40px;
+            text-align: center;
+            @include no-wrap;
+            font-size: $font-size-large;
+            color: $color-text-white;
         }
-        .bottom {
+        .subtitle {
+            line-height: 20px;
+            text-align: center;
+            font-size: $font-size-medium;
+            color: $color-text-white;
+        }
+        .download {
             position: absolute;
-            bottom: 50px;
-            width: 100%;
-            .dot-wrapper {
-                text-align: center;
-                font-size: 0;
-                .dot {
-                    display: inline-block;
-                    vertical-align: middle;
-                    margin: 0 4px;
-                    width: 8px;
-                    height: 8px;
-                    border-radius: 50%;
-                    background: $color-text-white-l;
-                    &.active {
-                        width: 20px;
-                        border-radius: 5px;
-                        background: $color-text-white-ll;
-                    }
-                }
-            }
-            .progress-wrapper {
-                display: flex;
-                align-items: center;
-                width: 80%;
-                margin: 0px auto;
-                padding: 10px 0;
-                .time {
-                    color: $color-text-white-ll;
-                    font-size: $font-size-small;
-                    flex: 0 0 30px;
-                    line-height: 30px;
-                    width: 30px;
-                    &.time-l {
-                        text-align: left;
-                    }
-                    &.time-r {
-                        text-align: right;
-                    }
-                }
-                .progress-bar-wrapper {
-                    flex: 1;
-                    margin: 0 10px;
-                }
-            }
-            .operators {
-                display: flex;
-                align-items: center;
-                .icon {
-                    flex: 1;
-                    color: $color-icon;
-                    &.disable {
-                        color: $color-theme-d;
-                    }
-                    i {
-                        font-size: 30px;
-                    }
-                }
-                .i-left {
-                    text-align: right;
-                }
-                .i-center {
-                    padding: 0 20px;
-                    text-align: center;
-                    i {
-                        font-size: 40px;
-                    }
-                }
-                .i-right {
-                    text-align: left;
-                }
-            }
-        }
-        &.normal-enter-active,
-        &.normal-leave-active {
-            transition: all 0.4s;
-            .top,
-            .bottom {
-                transition: all 0.4s cubic-bezier(0.86, 0.18, 0.82, 1.32);
-            }
-        }
-        &.normal-enter,
-        &.normal-leave-to {
-            opacity: 0;
-            .top {
-                transform: translate3d(0, -100px, 0);
-            }
-            .bottom {
-                transform: translate3d(0, 100px, 0);
+            top: 5px;
+            right: 10px;
+            z-index: 50;
+            .material-icons {
+                color: $color-theme;
+                font-size: 32px;
+                @include extend-click;
             }
         }
     }
-    .mini-player {
-        display: flex;
-        align-items: center;
+    .middle {
         position: fixed;
-        left: 0;
-        bottom: 0;
-        z-index: 180;
         width: 100%;
-        height: 60px;
-        background: $color-background;
-        box-shadow: 0 -2px 14px 2px rgba(0, 0, 0, 0.12);
-        &.mini-enter-active,
-        &.mini-leave-active {
-            transition: all 0.4s;
-        }
-        &.mini-enter,
-        &.mini-leave-to {
-            // opacity: 0;
-            transform: translate3d(0, 100%, 0);
-        }
-        .icon {
-            flex: 0 0 40px;
-            width: 40px;
-            padding: 0 10px 0 20px;
-            img {
-                border-radius: 50%;
-                &.play {
-                    animation: rotate 10s linear infinite;
-                }
-                &.pause {
-                    animation-play-state: paused;
-                }
-            }
-        }
-        .text {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            flex: 1;
-            line-height: 20px;
-            overflow: hidden;
-            .name {
-                margin-bottom: 2px;
-                @include no-wrap;
-                font-size: $font-size-medium;
-                color: $color-text;
-            }
-            .desc {
-                @include no-wrap;
-                font-size: $font-size-small;
-                color: $color-text-d;
-            }
-        }
-        .control {
-            flex: 0 0 30px;
-            width: 30px;
-            padding: 0 10px;
-            &:last-child {
-                padding-right: 16px;
-            }
-            .mini-op {
+        top: 80px;
+        bottom: 170px;
+        white-space: nowrap;
+        font-size: 0;
+        .middle-l {
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-top: 80%;
+            .cd-wrapper {
                 position: absolute;
-                left: 4px;
-                top: 4px;
+                left: 10%;
+                top: 0;
+                width: 80%;
+                height: 100%;
+                .cd {
+                    width: 100%;
+                    height: 100%;
+                    box-sizing: border-box;
+                    border: 10px solid rgba(255, 255, 255, 0.1);
+                    border-radius: 50%;
+                    &.play {
+                        animation: rotate 20s linear infinite;
+                    }
+                    &.pause {
+                        animation-play-state: paused;
+                    }
+                    .image {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                    }
+                }
             }
+
+            .playing-lyric-wrapper {
+                width: 80%;
+                margin: 30px auto 0 auto;
+                overflow: hidden;
+                text-align: center;
+                .playing-lyric {
+                    height: 20px;
+                    line-height: 20px;
+                    font-size: $font-size-medium;
+                    color: $color-text-white-ll;
+                }
+            }
+        }
+        .middle-r {
+            display: inline-block;
+            vertical-align: top;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            .lyric-wrapper {
+                width: 80%;
+                margin: 0 auto;
+                overflow: hidden;
+                text-align: center;
+                .text {
+                    line-height: 32px;
+                    color: #aaa;
+                    font-size: $font-size-medium;
+                    &.current {
+                        color: $color-text-white;
+                    }
+                }
+            }
+        }
+    }
+    .bottom {
+        position: absolute;
+        bottom: 50px;
+        width: 100%;
+        .dot-wrapper {
+            text-align: center;
+            font-size: 0;
+            .dot {
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0 4px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: $color-text-white-l;
+                &.active {
+                    width: 20px;
+                    border-radius: 5px;
+                    background: $color-text-white-ll;
+                }
+            }
+        }
+        .progress-wrapper {
+            display: flex;
+            align-items: center;
+            width: 80%;
+            margin: 0px auto;
+            padding: 10px 0;
+            .time {
+                color: $color-text-white-ll;
+                font-size: $font-size-small;
+                flex: 0 0 30px;
+                line-height: 30px;
+                width: 30px;
+                &.time-l {
+                    text-align: left;
+                }
+                &.time-r {
+                    text-align: right;
+                }
+            }
+            .progress-bar-wrapper {
+                flex: 1;
+                margin: 0 10px;
+            }
+        }
+        .operators {
+            display: flex;
+            align-items: center;
+            .icon {
+                flex: 1;
+                color: $color-icon;
+                &.disable {
+                    color: $color-theme-d;
+                }
+                i {
+                    font-size: 30px;
+                }
+            }
+            .i-left {
+                text-align: right;
+            }
+            .i-center {
+                padding: 0 20px;
+                text-align: center;
+                i {
+                    font-size: 40px;
+                }
+            }
+            .i-right {
+                text-align: left;
+            }
+        }
+    }
+    &.normal-enter-active,
+    &.normal-leave-active {
+        transition: all 0.4s;
+        .top,
+        .bottom {
+            transition: all 0.4s cubic-bezier(0.86, 0.18, 0.82, 1.32);
+        }
+    }
+    &.normal-enter,
+    &.normal-leave-to {
+        opacity: 0;
+        .top {
+            transform: translate3d(0, -100px, 0);
+        }
+        .bottom {
+            transform: translate3d(0, 100px, 0);
         }
     }
 }
+.mini-player {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 180;
+    width: 100%;
+    height: 60px;
+    background: $color-background;
+    box-shadow: 0 -2px 14px 2px rgba(0, 0, 0, 0.12);
+    &.mini-enter-active,
+    &.mini-leave-active {
+        transition: all 0.4s;
+    }
+    &.mini-enter,
+    &.mini-leave-to {
+        // opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    .icon {
+        flex: 0 0 40px;
+        width: 40px;
+        padding: 0 10px 0 20px;
+        img {
+            border-radius: 50%;
+            &.play {
+                animation: rotate 10s linear infinite;
+            }
+            &.pause {
+                animation-play-state: paused;
+            }
+        }
+    }
+    .text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
+        line-height: 20px;
+        overflow: hidden;
+        .name {
+            margin-bottom: 2px;
+            @include no-wrap;
+            font-size: $font-size-medium;
+            color: $color-text;
+        }
+        .desc {
+            @include no-wrap;
+            font-size: $font-size-small;
+            color: $color-text-d;
+        }
+    }
+    .control {
+        flex: 0 0 30px;
+        width: 30px;
+        padding: 0 10px;
+        &:last-child {
+            padding-right: 16px;
+        }
+        .mini-op {
+            position: absolute;
+            left: 4px;
+            top: 4px;
+        }
+    }
+}
+
 .download-name {
     color: $color-theme;
 }

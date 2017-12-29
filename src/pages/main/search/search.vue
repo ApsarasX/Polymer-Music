@@ -119,6 +119,8 @@ export default {
     width: 100%;
     height: calc(100vh - 148px);
     padding-top: 20px;
+    position: relative;
+    z-index: 100;
 }
 .shortcut {
     height: 100%;
@@ -136,7 +138,6 @@ export default {
         padding: 5px 10px;
         margin: 0 12px 10px 0;
         border-radius: 99px;
-        // background: $color-highlight-background;
         border: 1px solid $color-text-ll;
         font-size: $font-size-medium;
         color: $color-text-ll;

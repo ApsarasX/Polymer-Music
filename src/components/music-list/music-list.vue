@@ -199,98 +199,98 @@ export default {
     bottom: 0;
     right: 0;
     background: $color-background;
-    .back {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 50;
-        .material-icons {
-            font-size: 40px;
-            @include extend-click;
-        }
+}
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    .material-icons {
+        font-size: 40px;
+        @include extend-click;
     }
-    .title {
-        position: absolute;
-        top: 0;
-        left: 10%;
-        z-index: 40;
-        width: 80%;
-        @include no-wrap;
+}
+.title {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    z-index: 40;
+    width: 80%;
+    @include no-wrap;
+    text-align: center;
+    line-height: 40px;
+    font-size: $font-size-large;
+    color: $color-text-white;
+}
+.bg-image {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 70%;
+    transform-origin: top;
+    background-size: cover;
+}
+.play-wrapper {
+    position: absolute;
+    bottom: 20px;
+    z-index: 50;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .favor,
+    .play {
+        box-sizing: border-box;
+        width: 135px;
+        padding: 7px 0;
+        margin: 0 auto;
         text-align: center;
-        line-height: 40px;
-        font-size: $font-size-large;
-        color: $color-text-white;
+        border: 1px solid $color-theme;
+        color: $color-theme;
+        border-radius: 100px;
+        font-size: 0;
+        .material-icons {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 6px;
+            font-size: $font-size-medium-x;
+        }
+        .text {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: $font-size-small;
+        }
     }
-    .bg-image {
-        position: relative;
+}
+.filter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(7, 17, 27, 0.4);
+}
+.bg-layer {
+    position: relative;
+    height: 100%;
+    background: $color-background;
+}
+.list {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: $color-background;
+    .song-list-wrapper {
+        background-color: $color-highlight-background;
+    }
+    .pad {
+        padding: 20px 15px;
+    }
+    .loading-container {
+        position: absolute;
         width: 100%;
-        height: 0;
-        padding-top: 70%;
-        transform-origin: top;
-        background-size: cover;
-        .play-wrapper {
-            position: absolute;
-            bottom: 20px;
-            z-index: 50;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            .favor,
-            .play {
-                box-sizing: border-box;
-                width: 135px;
-                padding: 7px 0;
-                margin: 0 auto;
-                text-align: center;
-                border: 1px solid $color-theme;
-                color: $color-theme;
-                border-radius: 100px;
-                font-size: 0;
-                .material-icons {
-                    display: inline-block;
-                    vertical-align: middle;
-                    margin-right: 6px;
-                    font-size: $font-size-medium-x;
-                }
-                .text {
-                    display: inline-block;
-                    vertical-align: middle;
-                    font-size: $font-size-small;
-                }
-            }
-        }
-        .filter {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(7, 17, 27, 0.4);
-        }
-    }
-    .bg-layer {
-        position: relative;
-        height: 100%;
-        background: $color-background;
-    }
-    .list {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-        background: $color-background;
-        .song-list-wrapper {
-            background-color: $color-highlight-background;
-        }
-        .pad {
-            padding: 20px 15px;
-        }
-        .loading-container {
-            position: absolute;
-            width: 100%;
-            top: 50%;
-            transform: translateY(-50%);
-        }
+        top: 50%;
+        transform: translateY(-50%);
     }
 }
 </style>
