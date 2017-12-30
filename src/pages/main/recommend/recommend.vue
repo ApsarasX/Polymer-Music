@@ -11,9 +11,9 @@
                     <div class="slider-content">
                         <slider ref="slider">
                             <div v-for="(item,index) in recommends" :key="index">
-                                <a :href="item.linkUrl">
+                                <!-- <a :href="item.linkUrl"> -->
                                     <img @load="loadImage" :src="item.picUrl" alt="slider-img">
-                                </a>
+                                <!-- </a> -->
                             </div>
                         </slider>
                     </div>

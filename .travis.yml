@@ -24,3 +24,6 @@ after_success:
 - rsync -avz -e 'ssh -p 28331' dist/* root@115.159.209.131:/www/wwwroot/music.io-code.com
 - ssh -f root@115.159.209.131 -p 28331 "chown -R www:www /www/wwwroot/music.io-code.com/*"
 - echo -e "\033[32m 已同步到网站 \033[0m"
+
+notifications:
+  email: false

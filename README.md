@@ -59,3 +59,4 @@ npm run build --report
 2. Skeleton骨架屏
 3. PWA特性加强
 4. 动画性能提升(GPU加速)
+5. iOS手机兼容性
