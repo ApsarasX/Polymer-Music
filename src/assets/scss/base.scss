@@ -9,6 +9,7 @@ html {
     -webkit-tap-highlight-color: transparent;
     background: $color-background;
     color: $color-text;
+    overflow: hidden;
 }
 .popup-top {
     width: 100%;

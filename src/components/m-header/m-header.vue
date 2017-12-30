@@ -29,7 +29,9 @@ export default {
 @import '~@/assets/scss/mixin.scss';
 
 .m-header {
-    position: relative;
+    position: fixed;
+    left: 0;
+    right: 0;
     height: 44px;
     text-align: center;
     color: $color-text-white;
