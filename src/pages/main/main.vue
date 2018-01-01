@@ -80,6 +80,10 @@ export default {
 <style lang="scss" scoped>
 .main-body {
     height: calc(100vh - 88px);
+    // position: fixed;
+    // width:100%;
+    // top: 88px;
+    // bottom: 0;
 }
 .dialogText {
     line-height: 30px;
@@ -90,7 +94,6 @@ export default {
 .slide-in-leave-active {
     will-change: transform;
     transition: all .3s;
-    height: 100%;
     backface-visibility: hidden;
     perspective: 1000;
 }

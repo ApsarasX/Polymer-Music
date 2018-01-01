@@ -24,10 +24,10 @@ export default {};
 @import '~@/assets/scss/variable';
 
 .tab {
-    position: fixed;
-    top: 44px;
-    left: 0;
-    right: 0;
+    // position: fixed;
+    // top: 44px;
+    // left: 0;
+    // right: 0;
     display: flex;
     height: 44px;
     line-height: 44px;

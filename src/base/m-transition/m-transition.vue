@@ -44,6 +44,7 @@ export default {
 .cross-leave-active,
 .cross-reverse-enter-active,
 .cross-reverse-leave-active {
+    will-change: transform;
     transition: all .3s;
 }
 // // slide

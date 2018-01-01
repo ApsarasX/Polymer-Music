@@ -60,3 +60,4 @@ npm run build --report
 3. PWA特性加强
 4. 动画性能提升(GPU加速)
 5. iOS手机兼容性
+6. 单元测试

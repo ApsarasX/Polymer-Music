@@ -1,7 +1,7 @@
 {
     "name": "polymer-music",
     "cnName": "聚合音乐",
-    "version": "1.3.2",
+    "version": "1.4.0",
     "description": "A music player built with vue.js",
     "author": {
         "name": "陈文岗",
@@ -10,12 +10,14 @@
     },
     "scripts": {
         "dev": "node build/dev-server.js",
-        "start": "node build/dev-server.js",
+        "start": "npm run dev",
         "build": "node build/build.js",
-        "lint": "eslint --ext .js,.vue src"
+        "lint": "eslint --ext .js,.vue src",
+        "test": "jest"
     },
     "dependencies": {
         "axios": "^0.17.1",
+        "babel-jest": "^22.0.4",
         "babel-runtime": "^6.26.0",
         "better-scroll": "^1.6.3",
         "create-keyframe-animation": "^0.1.0",
@@ -64,6 +66,7 @@
         "happypack": "^4.0.0",
         "html-webpack-plugin": "^2.30.1",
         "http-proxy-middleware": "^0.17.4",
+        "jest": "^22.0.4",
         "less": "^2.7.3",
         "less-loader": "^4.0.5",
         "node-sass": "^4.7.2",
@@ -78,9 +81,11 @@
         "uglify-es": "^3.3.2",
         "url-loader": "^0.6.2",
         "vconsole": "^3.1.0",
+        "vue-jest": "^1.4.0",
         "vue-loader": "^13.6.1",
         "vue-style-loader": "^3.0.3",
         "vue-template-compiler": "^2.5.13",
+        "vue-test-utils": "^1.0.0-beta.9",
         "webpack": "^3.10.0",
         "webpack-bundle-analyzer": "^2.9.0",
         "webpack-dev-middleware": "^2.0.3",
@@ -91,6 +96,21 @@
     "engines": {
         "node": ">= 4.0.0",
         "npm": ">= 3.0.0"
+    },
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "json",
+            "vue"
+        ],
+        "transform": {
+            ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
+            "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+        },
+        "mapCoverage": true,
+        "moduleNameMapper": {
+            "^@/(.*)$": "<rootDir>/src/$1"
+        }
     },
     "browserslist": [
         "> 1%",
