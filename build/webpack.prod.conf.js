@@ -15,7 +15,6 @@ const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const loadMinified = require('./load-minified');
 
-const env = config.build.env;
 const env =
     process.env.NODE_ENV === 'testing' ? config.test.env : config.build.env;
 

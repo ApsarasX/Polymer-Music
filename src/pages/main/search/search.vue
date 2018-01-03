@@ -127,7 +127,7 @@ export default {
     overflow: hidden;
 }
 .hot-key {
-    margin: 0 20px 20px 20px;
+    margin:0 20px 20px;
     .title {
         margin-bottom: 20px;
         font-size: $font-size-medium;
@@ -146,6 +146,7 @@ export default {
 .search-history {
     position: relative;
     margin: 0 20px;
+    bottom: 20px;
     .title {
         display: flex;
         align-items: center;

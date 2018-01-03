@@ -15,25 +15,35 @@
                     <li>
                         <router-link to="/register" tag="a" class="option">注册账号</router-link>
                         <router-link to="" tag="a" class="option">忘记密码</router-link>
-                        <mu-raised-button label="登录" primary/>
+                        <mu-raised-button label="登录" @click="login" primary/>
                     </li>
                 </ul>
             </div>
+            <mu-dialog :open="dialog">
+                <div class="logining">
+                    <loading class="logining-loading"></loading>
+                    <p class="logining-text">正在登陆</p>
+                </div>
+            </mu-dialog>
         </div>
     </m-transition>
 </template>
 <script>
 import MTransition from '@/base/m-transition/m-transition';
+import Loading from '../../base/loading/loading';
 
 export default {
     data() {
         return {
             username: '',
-            password: ''
+            password: '',
+            logining: true,
+            dialog: true
         };
     },
     components: {
-        MTransition
+        MTransition,
+        Loading
     },
     methods: {
         login() {},
@@ -51,7 +61,7 @@ export default {
     right: 0;
     top: 0;
     bottom: 0;
-    z-index: 20171228;
+    z-index: 2017;
     background-color: #fff;
 }
 .main {
@@ -68,7 +78,7 @@ export default {
             float: right;
             padding-top: 10px;
             .option {
-                margin-right: 10px;
+                margin-right: 20px;
                 font-size: 14px;
                 color: $color-theme;
             }
@@ -78,5 +88,15 @@ export default {
             }
         }
     }
+}
+.logining {
+    display: flex;
+}
+.logining-loading {
+    display: inline-block !important;
+    flex: 2;
+}
+.logining-text {
+    flex: 1;
 }
 </style>

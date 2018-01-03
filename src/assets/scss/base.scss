@@ -71,6 +71,10 @@ html {
 .mu-step-label.active .mu-step-label-icon {
     color: $color-theme !important;
 }
+.mu-flat-button {
+    min-width: 0 !important;
+    flex: 1;
+}
 .material-icons {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;

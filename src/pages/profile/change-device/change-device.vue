@@ -40,7 +40,7 @@ export default {
     right: 0;
     top: 0;
     bottom: 0;
-    z-index: 20171228;
+    z-index: 2017;
     background-color: #fff;
 }
 .main {
