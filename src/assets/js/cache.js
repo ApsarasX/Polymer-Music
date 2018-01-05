@@ -1,17 +1,20 @@
 import storage from 'good-storage';
 
+window.storage = storage;
 const SEARCH_KEY = '__search__';
 const SEARCH_MAX_LENGTH = 15;
-
 const PLAY_KEY = '__play__';
 const PLAY_MAX_LENGTH = 200;
-
 const FAVORITE_KEY = '__favorite__';
 const FAVORITE_LIST_KEY = '__favorite_list__';
 const FAVORITE_MAX_LENGTH = 200;
-
 const SRC_TYPES_KEY = '__src_types__';
-
+const TOKEN_KEY = '__token__';
+const USER_INFO_KEY = '__user_info__';
+window.TOKEN_KEY = TOKEN_KEY;
+window.USER_INFO_KEY = USER_INFO_KEY;
+const WEEK_TIME_SPAN = 604800000;
+window.WEEK_TIME_SPAN = WEEK_TIME_SPAN;
 function insertArray(arr, val, compare, maxLen) {
     const index = arr.findIndex(compare);
     if (index === 0) {
@@ -112,4 +115,47 @@ export function loadSrcTypes() {
 // 保存用户设置的音乐源
 export function saveSrcTypes({ qq = false, ne = false, xm = false }) {
     storage.set(SRC_TYPES_KEY, { qq, ne, xm });
+    return { qq, ne, xm };
+}
+
+// 载入用户登录状态(本地存储登录状态, 不安全, 未来实现JWT)
+// 检测用户上次登陆是否超过7天
+export function loadLoginStatus() {
+    // 上次登录时间戳
+    const lastTimeStamp = storage.get(TOKEN_KEY, 0);
+    // 时间差
+    const span = Date.now() - lastTimeStamp;
+    // 如果小于一星期, 更新时间戳, 并返回登录状态是true
+    if (span >= 0 && span <= WEEK_TIME_SPAN) {
+        storage.set(TOKEN_KEY, Date.now());
+        return true;
+    }
+    return false;
+}
+// 设置当前时间为上次登录时间
+export function saveLoginStatus() {
+    return storage.set(TOKEN_KEY, Date.now());
+}
+// 载入保存的用户信息
+export function loadUserInfo() {
+    const emptyUserInfo = {
+        username: '',
+        nickname: '',
+        mobile: ''
+    };
+    const initUserInfo = storage.get(USER_INFO_KEY, {});
+    const userInfo = {
+        ...emptyUserInfo,
+        ...initUserInfo
+    };
+    return loadLoginStatus() ? userInfo : emptyUserInfo;
+}
+// 保存用户信息
+export function saveUserInfo(outUserInfo) {
+    const initUserInfo = storage.get(USER_INFO_KEY, {});
+    const userInfo = {
+        ...initUserInfo,
+        ...outUserInfo
+    };
+    return storage.set(USER_INFO_KEY, userInfo);
 }

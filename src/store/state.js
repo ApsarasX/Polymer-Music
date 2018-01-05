@@ -4,7 +4,9 @@ import {
     loadPlay,
     loadFavorite,
     loadFavoriteList,
-    loadSrcTypes
+    loadSrcTypes,
+    loadLoginStatus,
+    loadUserInfo
 } from '@/assets/js/cache';
 /**
  * @constant state - Vuex状态
@@ -48,7 +50,13 @@ const state = {
     // 主页Tab切换方向
     direction: 'forward',
     // 音乐来源类型
-    srcTypes: loadSrcTypes()
+    srcTypes: loadSrcTypes(),
+    // 判断用户是否登录
+    hasLogin: loadLoginStatus(),
+    // 用户信息
+    userInfo: {
+        ...loadUserInfo()
+    }
 };
 
 export default state;

@@ -19,7 +19,7 @@
                     </li>
                 </ul>
             </div>
-            <mu-dialog :open="dialog">
+            <mu-dialog :open="logining">
                 <div class="logining">
                     <loading class="logining-loading"></loading>
                     <p class="logining-text">正在登陆</p>
@@ -37,8 +37,7 @@ export default {
         return {
             username: '',
             password: '',
-            logining: true,
-            dialog: true
+            logining: false
         };
     },
     components: {
@@ -91,10 +90,11 @@ export default {
 }
 .logining {
     display: flex;
+    align-items: center;
 }
 .logining-loading {
-    display: inline-block !important;
-    flex: 2;
+    flex: 0.5 0.5 15%;
+    padding-top: 0 !important;
 }
 .logining-text {
     flex: 1;

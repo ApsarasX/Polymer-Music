@@ -5,9 +5,9 @@
                 <mu-icon-button icon="arrow_back" slot="left" @click="back" />
             </mu-appbar>
             <div class="main">
-                <p class="current">您当前的设备型号: {{currentModel}}</p>
+                <p class="current">您当前的设备型号: {{device}}</p>
                 <p class="desc">设备名称应和官网公布的一致</p>
-                <mu-text-field class="model-input" label="设备型号" labelFloat/>
+                <mu-text-field class="model-input" v-model="model" label="设备型号" labelFloat/>
                 <mu-raised-button label="提交" primary fullWidth/>
             </div>
         </div>
@@ -15,14 +15,18 @@
 </template>
 <script>
 import MTransition from '@/base/m-transition/m-transition';
+import { device as deviceDetect } from '@/assets/js/util';
 
 export default {
     components: {
         MTransition
     },
+    created() {
+        this.device = deviceDetect();
+    },
     data() {
         return {
-            currentModel: 'Xiaomi MI5'
+            model: ''
         };
     },
     methods: {

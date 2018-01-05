@@ -39,3 +39,7 @@ export const popupContent = state => state.popupContent;
 export const direction = state => state.direction;
 
 export const srcTypes = state => state.srcTypes;
+
+export const hasLogin = state => state.hasLogin;
+
+export const userInfo = state => state.userInfo;

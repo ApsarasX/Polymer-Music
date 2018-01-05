@@ -1,3 +1,5 @@
+import UA from 'ua-device';
+
 // 打乱数组
 export function shuffle(arr) {
     const newArr = [...arr];
@@ -18,4 +20,17 @@ export function debounce(func, delay) {
             func.apply(this, args);
         }, delay);
     };
+}
+
+export function device() {
+    // 检测移动设备型号
+    const { userAgent } = window.navigator;
+    const deviceInfo = new UA(userAgent).device;
+    window.UA = UA;
+    if (!deviceInfo.manufacturer && !deviceInfo.mode) {
+        return '未识别机型(请点击修改)';
+    }
+    return `${deviceInfo.manufacturer ? deviceInfo.manufacturer : ''} ${
+        deviceInfo.model ? deviceInfo.model : ''
+    }`;
 }

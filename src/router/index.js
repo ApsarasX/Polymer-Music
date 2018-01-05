@@ -165,7 +165,10 @@ router.beforeEach((to, from, next) => {
         store.commit('SET_FULL_SCREEN', false);
         next(false);
     } else if (userCenterVisible) {
-        if (to.path === '/profile' || from.path === '/profile') {
+        if (
+            /^\/(profile|login)$/.test(to.path) ||
+            /^\/(profile|login)$/.test(from.path)
+        ) {
             next();
         } else {
             store.commit('SET_USER_CENTER_VISIBLE', false);

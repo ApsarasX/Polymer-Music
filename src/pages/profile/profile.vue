@@ -14,11 +14,11 @@
                             </mu-list-item>
                             <mu-list-item title="用户名">
                                 <mu-icon slot="left" value="person" />
-                                <p slot="after">pyyzcwg2833</p>
+                                <p slot="after">{{username}}</p>
                             </mu-list-item>
                             <mu-list-item title="昵称" @click="alterInfo('nickname')">
                                 <mu-icon slot="left" value="star" />
-                                <p slot="after">风硕依源</p>
+                                <p slot="after">{{nickname}}</p>
                                 <mu-icon slot="after" value="chevron_right" />
                             </mu-list-item>
                         </mu-list>
@@ -27,7 +27,7 @@
                         <mu-list>
                             <mu-list-item title="手机" @click="alterInfo('phone')">
                                 <mu-icon slot="left" value="smartphone" />
-                                <p slot="after">132****5806</p>
+                                <p slot="after">{{mobile}}</p>
                                 <mu-icon slot="after" value="chevron_right" />
                             </mu-list-item>
                             <mu-list-item title="密码" @click="alterInfo('password')">
@@ -60,26 +60,32 @@
 <script>
 import Scroll from '@/base/scroll/scroll';
 import MTransition from '@/base/m-transition/m-transition';
-import UA from 'ua-device';
+import { device as deviceDetect } from '@/assets/js/util';
+import { mapGetters } from 'vuex';
 
 export default {
     components: {
         MTransition,
         Scroll
     },
+    created() {
+        this.device = deviceDetect();
+    },
     computed: {
-        device() {
-            // 检测移动设备型号
-            const { userAgent } = window.navigator;
-            const deviceInfo = new UA(userAgent).device;
-            window.UA = UA;
-            if (!deviceInfo.manufacturer && !deviceInfo.mode) {
-                return '未识别机型(请点击修改)';
+        username() {
+            return this.userInfo.username ? this.userInfo.username : '未知用户名';
+        },
+        nickname() {
+            return this.userInfo.nickname ? this.userInfo.nickname : '未知昵称';
+        },
+        mobile() {
+            const { mobile } = this.userInfo;
+            if (mobile.length !== 11) {
+                return '未知手机号';
             }
-            return `${deviceInfo.manufacturer
-                ? deviceInfo.manufacturer
-                : ''} ${deviceInfo.model ? deviceInfo.model : ''}`;
-        }
+            return `${mobile.slice(0, 3)}****${mobile.slice(-4)}`;
+        },
+        ...mapGetters(['userInfo'])
     },
     methods: {
         back() {

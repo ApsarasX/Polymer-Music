@@ -8,7 +8,7 @@
                             <img src="https://web-linux.com/img/daily_pic.png" />
                             <div class="mu-card-media-title" @click.stop="enterProfile">
                                 <div class="mu-card-title">
-                                    pyyzcwg2833
+                                    {{hasLogin?userInfo.nickname:'[请登录]'}}
                                 </div>
                             </div>
                         </mu-card-media>
@@ -75,7 +75,7 @@ export default {
         this._srcTypes = { qq, ne, xm };
     },
     computed: {
-        ...mapGetters(['userCenterVisible', 'srcTypes'])
+        ...mapGetters(['userCenterVisible', 'srcTypes', 'hasLogin', 'userInfo'])
     },
     data() {
         /* eslint-disable global-require */
@@ -102,7 +102,11 @@ export default {
             this.setUserCenterVisible(false);
         },
         enterProfile() {
-            this.$router.push('/profile');
+            if (this.hasLogin) {
+                this.$router.push('/profile');
+            } else {
+                this.$router.push('/login');
+            }
         },
         srcTypesChange() {
             this.setSrcTypes({ ...this._srcTypes });
