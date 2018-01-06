@@ -15,19 +15,28 @@
 </template>
 <script>
 import MTransition from '@/base/m-transition/m-transition';
-import { device as deviceDetect } from '@/assets/js/util';
+import UA from 'ua-device';
 
 export default {
     components: {
         MTransition
     },
-    created() {
-        this.device = deviceDetect();
-    },
     data() {
         return {
             model: ''
         };
+    },
+    computed: {
+        device() {
+            const { userAgent } = window.navigator;
+            const deviceInfo = new UA(userAgent).device;
+            if (!deviceInfo.manufacturer && !deviceInfo.mode) {
+                return '未识别机型(请点击修改)';
+            }
+            return `${deviceInfo.manufacturer
+                ? deviceInfo.manufacturer
+                : ''} ${deviceInfo.model ? deviceInfo.model : ''}`;
+        }
     },
     methods: {
         back() {

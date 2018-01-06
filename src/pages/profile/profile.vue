@@ -60,16 +60,13 @@
 <script>
 import Scroll from '@/base/scroll/scroll';
 import MTransition from '@/base/m-transition/m-transition';
-import { device as deviceDetect } from '@/assets/js/util';
+import UA from 'ua-device';
 import { mapGetters } from 'vuex';
 
 export default {
     components: {
         MTransition,
         Scroll
-    },
-    created() {
-        this.device = deviceDetect();
     },
     computed: {
         username() {
@@ -84,6 +81,16 @@ export default {
                 return '未知手机号';
             }
             return `${mobile.slice(0, 3)}****${mobile.slice(-4)}`;
+        },
+        device() {
+            const { userAgent } = window.navigator;
+            const deviceInfo = new UA(userAgent).device;
+            if (!deviceInfo.manufacturer && !deviceInfo.mode) {
+                return '未识别机型(请点击修改)';
+            }
+            return `${deviceInfo.manufacturer
+                ? deviceInfo.manufacturer
+                : ''} ${deviceInfo.model ? deviceInfo.model : ''}`;
         },
         ...mapGetters(['userInfo'])
     },
