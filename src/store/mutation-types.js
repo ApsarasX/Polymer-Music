@@ -37,3 +37,7 @@ export const SET_POPUP_CONTENT = 'SET_POP_CONTENT';
 export const UPDATE_DIRECTION = 'UPDATE_DIRECTION';
 
 export const SET_SRC_TYPES = 'SET_SRC_TYPES';
+
+export const SET_HAS_LOGIN = 'SET_HAS_LOGIN';
+
+export const SET_USER_INFO = 'SET_USER_INFO';

@@ -14,6 +14,7 @@ const webpack = require('webpack');
 const proxyMiddleware = require('http-proxy-middleware');
 const webpackConfig = require('./webpack.dev.conf');
 const axios = require('axios');
+const bodyParser = require('body-parser');
 
 // default port where dev server listens for incoming traffic
 const port = process.env.PORT || config.dev.port;
@@ -24,7 +25,12 @@ const autoOpenBrowser = !!config.dev.autoOpenBrowser;
 const proxyTable = config.dev.proxyTable;
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 const apiRoutes = express.Router();
+const userRoutes = express.Router();
 apiRoutes.get('/getDiscList', async (req, res) => {
     const url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg';
     try {
@@ -106,8 +112,23 @@ apiRoutes.get('/search', async (req, res) => {
         throw err;
     }
 });
+userRoutes.post('/login', (req, res) => {
+    setTimeout(() => {
+        res.json({
+            code: 0,
+            data: {
+                uid: '1',
+                username: 'pyyzcwg2833',
+                nickname: '风硕依源',
+                mobile: '13201685806',
+                register_time: 1513781141482,
+                last_login_time: 1513781141482
+            }
+        });
+    }, 3000);
+});
 app.use('/api', apiRoutes);
-
+app.use('/user', userRoutes);
 const compiler = webpack(webpackConfig);
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {

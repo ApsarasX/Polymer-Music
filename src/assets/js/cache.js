@@ -11,10 +11,9 @@ const FAVORITE_MAX_LENGTH = 200;
 const SRC_TYPES_KEY = '__src_types__';
 const TOKEN_KEY = '__token__';
 const USER_INFO_KEY = '__user_info__';
-window.TOKEN_KEY = TOKEN_KEY;
-window.USER_INFO_KEY = USER_INFO_KEY;
+const LOGIN_SUGGEST_KEY = '__login_suggest__';
+
 const WEEK_TIME_SPAN = 604800000;
-window.WEEK_TIME_SPAN = WEEK_TIME_SPAN;
 function insertArray(arr, val, compare, maxLen) {
     const index = arr.findIndex(compare);
     if (index === 0) {
@@ -128,6 +127,7 @@ export function loadLoginStatus() {
     // 如果小于一星期, 更新时间戳, 并返回登录状态是true
     if (span >= 0 && span <= WEEK_TIME_SPAN) {
         storage.set(TOKEN_KEY, Date.now());
+        storage.get(LOGIN_SUGGEST_KEY, true);
         return true;
     }
     return false;

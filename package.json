@@ -45,6 +45,7 @@
         "babel-preset-env": "^1.6.0",
         "babel-preset-stage-2": "^6.24.1",
         "babel-register": "^6.26.0",
+        "body-parser": "^1.18.2",
         "chalk": "^2.1.0",
         "connect-history-api-fallback": "^1.4.0",
         "copy-webpack-plugin": "^4.3.1",

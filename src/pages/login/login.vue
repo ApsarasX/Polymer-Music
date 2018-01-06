@@ -10,7 +10,7 @@
                         <mu-text-field v-model="username" label="用户名/手机号" labelFloat />
                     </li>
                     <li>
-                        <mu-text-field v-model="password" label="密码" labelFloat />
+                        <mu-text-field v-model="password" type="password" label="密码" labelFloat />
                     </li>
                     <li>
                         <router-link to="/register" tag="a" class="option">注册账号</router-link>
@@ -31,6 +31,16 @@
 <script>
 import MTransition from '@/base/m-transition/m-transition';
 import Loading from '../../base/loading/loading';
+import { login as loginReq } from '../../api/user';
+import { mapActions, mapMutations } from 'vuex';
+import { ERR_OK } from '@/api/config';
+import { saveLoginStatus, saveUserInfo } from '@/assets/js/cache';
+
+const REG = {
+    isMobile: /^1(3|4|5|6|7|8)\d{9}$/,
+    isUsername: /^[a-z_]\w{0,15}$/,
+    isPassword: /^.{1,16}$/
+};
 
 export default {
     data() {
@@ -45,10 +55,55 @@ export default {
         Loading
     },
     methods: {
-        login() {},
+        async login() {
+            if (this._loginCheck()) {
+                this.logining = true;
+                try {
+                    // 请求登录
+                    const res = await loginReq({
+                        username: this.username,
+                        password: this.password
+                    });
+                    // 登陆成功
+                    if (res.code === ERR_OK) {
+                        const { username, nickname, mobile } = res.data;
+                        // 保存登录状态和信息
+                        saveLoginStatus();
+                        saveUserInfo({ username, nickname, mobile });
+                        this.setHasLogin(true);
+                        this.setUserInfo({ username, nickname, mobile });
+                        this.$router.replace('/');
+                    }
+                } catch (err) {
+                    this.setPopup('登录失败');
+                    console.error(err);
+                } finally {
+                    this.logining = false;
+                }
+            }
+        },
+        // 检查输入的登录信息
+        _loginCheck() {
+            if (
+                !REG.isUsername.test(this.username) &&
+                !REG.isMobile.test(this.username)
+            ) {
+                this.setPopup('不是合法的用户名/手机号');
+                return false;
+            } else if (!REG.isPassword.test(this.password)) {
+                this.setPopup('密码长度应为1-16位');
+                return false;
+            }
+            return true;
+        },
         back() {
             this.$router.back();
-        }
+        },
+        ...mapActions(['setPopup']),
+        ...mapMutations({
+            setHasLogin: 'SET_HAS_LOGIN',
+            setUserInfo: 'SET_USER_INFO'
+        })
     }
 };
 </script>

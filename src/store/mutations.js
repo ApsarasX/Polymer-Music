@@ -60,6 +60,12 @@ const mutations = {
     },
     [types.SET_SRC_TYPES](state, srcTypes) {
         state.srcTypes = srcTypes;
+    },
+    [types.SET_HAS_LOGIN](state, is) {
+        state.hasLogin = is;
+    },
+    [types.SET_USER_INFO](state, userInfo) {
+        state.userInfo = { ...userInfo };
     }
 };
 

@@ -33,6 +33,7 @@
                                 <mu-flat-button slot="actions" primary @click="closeFeedDialog(true)" label="发送" />
                             </mu-dialog>
                             <mu-list-item title="清除缓存" @click="clearStorage" />
+                            <mu-list-item title="刷新" @click="refreshPage" />
                             <mu-list-item title="关于" @click="openAboutDialog" />
                             <mu-dialog :open="showAboutDialog" title="关于" @close="closeAboutDialog">
                                 <mu-list>
@@ -143,6 +144,10 @@ export default {
             localStorage.clear();
             sessionStorage.clear();
             this.setPopup('清除缓存成功');
+        },
+        // 强制刷新页面
+        refreshPage() {
+            window.location.reload();
         },
         ...mapMutations({
             setUserCenterVisible: 'SET_USER_CENTER_VISIBLE'
