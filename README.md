@@ -1,5 +1,10 @@
 # 聚合音乐 - Polymer Music
-[![Build Status](https://travis-ci.org/pyyzcwg2833/Polymer-Music.svg?branch=v2-beta)](https://travis-ci.org/pyyzcwg2833/Polymer-Music)
+[![Travis Build Status](https://img.shields.io/travis/pyyzcwg2833/Polymer-Music/v2-beta.svg?style=flat-square)](https://travis-ci.org/pyyzcwg2833/Polymer-Music)
+[![GitHub stars](https://img.shields.io/github/stars/pyyzcwg2833/Polymer-Music.svg?style=flat-square)](https://github.com/pyyzcwg2833/Polymer-Music/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/pyyzcwg2833/Polymer-Music.svg?style=flat-square)](https://github.com/pyyzcwg2833/Polymer-Music/issues)
+[![GitHub forks](https://img.shields.io/github/forks/pyyzcwg2833/Polymer-Music.svg?style=flat-square)](https://github.com/pyyzcwg2833/Polymer-Music/network)
+[![GitHub last commit](https://img.shields.io/github/last-commit/pyyzcwg2833/Polymer-Music.svg?style=flat-square)](https://github.com/pyyzcwg2833/Polymer-Music/commits)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/pyyzcwg2833/Polymer-Music)
 
 > A music player based on Vue.js<br/>
 > 基于Vue.js的聚合音乐播放器WebAPP

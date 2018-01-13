@@ -52,7 +52,7 @@
                             <mu-text-field label="重复密码确认" labelFloat />
                         </li>
                         <li class="right">
-                            <mu-raised-button label="下一步" primary @click="nextStep" />
+                            <mu-raised-button label="下一步" primary @click="_nextStep" />
                         </li>
                     </ul>
                     <ul class="form-list" v-show="activeStep===2">
@@ -74,7 +74,7 @@
                             </mu-list>
                         </div>
                         <li class="right">
-                            <mu-raised-button label="完成" primary @click="nextStep" />
+                            <mu-raised-button label="完成" primary @click="_nextStep" />
                         </li>
                     </ul>
                     <ul class="form-list" v-show="activeStep===3">
@@ -96,70 +96,134 @@ import { mapActions } from 'vuex';
 export default {
     data() {
         return {
+            // 步骤索引
             activeStep: 0,
+            // 手机号
             mobile: '',
+            // 验证码
             vcode: '',
+            // (获取验证码|计时)文本
             vcodeBtnLabel: '获取验证码',
-            countDown: 60
+            // 验证码计时
+            countDown: 60,
+            // 是否已经发送过验证码
+            hasReqVcode: {
+                status: false,
+                mobile: ''
+            }
         };
     },
     components: {
         MTransition
     },
     methods: {
-        nextStep() {
-            this.activeStep += 1;
-        },
         // 获取验证码
         getVcode() {
             if (!this._validate(this.mobile)) {
                 this.setPopup('请输入正确的手机号');
                 return;
             }
+            this.hasReqVcode.status = true;
+            this.hasReqVcode.mobile = this.mobile;
             clearInterval(this.timer);
             // ... 发送验证码
-            this.timer = setInterval(() => {
-                if (this.countDown === 0) {
-                    clearInterval(this.timer);
-                    this.countDown = 60;
-                    this.vcodeBtnLabel = '获取验证码';
-                    return;
-                }
-                this.vcodeBtnLabel = `${this.countDown}s`;
-                this.countDown -= 1;
-            }, 1000);
+            /**
+             *  @example
+             try {
+                 const res = await getVcodeReq(this.mobile);
+                 if(res.code===ERR_OK) {
+                    this.timer = setInterval(() => {
+                        if (this.countDown === 0) {
+                            clearInterval(this.timer);
+                            this.countDown = 60;
+                            this.vcodeBtnLabel = '获取验证码';
+                            return;
+                        }
+                        this.vcodeBtnLabel = `${this.countDown}s`;
+                        this.countDown -= 1;
+                    }, 1000);
+                    setTimeout(() => {
+                        this.setPopup('验证码已发送, 请查收');
+                    }, 1000);
+                 } else {
+                     this.setPopup('验证码发送失败, 请稍后重试');
+                 }
+             } catch(err) {
+                 console.error(err);
+                 this.setPopup('验证码发送失败, 请稍后重试');
+             }
+             */
+            const getVcodeSuccess = true;
+            if (getVcodeSuccess) {
+                this.timer = setInterval(() => {
+                    if (this.countDown === 0) {
+                        clearInterval(this.timer);
+                        this.countDown = 60;
+                        this.vcodeBtnLabel = '获取验证码';
+                        return;
+                    }
+                    this.vcodeBtnLabel = `${this.countDown}s`;
+                    this.countDown -= 1;
+                }, 1000);
+                setTimeout(() => {
+                    this.setPopup('验证码已发送, 请查收');
+                }, 1000);
+            } else {
+                this.setPopup('验证码发送失败, 请稍后重试');
+            }
         },
-        // 根据输入的验证码校验手机号
-        validateMobile() {
+        // 根据输入的验证码校验手机号, 并决定是否进行下一步
+        async validateMobile() {
             if (!this._validate(this.mobile)) {
                 this.setPopup('请输入正确的手机号');
+                return;
+            }
+            if (!this.hasReqVcode.status) {
+                this.setPopup('您尚未请求过验证码');
+                return;
+            }
+            if (this.hasReqVcode.mobile !== this.mobile) {
+                this.setPopup('输入的手机号与接收验证码的手机号不匹配');
                 return;
             }
             if (!this._validate(this.vcode, 'vcode')) {
                 this.setPopup('验证码格式错误');
                 return;
             }
-            // 验证码正确
+            // 验证码正确的话
+            /**
+              * @example
+                const isCorrect = await validateMobileReq({
+                    mobile: this.mobile,
+                    vcode: this.vcode
+                });
+              * */
             const isCorrect = true;
             if (isCorrect) {
-                this.activeStep += 1;
+                this._nextStep();
             }
         },
         // 返回
         back() {
             this.$router.back();
         },
-        // 完成所有步骤,取听歌
+        // 完成所有步骤,开始听歌
         toListen() {
             this.$router.replace('/main/recommend');
         },
-        // 校验数字
+        // 校验输入
         _validate(str, type = 'mobile') {
             const reg = {
+                // 11位手机号
                 mobile: /^1(3|4|5|6|7|8)\d{9}$/,
+                // 4位验证码
                 vcode: /^\d{4}$/
             };
             return reg[type].test(str);
+        },
+        // 下一步
+        _nextStep() {
+            this.activeStep += 1;
         },
         ...mapActions(['setPopup'])
     }

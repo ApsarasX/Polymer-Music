@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 获取验证码
-export function getVcode(mobile) {
+export function getVcodeReq(mobile) {
     const url = '/user/validate';
     const data = {
         vtype: 1,
