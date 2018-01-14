@@ -10,7 +10,9 @@ import {
     deleteFavorite,
     saveFavoriteList as saveFavoriteSheet,
     deleteFavoriteList as deleteFavoriteSheet,
-    saveSrcTypes
+    saveSrcTypes,
+    saveLoginStatus,
+    saveUserInfo
 } from '../assets/js/cache';
 
 function findIndex(list, song) {
@@ -162,4 +164,16 @@ export function setPopup({ commit }, content) {
 export function setSrcTypes({ commit }, srcTypes) {
     commit(types.SET_SRC_TYPES, srcTypes);
     saveSrcTypes(srcTypes);
+}
+
+export function setUserInfo({ commit }, userInfo) {
+    commit(types.SET_USER_INFO, userInfo);
+    saveUserInfo(userInfo);
+}
+
+export function setHasLogin({ commit }, is) {
+    commit(types.SET_HAS_LOGIN, is);
+    if (is) {
+        saveLoginStatus();
+    }
 }

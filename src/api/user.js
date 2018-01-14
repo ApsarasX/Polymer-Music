@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 获取验证码
-export function getVcodeReq(mobile) {
+export function sendVcodeReq(mobile) {
     const url = '/user/validate';
     const data = {
         vtype: 1,
@@ -10,7 +10,7 @@ export function getVcodeReq(mobile) {
     return axios.post(url, data).then(res => Promise.resolve(res.data));
 }
 // 根据验证码验证手机号
-export function validateMobile({ mobile, vcode }) {
+export function validateMobileReq({ mobile, vcode }) {
     const url = '/user/validate';
     const data = {
         vtype: 2,
@@ -20,17 +20,17 @@ export function validateMobile({ mobile, vcode }) {
     return axios.post(url, data).then(res => Promise.resolve(res.data));
 }
 // 注册
-export function register({ username, password, repassword }) {
+export function registerReq({ username, password, rePassword }) {
     const url = '/user/register';
     const data = {
         username,
         password,
-        repassword
+        rePassword
     };
     return axios.post(url, data).then(res => Promise.resolve(res.data));
 }
 // 登录
-export function login({ username, password }) {
+export function loginReq({ username, password }) {
     const url = '/user/login';
     const data = {
         username,
@@ -39,12 +39,12 @@ export function login({ username, password }) {
     return axios.post(url, data).then(res => Promise.resolve(res.data));
 }
 // 获取播放历史
-export function getPlayHistory() {
+export function getPlayHistoryReq() {
     const url = '/user/history';
     return axios.get(url).then(res => Promise.resolve(res.data));
 }
 // 增加播放历史
-export function pushPlayHistory({ type, songid }) {
+export function pushPlayHistoryReq({ type, songid }) {
     const url = '/user/history';
     const data = {
         type,
@@ -53,12 +53,12 @@ export function pushPlayHistory({ type, songid }) {
     return axios.post(url, data).then(res => Promise.resolve(res.data));
 }
 // 获取的收藏歌曲
-export function getCollectedMusic() {
+export function getCollectedMusicReq() {
     const url = '/user/favorite';
     return axios.get(url).then(res => Promise.resolve(res.data));
 }
 // 收藏一首歌曲
-export function collectMusic({ type, songid }) {
+export function collectMusicReq({ type, songid }) {
     const url = '/user/favorite';
     const data = {
         type,
@@ -67,7 +67,7 @@ export function collectMusic({ type, songid }) {
     return axios.post(url, data).then(res => Promise.resolve(res.data));
 }
 // 取消收藏一首歌曲
-export function cancelCollectedMusic({ type, songid }) {
+export function cancelCollectedMusicReq({ type, songid }) {
     const url = '/user/favorite';
     const data = {
         type,
@@ -76,12 +76,12 @@ export function cancelCollectedMusic({ type, songid }) {
     return axios.delete(url, data).then(res => Promise.resolve(res.data));
 }
 // 获取收藏的歌单
-export function getCollectedList() {
+export function getCollectedListReq() {
     const url = '/user/favorite_list';
     return axios.get(url).then(res => Promise.resolve(res.data));
 }
 // 收藏某一个歌单
-export function collectList({ type, listid }) {
+export function collectListReq({ type, listid }) {
     const url = '/user/favorite_list';
     const data = {
         type,
@@ -90,7 +90,7 @@ export function collectList({ type, listid }) {
     return axios.post(url, data).then(res => Promise.resolve(res.data));
 }
 // 取消收藏某一歌单
-export function cancelCollectedList({ type, listid }) {
+export function cancelCollectedListReq({ type, listid }) {
     const url = '/user/favorite_list';
     const data = {
         type,
@@ -99,18 +99,18 @@ export function cancelCollectedList({ type, listid }) {
     return axios.delete(url, data).then(res => Promise.resolve(res.data));
 }
 // 获取音乐来源设置
-export function getMusicSrcTypes() {
+export function getMusicSrcTypesReq() {
     const url = '/user/music_src_setting';
     return axios.get(url).then(res => Promise.resolve(res.data));
 }
 // 设置音乐来源
-export function setMusicSrcTypes({ qq, ne, xm }) {
+export function setMusicSrcTypesReq({ qq, ne, xm }) {
     const url = '/user/music_src_setting';
     const data = { qq, ne, xm };
     return axios.post(url, data).then(res => Promise.resolve(res.data));
 }
 // 反馈
-export function sendFeedback({ content }) {
+export function sendFeedbackReq({ content }) {
     const url = '/user/feedback';
     const data = {
         content

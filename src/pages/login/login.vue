@@ -31,10 +31,9 @@
 <script>
 import MTransition from '@/base/m-transition/m-transition';
 import Loading from '../../base/loading/loading';
-import { login as loginReq } from '../../api/user';
-import { mapActions, mapMutations } from 'vuex';
+import { loginReq } from '../../api/user';
+import { mapActions } from 'vuex';
 import { ERR_OK } from '@/api/config';
-import { saveLoginStatus, saveUserInfo } from '@/assets/js/cache';
 
 const REG = {
     isMobile: /^1(3|4|5|6|7|8)\d{9}$/,
@@ -68,8 +67,6 @@ export default {
                     if (res.code === ERR_OK) {
                         const { username, nickname, mobile } = res.data;
                         // 保存登录状态和信息
-                        saveLoginStatus();
-                        saveUserInfo({ username, nickname, mobile });
                         this.setHasLogin(true);
                         this.setUserInfo({ username, nickname, mobile });
                         this.$router.replace('/');
@@ -99,11 +96,7 @@ export default {
         back() {
             this.$router.back();
         },
-        ...mapActions(['setPopup']),
-        ...mapMutations({
-            setHasLogin: 'SET_HAS_LOGIN',
-            setUserInfo: 'SET_USER_INFO'
-        })
+        ...mapActions(['setPopup', 'setUserInfo', 'setHasLogin'])
     }
 };
 </script>

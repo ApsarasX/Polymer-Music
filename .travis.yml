@@ -13,7 +13,7 @@ script:
 - yarn run build
 
 addons:
-  ssh_known_hosts: 115.159.209.131:28331
+  ssh_known_hosts: 115.159.209.131:28330
 
 before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.3.2
@@ -24,7 +24,7 @@ before_install:
 
 after_success:
 - rsync -avz -e 'ssh -p 28331' dist/* root@115.159.209.131:/www/wwwroot/music.io-code.com
-- ssh -f root@115.159.209.131 -p 28331 "chown -R www:www /www/wwwroot/music.io-code.com/*"
+- ssh -f root@115.159.209.131 -p 28330 "chown -R www:www /www/wwwroot/music.io-code.com/*"
 - echo -e "\033[32m 已同步到网站 \033[0m"
 
 notifications:

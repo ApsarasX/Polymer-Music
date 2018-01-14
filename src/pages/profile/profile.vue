@@ -47,7 +47,7 @@
                         </mu-list>
                     </mu-card>
                     <div class="card">
-                        <mu-raised-button label="退出登录" labelClass="exit-btn" fullWidth color="#ff8a80" />
+                        <mu-raised-button label="退出登录" labelClass="exit-btn" @click="logout" fullWidth color="#ff8a80" />
                     </div>
                 </div>
             </scroll>
@@ -61,7 +61,7 @@
 import Scroll from '@/base/scroll/scroll';
 import MTransition from '@/base/m-transition/m-transition';
 import UA from 'ua-device';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     components: {
@@ -95,12 +95,16 @@ export default {
         ...mapGetters(['userInfo'])
     },
     methods: {
+        logout() {
+            this.setHasLogin(false);
+        },
         back() {
             this.$router.back();
         },
         alterInfo(infoName = 'nickname') {
             this.$router.push(`/profile/${infoName}`);
-        }
+        },
+        ...mapActions(['setHasLogin'])
     }
 };
 </script>
