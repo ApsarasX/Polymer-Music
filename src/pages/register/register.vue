@@ -101,7 +101,7 @@ export default {
     data() {
         return {
             // 步骤索引
-            activeStep: 1,
+            activeStep: 0,
             // 手机号
             mobile: '',
             // 验证码
@@ -114,7 +114,7 @@ export default {
             hasReqVcode: {
                 status: false,
                 mobile: '',
-                lastTime: Date.now()
+                lastTime: 0
             },
             // 注册表单
             form: {
@@ -147,7 +147,7 @@ export default {
                 return;
             }
             // 间隔太短
-            if (Date.now() - this.hasReqVcode.lastTime > VCODE_INTERVAL) {
+            if (Date.now() - this.hasReqVcode.lastTime < VCODE_INTERVAL) {
                 this.setPopup('请求验证码频率过高, 请稍后重试');
                 return;
             }
@@ -224,7 +224,7 @@ export default {
             if (this.activeStep !== 1) {
                 return;
             }
-            if (!this._validate(this.form.username, 'usernmae')) {
+            if (!this._validate(this.form.username, 'username')) {
                 this.setPopup('用户名不合法');
                 return;
             }
@@ -240,7 +240,7 @@ export default {
                 const res = await registerReq({
                     username: this.form.username,
                     password: this.form.password,
-                    rePassword: this.form.rePassword
+                    repassword: this.form.rePassword
                 });
                 if (res.code === ERR_OK) {
                     this.setHasLogin(true);
@@ -297,7 +297,13 @@ export default {
         _nextStep() {
             this.activeStep += 1;
         },
-        ...mapActions(['setPopup', 'setSrcTypes', 'setHasLogin', 'setHasLogin'])
+        ...mapActions([
+            'setPopup',
+            'setSrcTypes',
+            'setHasLogin',
+            'setHasLogin',
+            'setUserInfo'
+        ])
     }
 };
 </script>

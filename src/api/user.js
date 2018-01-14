@@ -20,12 +20,12 @@ export function validateMobileReq({ mobile, vcode }) {
     return axios.post(url, data).then(res => Promise.resolve(res.data));
 }
 // 注册
-export function registerReq({ username, password, rePassword }) {
+export function registerReq({ username, password, repassword }) {
     const url = '/user/register';
     const data = {
         username,
         password,
-        rePassword
+        repassword
     };
     return axios.post(url, data).then(res => Promise.resolve(res.data));
 }

@@ -77,7 +77,7 @@ export default {
         },
         mobile() {
             const { mobile } = this.userInfo;
-            if (mobile.length !== 11) {
+            if (!mobile || mobile.length !== 11) {
                 return '未知手机号';
             }
             return `${mobile.slice(0, 3)}****${mobile.slice(-4)}`;

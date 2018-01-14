@@ -40,9 +40,9 @@ const webpackConfig = merge(baseWebpackConfig, {
             uglifyJS: {
                 compress: {
                     warnings: false
-                },
-                sourceMap: false
-            }
+                }
+            },
+            sourceMap: config.build.productionSourceMap
         }),
         // extract css into its own file
         new ExtractTextPlugin({
