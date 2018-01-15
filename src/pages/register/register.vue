@@ -1,5 +1,5 @@
 <template>
-    <m-transition type="slide-to-staic">
+    <m-transition type="slide">
         <div class="page-wrapper">
             <mu-appbar title="注册">
                 <mu-icon-button icon="arrow_back" slot="left" @click="back" />
@@ -46,10 +46,10 @@
                             <mu-text-field label="用户名" labelFloat v-model="form.username" />
                         </li>
                         <li>
-                            <mu-text-field label="密码" labelFloat v-model="form.password" />
+                            <mu-text-field label="密码" type="password" labelFloat v-model="form.password" />
                         </li>
                         <li>
-                            <mu-text-field label="重复密码确认" labelFloat v-model="form.rePassword" />
+                            <mu-text-field label="重复密码确认" type="password" labelFloat v-model="form.rePassword" />
                         </li>
                         <li class="right">
                             <mu-raised-button label="下一步" primary @click="registerForm" />

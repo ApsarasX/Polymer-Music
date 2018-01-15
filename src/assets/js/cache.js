@@ -10,6 +10,7 @@ const FAVORITE_LIST_KEY = '__favorite_list__';
 const FAVORITE_MAX_LENGTH = 200;
 const SRC_TYPES_KEY = '__src_types__';
 const TOKEN_KEY = '__token__';
+const IS_LOGIN_KEY = '__is_login__';
 const USER_INFO_KEY = '__user_info__';
 const LOGIN_SUGGEST_KEY = '__login_suggest__';
 
@@ -116,7 +117,18 @@ export function saveSrcTypes({ qq = false, ne = false, xm = false }) {
     storage.set(SRC_TYPES_KEY, { qq, ne, xm });
     return { qq, ne, xm };
 }
-
+// 用户是否登录
+export function loadIsLogin() {
+    return storage.get(IS_LOGIN_KEY, false);
+}
+// 设置用户已登录
+export function setIsLogin() {
+    storage.set(IS_LOGIN_KEY, true);
+}
+// 取消登录
+export function deleteIsLogin() {
+    storage.set(IS_LOGIN_KEY, false);
+}
 // 载入用户登录状态(本地存储登录状态, 不安全, 未来实现JWT)
 // 检测用户上次登陆是否超过7天
 export function loadLoginStatus() {
@@ -127,8 +139,8 @@ export function loadLoginStatus() {
     // 如果小于一星期, 更新时间戳, 并返回登录状态是true
     if (span >= 0 && span <= WEEK_TIME_SPAN) {
         storage.set(TOKEN_KEY, Date.now());
-        storage.get(LOGIN_SUGGEST_KEY, true);
-        return true;
+        storage.set(LOGIN_SUGGEST_KEY, true);
+        return loadIsLogin();
     }
     return false;
 }
@@ -136,6 +148,7 @@ export function loadLoginStatus() {
 export function saveLoginStatus() {
     return storage.set(TOKEN_KEY, Date.now());
 }
+
 // 载入保存的用户信息
 export function loadUserInfo() {
     const emptyUserInfo = {

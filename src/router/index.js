@@ -54,10 +54,12 @@ const router = new Router({
             alias: '/index.html'
         },
         {
+            name: 'login',
             path: '/login',
             component: Login
         },
         {
+            name: 'register',
             path: '/register',
             component: Register
         },

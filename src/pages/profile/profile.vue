@@ -97,6 +97,10 @@ export default {
     methods: {
         logout() {
             this.setHasLogin(false);
+            this.setPopup('退出登录成功');
+            setTimeout(() => {
+                this.back();
+            }, 1550);
         },
         back() {
             this.$router.back();
@@ -104,7 +108,7 @@ export default {
         alterInfo(infoName = 'nickname') {
             this.$router.push(`/profile/${infoName}`);
         },
-        ...mapActions(['setHasLogin'])
+        ...mapActions(['setHasLogin', 'setPopup'])
     }
 };
 </script>

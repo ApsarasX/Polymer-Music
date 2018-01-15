@@ -1,5 +1,5 @@
 <template>
-    <m-transition type="slide-to-staic">
+    <m-transition type="slide">
         <div class="page-wrapper">
             <mu-appbar title="登录">
                 <mu-icon-button icon="arrow_back" slot="left" @click="back" />
@@ -70,6 +70,8 @@ export default {
                         this.setHasLogin(true);
                         this.setUserInfo({ username, nickname, mobile });
                         this.$router.replace('/');
+                    } else {
+                        this.setPopup('用户名或密码错误');
                     }
                 } catch (err) {
                     this.setPopup('登录失败');

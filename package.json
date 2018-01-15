@@ -1,7 +1,7 @@
 {
     "name": "polymer-music",
     "cnName": "聚合音乐",
-    "version": "1.4.5",
+    "version": "1.4.8",
     "description": "A music player built with vue.js",
     "author": {
         "name": "陈文岗",

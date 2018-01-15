@@ -8,7 +8,7 @@
                             <img src="https://web-linux.com/img/daily_pic.png" />
                             <div class="mu-card-media-title" @click.stop="enterProfile">
                                 <div class="mu-card-title">
-                                    {{hasLogin?userInfo.nickname:'[请登录]'}}
+                                    {{hasLogin?(userInfo.nickname || '[请输入昵称]'):'[请登录]'}}
                                 </div>
                             </div>
                         </mu-card-media>

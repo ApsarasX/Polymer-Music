@@ -12,7 +12,9 @@ import {
     deleteFavoriteList as deleteFavoriteSheet,
     saveSrcTypes,
     saveLoginStatus,
-    saveUserInfo
+    saveUserInfo,
+    setIsLogin,
+    deleteIsLogin
 } from '../assets/js/cache';
 
 function findIndex(list, song) {
@@ -175,5 +177,8 @@ export function setHasLogin({ commit }, is) {
     commit(types.SET_HAS_LOGIN, is);
     if (is) {
         saveLoginStatus();
+        setIsLogin();
+    } else {
+        deleteIsLogin();
     }
 }
