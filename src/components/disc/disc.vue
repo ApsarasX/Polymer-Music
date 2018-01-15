@@ -7,12 +7,13 @@
 
 <script>
 import MusicList from '@/components/music-list/music-list';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters, mapActions } from 'vuex';
 import { getSongList } from '@/api/recommend';
 import { ERR_OK } from '@/api/config';
 import { createSong, isValidMusic } from '@/assets/js/song';
 import { sheetMixin } from '@/assets/js/mixin';
 import MTransition from '@/base/m-transition/m-transition';
+import storage from 'good-storage';
 
 export default {
     mixins: [sheetMixin],
@@ -25,8 +26,11 @@ export default {
             songs: []
         };
     },
-    created() {
+    activated() {
         this._getSongList();
+    },
+    deactivated() {
+        this.songs = [];
     },
     computed: {
         // 歌单标题
@@ -36,21 +40,40 @@ export default {
         // 歌单顶部背景图片
         bgImage() {
             return this.disc.image;
-        }
+        },
+        ...mapGetters(['disc'])
     },
     methods: {
         /**
          * @private
          * @function _getSongList 获取歌单里的歌曲数据
          */
-        _getSongList() {
+        async _getSongList() {
             // 如果没有歌单id, 根据页面url获取
             if (!this.disc || !this.disc.id) {
                 this.discId = this.$router.currentRoute.params.id;
             }
-            getSongList(this.disc.id || this.discId).then(res => {
+            // 获取的缓存歌单列表数据
+            const tempSongs = storage.session.get(
+                `__disc_${this.disc.id || this.discId}__`,
+                []
+            );
+            if (tempSongs.length > 0) {
+                this.songs = this._normalizeSongs(tempSongs);
+            }
+            try {
+                const res = await getSongList(this.disc.id || this.discId);
                 if (res.code === ERR_OK) {
-                    this.songs = this._normalizeSongs(res.cdlist[0].songlist);
+                    if (tempSongs.length === 0) {
+                        this.songs = this._normalizeSongs(
+                            res.cdlist[0].songlist
+                        );
+                        // 缓存歌单列表数据
+                        storage.session.set(
+                            `__disc_${res.cdlist[0].disstid}__`,
+                            res.cdlist[0].songlist
+                        );
+                    }
                     if (!this.disc || !this.disc.id) {
                         this.setDisc({
                             id: res.cdlist[0].disstid,
@@ -60,7 +83,10 @@ export default {
                         });
                     }
                 }
-            });
+            } catch (err) {
+                this.setPopup('网络错误');
+                throw err;
+            }
         },
 
         /**
@@ -81,10 +107,12 @@ export default {
             }
             return ret;
         },
-        ...mapMutations({ setDisc: 'SET_DISC' })
+        ...mapMutations({ setDisc: 'SET_DISC' }),
+        ...mapActions(['setPopup'])
     }
 };
 </script>
 
 <style lang="scss" scoped>
+
 </style>
