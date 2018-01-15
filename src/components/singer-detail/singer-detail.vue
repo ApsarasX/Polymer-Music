@@ -64,8 +64,9 @@ export default {
                         this.setSinger({
                             id: res.data.singer_mid,
                             name: res.data.singer_name,
-                            avatar: `https://y.gtimg.cn/music/photo_new/T001R300x300M000${res
-                                .data.singer_mid}.jpg?max_age=2592000`
+                            avatar: `https://y.gtimg.cn/music/photo_new/T001R300x300M000${
+                                res.data.singer_mid
+                            }.jpg?max_age=2592000`
                         });
                     }
                 }
