@@ -19,6 +19,9 @@
 [https://music.io-code.com/](https://music.io-code.com/ "https://music.io-code.com/")
 > PC浏览器查看时请设置成手机视图
 
+#### 二维码
+<img width="280" height="280" alt="访问二维码" src="https://github.com/pyyzcwg2833/gg-music/raw/v2-beta/screenshots/qr.png"/>
+
 ## ScreenShots(运行截图)
 
 <img width="340" height="600" alt="登录注册提示" src="https://github.com/pyyzcwg2833/gg-music/raw/v2-beta/screenshots/0.png"/>
